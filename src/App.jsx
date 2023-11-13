@@ -1,8 +1,11 @@
+import { PlantContainer } from './components/plants/PlantContainer';
+
 function App() {
   return (
     <>
       <h1>Garden App</h1>
-      <p>Gestiona tus plantas!</p>
+      <p>Gestiona tus plantas!!</p>
+      <PlantContainer />
     </>
   );
 }
