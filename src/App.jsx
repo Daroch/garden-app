@@ -1,4 +1,4 @@
-import { PlantContainer } from './components/plants/PlantContainer';
+import PlantContainer from './components/plants/PlantContainer';
 
 function App() {
   return (
