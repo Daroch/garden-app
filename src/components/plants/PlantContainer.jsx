@@ -19,6 +19,7 @@ export default function PlantContainer() {
             irrigation_type={plant.irrigation_type}
             light_type={plant.light_type}
             created_at={plant.created_at}
+            image={plant.image}
           />
         </div>
       );
