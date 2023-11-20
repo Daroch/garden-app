@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import PlantItem from './PlantItem';
+
 //import axios from 'axios';
 import axios from 'https://cdn.skypack.dev/axios';
+
+import PlantItem from './PlantItem';
 
 export default function PlantContainer() {
   const [plants, setPlants] = useState([]);
@@ -10,19 +12,8 @@ export default function PlantContainer() {
     console.log('Plantas:', plants);
     return plants.map(plant => {
       //debugger;
-      return (
-        <div key={plant.id} className='plant-item-wrapper'>
-          <PlantItem
-            id={plant.id}
-            name={plant.name}
-            description={plant.description}
-            irrigation_type={plant.irrigation_type}
-            light_type={plant.light_type}
-            created_at={plant.created_at}
-            image={plant.image}
-          />
-        </div>
-      );
+      console.log(plant);
+      return <PlantItem key={plant.id} plant={plant} />;
     });
   }
 
@@ -44,9 +35,8 @@ export default function PlantContainer() {
   }
   useEffect(getPlantItems, []);
   return (
-    <div className='plant-container-wrapper'>
-      Este es el contenedor principal
-      {plantItems()}
-    </div>
+    <>
+      <div className='plant-container-wrapper'>{plantItems()}</div>;
+    </>
   );
 }
