@@ -1,10 +1,30 @@
 .plant-container-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  border: 1px solid aqua;
+  //border: 1px solid $dark-green2;
 }
 
 .plant-item-wrapper {
-  border: 1px;
-  border: 1px solid aqua;
+  border: 1px solid $dark-green;
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: $light-green;
+    border: 1px solid $dark-green2;
+  }
+
+  .plant-item-card {
+    .image {
+      max-width: 300px;
+      overflow: hidden;
+      .img {
+        width: 300px;
+        overflow: hidden;
+      }
+    }
+  }
 }
