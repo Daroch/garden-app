@@ -1,5 +1,7 @@
 import PlantContainer from './components/plants/PlantContainer';
 import PlantForm from './components/plants/PlantForm';
+import Login from './components/auth/login';
+
 import './style/main.scss';
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
       >
         Añadir planta
       </div>
+      <Login />
       <PlantForm />
       <PlantContainer />
     </div>

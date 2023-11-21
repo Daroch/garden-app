@@ -1,0 +1,45 @@
+GET http://localhost:8000/plants HTTP/1.1
+###
+GET http://localhost:8000/plants HTTP/1.1
+###
+
+POST http://localhost:8000/token HTTP/1.1
+accept: application/json
+content-type: application/x-www-form-urlencoded
+
+username=Sauron&password=12345
+###
+
+POST http://localhost:8000/addcategory HTTP/1.1
+accept: application/json
+content-type: application/json
+
+{
+  "name":"Arboles",
+  "description":"Arboles"
+}
+###
+
+POST http://localhost:8000/users/1/addplant HTTP/1.1
+accept: application/json
+content-type:  application/json
+
+{
+"plant.name":"jhfjfjf",
+"description":"hfhfh",
+"public":"true",
+"irrigation_type":"muypoca",
+"light_type":"muypoca",
+"category_id":1
+}
+
+
+###
+{
+"name":"jhfjfjf",
+"description":"hfhfh",
+"public":"true",
+"irrigation_type":"muypoca",
+"light_type":"muypoca",
+"category_id":1
+}

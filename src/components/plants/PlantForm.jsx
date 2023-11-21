@@ -9,6 +9,7 @@ export default function PlantForm() {
     irrigation_type: '1',
     light_type: '1',
     description: '',
+    image: '',
   });
 
   const handleChange = event => {
@@ -20,8 +21,13 @@ export default function PlantForm() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    axios
-      .post('http://localhost:8000/users/1/plants')
+    axios({
+      method: 'post',
+      url: 'http://localhost:8000/users/1/plants',
+      headers: { 'content-type': 'multipart/form-data' },
+      data: plantData,
+      withCredentials: true,
+    })
       .then(response => {
         // handle success
         console.log(response);
@@ -34,6 +40,20 @@ export default function PlantForm() {
         // always executed
       });
   };
+
+  function buildForm() {
+    let formData = new FormData();
+
+    formData.append('plant[name]', plantData.name);
+    formData.append('plant[category]', plantData.category);
+    formData.append('plant[irrigation_type]', plantData.irrigation_type);
+    formData.append('plant[light_type]', plantData.light_type);
+    formData.append('plant[description]', plantData.description);
+    if (plantData.image) {
+      formData.append('plant[image]', plantData.image);
+    }
+    return formData;
+  }
 
   return (
     <form onSubmit={handleSubmit} className='plant-form-wrapper'>
