@@ -5,12 +5,12 @@ import axios from 'https://cdn.skypack.dev/axios';
 export default function PlantForm() {
   const [plantData, setPlantData] = useState({
     name: '',
-    category: '1',
-    irrigation_type: '1',
-    light_type: '1',
+    category_id: 1,
+    irrigation_type: 'muypoca',
+    light_type: 'muypoca',
     description: '',
-    image: '',
   });
+  const [imageFile, setImageFile] = useState(null);
 
   const handleChange = event => {
     setPlantData({
@@ -19,13 +19,18 @@ export default function PlantForm() {
     });
   };
 
+  const handleFileChange = event => {
+    console.log(event.target.files);
+    setImageFile(event.target.files[0]);
+  };
+
+  function handleUpdate() {}
   const handleSubmit = event => {
     event.preventDefault();
     axios({
       method: 'post',
-      url: 'http://localhost:8000/users/1/plants',
-      headers: { 'content-type': 'multipart/form-data' },
-      data: plantData,
+      url: 'http://localhost:8000/users/1/addplant',
+      data: buildForm(),
       withCredentials: true,
     })
       .then(response => {
@@ -44,14 +49,15 @@ export default function PlantForm() {
   function buildForm() {
     let formData = new FormData();
 
-    formData.append('plant[name]', plantData.name);
-    formData.append('plant[category]', plantData.category);
-    formData.append('plant[irrigation_type]', plantData.irrigation_type);
-    formData.append('plant[light_type]', plantData.light_type);
-    formData.append('plant[description]', plantData.description);
-    if (plantData.image) {
-      formData.append('plant[image]', plantData.image);
+    formData.append('name', plantData.name);
+    formData.append('category_id', plantData.category_id);
+    formData.append('irrigation_type', plantData.irrigation_type);
+    formData.append('light_type', plantData.light_type);
+    formData.append('description', plantData.description);
+    if (imageFile) {
+      formData.append('imagefile', imageFile);
     }
+    console.log(formData);
     return formData;
   }
 
@@ -66,9 +72,9 @@ export default function PlantForm() {
           onChange={handleChange}
         />
         <select
-          name='category'
+          name='category_id'
           placeholder='Categoría'
-          value={plantData.category}
+          value={plantData.category_id}
           onChange={handleChange}
           className='select-element'
         >
@@ -103,6 +109,12 @@ export default function PlantForm() {
           <option value='3'>Bastante</option>
           <option value='4'>Mucha</option>
         </select>
+        <input
+          type='file'
+          name='imagefile'
+          enctype='multipart/form-data'
+          onChange={handleFileChange}
+        />
       </div>
       <div className='one-column'>
         <textarea
