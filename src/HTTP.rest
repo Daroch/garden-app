@@ -20,26 +20,10 @@ content-type: application/json
 }
 ###
 
-POST http://localhost:8000/users/1/addplant HTTP/1.1
+POST http://localhost:8000/users/1/addplant
+?name=Perejil
+&category_id=1
+&public=true HTTP/1.1
 accept: application/json
-content-type:  application/json
+content-type:  "multipart/form-data; boundary=----WebKitFormBoundaryM2zKSP2Vjo1PFMWy"
 
-{
-"plant.name":"jhfjfjf",
-"description":"hfhfh",
-"public":"true",
-"irrigation_type":"muypoca",
-"light_type":"muypoca",
-"category_id":1
-}
-
-
-###
-{
-"name":"jhfjfjf",
-"description":"hfhfh",
-"public":"true",
-"irrigation_type":"muypoca",
-"light_type":"muypoca",
-"category_id":1
-}
