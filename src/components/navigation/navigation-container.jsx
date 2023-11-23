@@ -3,8 +3,15 @@
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { NavLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const NavigationContainer = () => {
+const NavigationContainer = props => {
+  const navigate = useNavigate();
+  const handleSignOut = () => {
+    localStorage.removeItem('gardenAppToken');
+    navigate('/');
+  };
+
   return (
     <div className='nav-wrapper'>
       <div className='left-side'>
@@ -58,7 +65,14 @@ const NavigationContainer = () => {
         </div>
       </div>
       <div className='right-side'>
-        <div>Daroch</div>
+        <div className='nav-link-wrapper'>
+          <NavLink
+            to='/profile'
+            className={({ isActive }) => (isActive ? 'nav-link-active' : ' ')}
+          >
+            Profile
+          </NavLink>
+        </div>
         <div className='nav-link-wrapper'>
           <NavLink
             to='/login'
@@ -67,6 +81,9 @@ const NavigationContainer = () => {
             Login
           </NavLink>
         </div>
+        <button className='btn' onClick={handleSignOut}>
+          Logout
+        </button>
       </div>
     </div>
   );
