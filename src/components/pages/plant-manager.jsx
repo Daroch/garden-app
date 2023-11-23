@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import PlantContainer from '../plants/PlantContainer';
-import PlantForm from '../plants/PlantForm';
+import PlantContainer from '../plants/plant-container';
+import PlantForm from '../plants/plant-form';
 
 export default function PlantManager() {
   const [showForm, setShowForm] = useState(false);

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 //import axios from 'axios';
 import axios from 'https://cdn.skypack.dev/axios';
 
-import PlantItem from './PlantItem';
+import PlantItem from './plant-item';
 
 export default function PlantContainer() {
   const [plants, setPlants] = useState([]);
@@ -19,7 +19,7 @@ export default function PlantContainer() {
 
   function getPlantItems() {
     axios
-      .get('http://localhost:8000/plants')
+      .get('http://localhost:8000/me/plants')
       .then(response => {
         // handle success
         console.log(response);
