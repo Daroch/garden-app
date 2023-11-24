@@ -31,7 +31,10 @@ export default function PlantForm() {
       method: 'post',
       url: 'http://localhost:8000/users/1/addplant',
       data: buildForm(),
-      withCredentials: true,
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + fetchToken(),
+      },
     })
       .then(response => {
         // handle success

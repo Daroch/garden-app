@@ -27,3 +27,16 @@ POST http://localhost:8000/users/1/addplant
 accept: application/json
 content-type:  "multipart/form-data; boundary=----WebKitFormBoundaryM2zKSP2Vjo1PFMWy"
 
+###
+GET http://localhost:8000/users 
+
+###
+GET http://localhost:8000/users/me
+accept: application/json
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTYXVyb24iLCJzY29wZXMiOlsibWUiXSwiZXhwIjoxNzAwNzczNjE5fQ.s3tiQ-XBIjnsbXbRamLj5U_YLVz5xZUYyiiB6XO23Jo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDc3NTUwMn0.eREdF4ll9PovXUfgOfF3Reel9-RXCjcAVU5uIcIk9AM
+
+###
+GET http://localhost:8000/users/me/plants
+accept: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDc3NTUwMn0.eREdF4ll9PovXUfgOfF3Reel9-RXCjcAVU5uIcIk9AM

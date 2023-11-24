@@ -1,49 +1,54 @@
 import React, { useState } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
+import { useNavigate } from 'react-router-dom';
+import { setToken } from './auth';
 
-export default function Login() {
-  const [loginData, setLoginData] = useState({
-    username: '',
-    password: '',
-  });
-  const [errorText, setErrorText] = useState('');
-
+export default function Login(props) {
+  const navigate = useNavigate();
+  //const [token, setToken] = useState(null);
+  const [errorText, setErrorText] = useState(null);
+  //const loginData = props.loginData;
   const handleChange = event => {
-    setLoginData({
-      ...loginData,
+    props.setLoginData({
+      ...props.loginData,
       [event.target.name]: event.target.value,
     });
   };
+  
   const handleSubmit = event => {
     event.preventDefault();
-    if (loginData.username.length === 0) {
+    if (props.loginData.username.length === 0) {
       setErrorText('Username has left Blank!');
-    } else if (loginData.password.length === 0) {
+      return;
+    } else if (props.loginData.password.length === 0) {
       setErrorText('Password has left Blank!');
+      return;
     }
     axios({
       method: 'post',
       url: 'http://localhost:8000/token',
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
-      data: loginData,
-      withCredentials: true,
+      data: props.loginData,
     })
       .then(response => {
-        if (response.data.status === 'OK') {
+        console.log('response', response);
+        if (response.status === 200) {
+          setErrorText(' Great, Login correct!');
           //handleSuccesfulAuth();
           if (response.data.access_token) {
             setToken(response.data.access_token);
-            //navigate('/profile');
+            
+            navigate('/profile');
           }
         } else {
-          setErrorText('Wrong username or password');
+          setErrorText('Wrong username or password1');
           //handleUnsuccesfulAuth();
         }
         console.log('response', response);
       })
       .catch(error => {
         //console.log("some error ocurred", error);
-        setErrorText('Some error ocurred');
+        setErrorText('Wrong username or password2', error);
         //handleUnsuccesfulAuth();
       });
     event.preventDefault();
@@ -58,14 +63,14 @@ export default function Login() {
           type='text'
           name='username'
           placeholder='Your name'
-          value={loginData.username}
+          value={props.loginData.username}
           onChange={handleChange}
         />
         <input
           type='password'
           name='password'
           placeholder='Your password'
-          value={loginData.password}
+          value={props.loginData.password}
           onChange={handleChange}
         />
         <div>

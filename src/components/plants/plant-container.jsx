@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
 
 import PlantItem from './plant-item';
+import { fetchToken } from '../auth/auth';
 
 export default function PlantContainer() {
   const [plants, setPlants] = useState([]);
@@ -18,8 +19,14 @@ export default function PlantContainer() {
   }
 
   function getPlantItems() {
-    axios
-      .get('http://localhost:8000/me/plants')
+    axios({
+      method: 'get',
+      url: 'http://localhost:8000/users/me/plants',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + fetchToken(),
+      },
+    })
       .then(response => {
         // handle success
         console.log(response);
