@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
 
 import NavigationContainer from './components/navigation/navigation-container';
@@ -15,32 +15,14 @@ import { fetchToken } from './components/auth/login';
 
 import './style/main.scss';
 
-function getUserData() {
-  axios({
-    method: 'get',
-    url: 'http://localhost:8000/users/me',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer ' + fetchToken(),
-    },
-  })
-    .then(response => {
-      // handle success
-      console.log(response);
-    })
-    .catch(error => {
-      // handle error
-      console.log(error);
-    });
-  return;
-}
-
 function authorizedPages({ loginData }) {
   return [<Route path='login' element={<Login />} />];
 }
 
 export default function App() {
   const [loggedInStatus, setloggedInStatus] = useState('NOT_LOGGED_IN');
+  const [username, setUsername] = useState('');
+  const [userId, setUserId] = useState('');
 
   function handleSuccesfulLogin() {
     setloggedInStatus('LOGGED_IN');
@@ -48,7 +30,32 @@ export default function App() {
 
   function handleUnsuccesfulLogin() {
     setloggedInStatus('NOT_LOGGED_IN');
-    console.log('handleUnsuccesfulLogin');
+  }
+
+  function getUserData() {
+    axios({
+      method: 'get',
+      url: 'http://localhost:8000/users/me',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + fetchToken(),
+      },
+    })
+      .then(response => {
+        // handle success
+        console.log(response);
+        setUsername(response.data.name);
+        setUserId(response.data.id);
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+  }
+
+  function cleanUserData() {
+    setUsername('');
+    setUserId('');
   }
 
   return (
@@ -69,7 +76,8 @@ export default function App() {
             <Login
               handleSuccesfulLogin={handleSuccesfulLogin}
               handleUnsuccesfulLogin={handleUnsuccesfulLogin}
-              var='hola'
+              getUserData={getUserData}
+              cleanUserData={cleanUserData}
             />
           }
         />

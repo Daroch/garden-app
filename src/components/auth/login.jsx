@@ -18,9 +18,7 @@ export function fetchToken() {
 }
 
 export default function Login(props) {
-  const { handleSuccesfulLogin, handleUnsuccesfulLogin } = props;
   const navigate = useNavigate();
-  //const [token, setToken] = useState(null);
   const [errorText, setErrorText] = useState(null);
   const [loginData, setLoginData] = useState({
     username: '',
@@ -56,20 +54,22 @@ export default function Login(props) {
           setErrorText(' Great, Login correct!');
           if (response.data.access_token) {
             saveToken(response.data.access_token);
-            handleSuccesfulLogin();
+            props.handleSuccesfulLogin();
+            props.getUserData();
             //navigate('/profile');
           }
         } else {
           setErrorText('Wrong username or password1');
-          handleUnsuccesfulLogin();
+          props.handleUnsuccesfulLogin();
+          props.cleanUserData();
         }
         console.log('response', response);
       })
       .catch(error => {
         //console.log("some error ocurred", error);
         setErrorText('Wrong username or password2', error);
-        handleUnSuccesfulLogin();
-        //handleUnsuccesfulAuth();
+        props.handleUnsuccesfulLogin();
+        props.cleanUserData();
       });
     event.preventDefault();
   };
