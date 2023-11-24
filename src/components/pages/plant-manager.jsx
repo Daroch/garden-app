@@ -20,8 +20,8 @@ export default function PlantManager() {
         }}
       >
         Mostrar/Ocultar - Añadir planta
-        <LoadForm />
       </div>
+      <LoadForm />
       <PlantContainer />
     </div>
   );

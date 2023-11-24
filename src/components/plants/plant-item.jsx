@@ -1,3 +1,8 @@
+function handleUpdate() {}
+function handleDelete() {
+  console.log('Delete plant', plant.id);
+}
+
 export default function PlantItem({ plant }) {
   const [
     id,
@@ -11,9 +16,6 @@ export default function PlantItem({ plant }) {
 
   const image_path = 'http://localhost:8000/images/plants/' + plant.image_url;
 
-  function handleUpdate() {
-    
-  }
   return (
     <div className='plant-item-wrapper'>
       <div className='plant-item-header'>
@@ -35,6 +37,9 @@ export default function PlantItem({ plant }) {
         </div>
         <button className='btn' onClick={handleUpdate}>
           Editar
+        </button>
+        <button className='btn' onClick={handleDelete}>
+          Eliminar
         </button>
         <div className='image'>
           <>

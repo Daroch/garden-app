@@ -33,10 +33,9 @@ GET http://localhost:8000/users
 ###
 GET http://localhost:8000/users/me
 accept: application/json
-//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTYXVyb24iLCJzY29wZXMiOlsibWUiXSwiZXhwIjoxNzAwNzczNjE5fQ.s3tiQ-XBIjnsbXbRamLj5U_YLVz5xZUYyiiB6XO23Jo
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDc3NTUwMn0.eREdF4ll9PovXUfgOfF3Reel9-RXCjcAVU5uIcIk9AM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDg1ODE3N30.nCXF-U_Dqk_s3jjaT_z1OTa34VjpibZuBtsbNmC1xY4
 
 ###
 GET http://localhost:8000/users/me/plants
 accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDc3NTUwMn0.eREdF4ll9PovXUfgOfF3Reel9-RXCjcAVU5uIcIk9AM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDg1ODE3N30.nCXF-U_Dqk_s3jjaT_z1OTa34VjpibZuBtsbNmC1xY4

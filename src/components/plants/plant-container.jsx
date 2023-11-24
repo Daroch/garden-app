@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
 
 import PlantItem from './plant-item';
-import { fetchToken } from '../auth/auth';
+import { fetchToken } from '../auth/login';
 
 export default function PlantContainer() {
   const [plants, setPlants] = useState([]);
@@ -43,7 +43,7 @@ export default function PlantContainer() {
   useEffect(getPlantItems, []);
   return (
     <>
-      <div className='plant-container-wrapper'>{plantItems()}</div>;
+      <div className='plant-container-wrapper'>{plantItems()}</div>
     </>
   );
 }
