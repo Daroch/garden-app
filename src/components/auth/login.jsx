@@ -49,27 +49,22 @@ export default function Login(props) {
     })
       .then(response => {
         console.log('response', response);
-        console.log(props.var);
         if (response.status === 200) {
           setErrorText(' Great, Login correct!');
           if (response.data.access_token) {
             saveToken(response.data.access_token);
             props.handleSuccesfulLogin();
-            props.getUserData();
-            //navigate('/profile');
           }
         } else {
-          setErrorText('Wrong username or password1');
-          props.handleUnsuccesfulLogin();
-          props.cleanUserData();
+          //setErrorText('Wrong username or password1');
+          //props.handleUnsuccesfulLogin();
         }
-        console.log('response', response);
+        //console.log('response', response);
       })
       .catch(error => {
         //console.log("some error ocurred", error);
-        setErrorText('Wrong username or password2', error);
+        setErrorText('Wrong username or password2');
         props.handleUnsuccesfulLogin();
-        props.cleanUserData();
       });
     event.preventDefault();
   };
