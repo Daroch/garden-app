@@ -6,7 +6,7 @@ import axios from 'https://cdn.skypack.dev/axios';
 import PlantItem from './plant-item';
 import { fetchToken } from '../auth/login';
 
-export default function PlantContainer() {
+export default function PlantContainer(props) {
   const [plants, setPlants] = useState([]);
 
   function plantItems() {

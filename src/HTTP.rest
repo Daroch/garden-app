@@ -23,9 +23,10 @@ content-type: application/json
 POST http://localhost:8000/users/1/addplant
 ?name=Perejil
 &category_id=1
-&public=true HTTP/1.1
+&public=true
 accept: application/json
 content-type:  "multipart/form-data; boundary=----WebKitFormBoundaryM2zKSP2Vjo1PFMWy"
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDg4NTk5NX0.Jj7EUFYHVqNGp9xMaqmP-ENTkK5LL9lwqzkRAoJ1-S4
 
 ###
 GET http://localhost:8000/users 
@@ -33,9 +34,8 @@ GET http://localhost:8000/users
 ###
 GET http://localhost:8000/users/me
 accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDg1ODE3N30.nCXF-U_Dqk_s3jjaT_z1OTa34VjpibZuBtsbNmC1xY4
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDg4NTk5NX0.Jj7EUFYHVqNGp9xMaqmP-ENTkK5LL9lwqzkRAoJ1-S4
 ###
 GET http://localhost:8000/users/me/plants
 accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDg1ODE3N30.nCXF-U_Dqk_s3jjaT_z1OTa34VjpibZuBtsbNmC1xY4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDg4NTk5NX0.Jj7EUFYHVqNGp9xMaqmP-ENTkK5LL9lwqzkRAoJ1-S4

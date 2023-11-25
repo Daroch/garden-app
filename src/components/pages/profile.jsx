@@ -1,7 +1,7 @@
-export default function Profile(props) {
+export default function Profile({ username }) {
   return (
     <div>
-      <h1>Bienvenido</h1>
+      <h1>Bienvenido {username}</h1>
     </div>
   );
 }

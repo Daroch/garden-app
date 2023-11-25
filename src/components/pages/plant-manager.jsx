@@ -2,12 +2,12 @@ import { useState } from 'react';
 import PlantContainer from '../plants/plant-container';
 import PlantForm from '../plants/plant-form';
 
-export default function PlantManager() {
+export default function PlantManager(props) {
   const [showForm, setShowForm] = useState(false);
 
-  function LoadForm() {
+  function LoadForm(props) {
     if (showForm) {
-      return <PlantForm />;
+      return <PlantForm loggedUserId={props.loggedUserId} />;
     }
   }
   return (
@@ -21,7 +21,7 @@ export default function PlantManager() {
       >
         Mostrar/Ocultar - Añadir planta
       </div>
-      <LoadForm />
+      <LoadForm loggedUserId={props.loggedUserId} />
       <PlantContainer />
     </div>
   );

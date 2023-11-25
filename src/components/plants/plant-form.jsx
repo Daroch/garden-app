@@ -1,8 +1,9 @@
 import { useState } from 'react';
 //import axios from 'axios';
 import axios from 'https://cdn.skypack.dev/axios';
+import { fetchToken } from '../auth/login';
 
-export default function PlantForm() {
+export default function PlantForm(props) {
   const [plantData, setPlantData] = useState({
     name: '',
     category_id: 1,
@@ -12,29 +13,30 @@ export default function PlantForm() {
   });
   const [imageFile, setImageFile] = useState(null);
 
-  const handleChange = event => {
+  function handleChange(event) {
     setPlantData({
       ...plantData,
       [event.target.name]: event.target.value,
     });
-  };
+  }
 
-  const handleFileChange = event => {
+  function handleFileChange(event) {
     console.log(event.target.files);
     setImageFile(event.target.files[0]);
-  };
+  }
 
   function handleUpdate() {}
-  const handleSubmit = event => {
+
+  function handleSubmit(event) {
     event.preventDefault();
     axios({
       method: 'post',
-      url: 'http://localhost:8000/users/1/addplant',
+      url: 'http://localhost:8000/users/' + props.loggedUserId + '/addplant',
       data: buildForm(),
-      headers: {
-        accept: 'application/json',
-        Authorization: 'Bearer ' + fetchToken(),
-      },
+      // headers: {
+      //   accept: 'application/json',
+      //   Authorization: 'Bearer ' + fetchToken(),
+      // },
     })
       .then(response => {
         // handle success
@@ -47,7 +49,7 @@ export default function PlantForm() {
       .finally(function () {
         // always executed
       });
-  };
+  }
 
   function buildForm() {
     let formData = new FormData();

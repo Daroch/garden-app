@@ -5,12 +5,19 @@
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-const NavigationContainer = props => {
-  const navigate = useNavigate();
-  const handleSignOut = () => {
-    localStorage.removeItem('gardenAppToken');
-    navigate('/');
-  };
+export default function NavigationContainer(props) {
+  function dinamycLink(route, Linktext) {
+    return (
+      <div className='nav-link-wrapper'>
+        <NavLink
+          to={route}
+          className={({ isActive }) => (isActive ? 'nav-link-active' : ' ')}
+        >
+          {Linktext}
+        </NavLink>
+      </div>
+    );
+  }
 
   return (
     <div className='nav-wrapper'>
@@ -23,22 +30,12 @@ const NavigationContainer = props => {
             Home
           </NavLink>
         </div>
-        <div className='nav-link-wrapper'>
-          <NavLink
-            to='/plants'
-            className={({ isActive }) => (isActive ? 'nav-link-active' : ' ')}
-          >
-            My Plants
-          </NavLink>
-        </div>
-        <div className='nav-link-wrapper'>
-          <NavLink
-            to='/alerts'
-            className={({ isActive }) => (isActive ? 'nav-link-active' : ' ')}
-          >
-            Alerts
-          </NavLink>
-        </div>
+        {props.loggedInStatus === 'LOGGED_IN'
+          ? dinamycLink('/plants', 'My Plants')
+          : null}
+        {props.loggedInStatus === 'LOGGED_IN'
+          ? dinamycLink('/alerts', 'Alerts')
+          : null}
         <div className='nav-link-wrapper'>
           <NavLink
             to='/explore'
@@ -65,27 +62,18 @@ const NavigationContainer = props => {
         </div>
       </div>
       <div className='right-side'>
-        <div className='nav-link-wrapper'>
-          <NavLink
-            to='/profile'
-            className={({ isActive }) => (isActive ? 'nav-link-active' : ' ')}
-          >
-            Profile
-          </NavLink>
-        </div>
-        <div className='nav-link-wrapper'>
-          <NavLink
-            to='/login'
-            className={({ isActive }) => (isActive ? 'nav-link-active' : ' ')}
-          >
-            Login
-          </NavLink>
-        </div>
-        <button className='btn' onClick={handleSignOut}>
-          Logout
-        </button>
+        {props.loggedInStatus === 'LOGGED_IN'
+          ? dinamycLink('/profile', 'Profile')
+          : null}
+        {props.loggedInStatus === 'LOGGED_IN' ? (
+          <button className='btn' onClick={props.handleUnsuccesfulLogin}>
+            Logout
+          </button>
+        ) : null}
+        {props.loggedInStatus !== 'LOGGED_IN'
+          ? dinamycLink('/login', 'Login')
+          : null}
       </div>
     </div>
   );
-};
-export default NavigationContainer;
+}
