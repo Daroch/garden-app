@@ -5,9 +5,9 @@ module.exports = {
   },
   settings: {
     react: {
-      version: 'detect'
-    }
-  }
+      version: 'detect',
+    },
+  },
   extends: [
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
