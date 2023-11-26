@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
 

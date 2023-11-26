@@ -1,5 +1,5 @@
 import { useState } from 'react';
-//import axios from 'axios';
+// import axios from 'axios';
 import axios from 'https://cdn.skypack.dev/axios';
 import { fetchToken } from '../auth/login';
 
@@ -54,7 +54,7 @@ export default function PlantForm({
   }
 
   function buildForm() {
-    let formData = new FormData();
+    const formData = new FormData();
 
     formData.append('name', plantData.name);
     formData.append('category_id', plantData.category_id);

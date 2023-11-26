@@ -4,7 +4,7 @@ import LoadForm from '../plants/modal-form';
 import axios from 'https://cdn.skypack.dev/axios';
 import { fetchToken } from '../auth/login';
 
-export default function PlantManager({ loggedUserId}) {
+export default function PlantManager({ loggedUserId }) {
   const [showForm, setShowForm] = useState(false);
   const [plants, setPlants] = useState([]);
 
@@ -24,11 +24,11 @@ export default function PlantManager({ loggedUserId}) {
       .then(response => {
         // handle success
         console.log('handleDeleteClick', plantItem);
-        //Updated array of plants
-        const plantsnew = plants.filter(item => {
+        // Updated array of plants
+        const plantsNew = plants.filter(item => {
           return item.id !== plantItem.id;
         });
-        setPlants(plantsnew);
+        setPlants(plantsNew);
       })
       .catch(error => {
         // handle error
@@ -39,7 +39,7 @@ export default function PlantManager({ loggedUserId}) {
   function handleUpdateClick(plantItem) {
     axios({
       method: 'get',
-      url: `http://localhost:8000/users/${props.loggedUserId}/plants/${plantItem.id}`,
+      url: `http://localhost:8000/users/${loggedUserId}/plants/${plantItem.id}`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),

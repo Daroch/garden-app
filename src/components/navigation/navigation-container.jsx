@@ -1,9 +1,4 @@
-//import axios from 'axios';
-//import { withRouter } from 'react-router';
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 export default function NavigationContainer(props) {
   function dinamycLink(route, Linktext) {

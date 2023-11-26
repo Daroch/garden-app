@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 // import axios from 'axios';
 import axios from 'https://cdn.skypack.dev/axios';
@@ -14,7 +14,7 @@ export default function PlantContainer({
 }) {
   function plantItems() {
     return plants.map(plant => {
-      //console.log(plant);
+      // console.log(plant);
       return (
         <PlantItem
           key={plant.id}
