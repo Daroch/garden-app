@@ -1,9 +1,8 @@
-function handleUpdate() {}
-function handleDelete() {
-  console.log('Delete plant', plant.id);
-}
-
-export default function PlantItem({ plant }) {
+export default function PlantItem({
+  plant,
+  handleDeleteClick,
+  handleUpdateClick,
+}) {
   const [
     id,
     name,
@@ -35,10 +34,10 @@ export default function PlantItem({ plant }) {
         <div className='created'>
           <>Planta añadida en:{plant.created_at}</>
         </div>
-        <button className='btn' onClick={handleUpdate}>
+        <button className='btn' onClick={() => handleUpdateClick(plant)}>
           Editar
         </button>
-        <button className='btn' onClick={handleDelete}>
+        <button className='btn' onClick={() => handleDeleteClick(plant)}>
           Eliminar
         </button>
         <div className='image'>

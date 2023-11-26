@@ -1,20 +1,28 @@
 import { useEffect, useState } from 'react';
 
-//import axios from 'axios';
+// import axios from 'axios';
 import axios from 'https://cdn.skypack.dev/axios';
 
 import PlantItem from './plant-item';
 import { fetchToken } from '../auth/login';
 
-export default function PlantContainer(props) {
-  const [plants, setPlants] = useState([]);
-
+export default function PlantContainer({
+  plants,
+  setPlants,
+  handleDeleteClick,
+  handleUpdateClick,
+}) {
   function plantItems() {
-    console.log('Plantas:', plants);
     return plants.map(plant => {
-      //debugger;
-      console.log(plant);
-      return <PlantItem key={plant.id} plant={plant} />;
+      //console.log(plant);
+      return (
+        <PlantItem
+          key={plant.id}
+          plant={plant}
+          handleDeleteClick={handleDeleteClick}
+          handleUpdateClick={handleUpdateClick}
+        />
+      );
     });
   }
 

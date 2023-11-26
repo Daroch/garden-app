@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
-import { useNavigate } from 'react-router-dom';
 
 function saveToken(token) {
-  // seave token in localStorage
+  // save token in localStorage
   localStorage.setItem('gardenAppToken', token);
 }
 
-function deleteToken() {
-  // seave token in localStorage
+export function deleteToken() {
+  // save token in localStorage
   localStorage.removeItem('gardenAppToken');
 }
 
@@ -17,8 +16,10 @@ export function fetchToken() {
   return localStorage.getItem('gardenAppToken');
 }
 
-export default function Login(props) {
-  const navigate = useNavigate();
+export default function Login({
+  handleSuccesfulLogin,
+  handleUnsuccesfulLogin,
+}) {
   const [errorText, setErrorText] = useState(null);
   const [loginData, setLoginData] = useState({
     username: '',
@@ -48,30 +49,29 @@ export default function Login(props) {
       data: loginData,
     })
       .then(response => {
-        console.log('response', response);
         if (response.status === 200) {
           setErrorText(' Great, Login correct!');
           if (response.data.access_token) {
             saveToken(response.data.access_token);
-            props.handleSuccesfulLogin();
+            handleSuccesfulLogin();
           }
         } else {
-          //setErrorText('Wrong username or password1');
-          //props.handleUnsuccesfulLogin();
+          // setErrorText('Wrong username or password1');
+          handleUnsuccesfulLogin();
         }
-        //console.log('response', response);
+        // console.log('response', response);
       })
       .catch(error => {
-        //console.log("some error ocurred", error);
-        setErrorText('Wrong username or password2');
-        props.handleUnsuccesfulLogin();
+        console.log('some error ocurred', error);
+        setErrorText('Wrong username or password');
+        handleUnsuccesfulLogin();
       });
     event.preventDefault();
   };
 
   return (
     <div>
-      <h1>Login to Access DashBoard {props.var}</h1>
+      <h1>Login to Access DashBoard</h1>
       <div>{errorText}</div>
       <form onSubmit={handleSubmit}>
         <input

@@ -1,18 +1,16 @@
-import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
-import { useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import NavigationContainer from './components/navigation/navigation-container';
 import Home from './components/pages/home';
-import Login from './components/auth/login';
 import Profile from './components/pages/profile';
 import About from './components/pages/about';
 import Contact from './components/pages/contact';
 import Explore from './components/pages/explore';
 import AlertManager from './components/pages/alert-manager';
-import PlantManager from './components/pages/PlantManager';
-import { fetchToken } from './components/auth/login';
+import PlantManager from './components/pages/plant-manager';
+import Login, { fetchToken, deleteToken } from './components/auth/login';
 
 import './style/main.scss';
 
@@ -29,7 +27,7 @@ export default function App() {
   }
 
   function handleUnsuccesfulLogin() {
-    localStorage.removeItem('gardenAppToken');
+    deleteToken();
     setloggedInStatus('NOT_LOGGED_IN');
     setloggedUsername('');
     setloggedUserId('');
@@ -38,6 +36,7 @@ export default function App() {
 
   function checkLoginStatus() {
     const validtoken = fetchToken();
+    console.log('Validando estado', validtoken);
     if (validtoken) {
       handleSuccesfulLogin();
       console.log('todo bien');
@@ -65,6 +64,7 @@ export default function App() {
       .catch(error => {
         // handle error
         console.log(error);
+        handleUnsuccesfulLogin();
       });
   }
 

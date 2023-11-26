@@ -3,7 +3,10 @@ import { useState } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
 import { fetchToken } from '../auth/login';
 
-export default function PlantForm(props) {
+export default function PlantForm({
+  loggedUserId,
+  handleSuccessfulFormSubmission,
+}) {
   const [plantData, setPlantData] = useState({
     name: '',
     category_id: 1,
@@ -25,22 +28,21 @@ export default function PlantForm(props) {
     setImageFile(event.target.files[0]);
   }
 
-  function handleUpdate() {}
-
   function handleSubmit(event) {
     event.preventDefault();
     axios({
       method: 'post',
-      url: 'http://localhost:8000/users/' + props.loggedUserId + '/addplant',
+      url: 'http://localhost:8000/users/' + loggedUserId + '/addplant',
       data: buildForm(),
-      // headers: {
-      //   accept: 'application/json',
-      //   Authorization: 'Bearer ' + fetchToken(),
-      // },
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + fetchToken(),
+      },
     })
       .then(response => {
         // handle success
         console.log(response);
+        handleSuccessfulFormSubmission(response.data);
       })
       .catch(error => {
         // handle error
@@ -117,7 +119,7 @@ export default function PlantForm(props) {
         <input
           type='file'
           name='imagefile'
-          enctype='multipart/form-data'
+          encType='multipart/form-data'
           onChange={handleFileChange}
         />
       </div>
