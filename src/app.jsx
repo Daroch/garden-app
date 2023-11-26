@@ -11,7 +11,7 @@ import About from './components/pages/about';
 import Contact from './components/pages/contact';
 import Explore from './components/pages/explore';
 import AlertManager from './components/pages/alert-manager';
-import PlantManager from './components/pages/plant-manager';
+import PlantManager from './components/pages/PlantManager';
 import { fetchToken } from './components/auth/login';
 
 import './style/main.scss';
@@ -34,6 +34,17 @@ export default function App() {
     setloggedUsername('');
     setloggedUserId('');
     navigate('/');
+  }
+
+  function checkLoginStatus() {
+    const validtoken = fetchToken();
+    if (validtoken) {
+      handleSuccesfulLogin();
+      console.log('todo bien');
+    } else {
+      handleUnsuccesfulLogin();
+      console.log('borrar datos');
+    }
   }
 
   function getUserData() {
@@ -81,6 +92,10 @@ export default function App() {
       />,
     ];
   }
+
+  useEffect(() => {
+    checkLoginStatus();
+  }, []);
 
   return (
     <div className='container'>
