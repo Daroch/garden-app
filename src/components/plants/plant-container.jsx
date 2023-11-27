@@ -11,6 +11,7 @@ export default function PlantContainer({
   setPlants,
   handleDeleteClick,
   handleUpdateClick,
+  handleUnsuccesfulLogin,
 }) {
   function plantItems() {
     return plants.map(plant => {
@@ -43,6 +44,7 @@ export default function PlantContainer({
       .catch(error => {
         // handle error
         console.log(error);
+        handleUnsuccesfulLogin();
       })
       .finally(function () {
         // always executed

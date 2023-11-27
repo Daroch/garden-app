@@ -4,7 +4,7 @@ import LoadForm from '../plants/modal-form';
 import axios from 'https://cdn.skypack.dev/axios';
 import { fetchToken } from '../auth/login';
 
-export default function PlantManager({ loggedUserId }) {
+export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
   const [showForm, setShowForm] = useState(false);
   const [plants, setPlants] = useState([]);
 
@@ -76,6 +76,7 @@ export default function PlantManager({ loggedUserId }) {
         setPlants={setPlants}
         handleDeleteClick={handleDeleteClick}
         handleUpdateClick={handleUpdateClick}
+        handleUnsuccesfulLogin={handleUnsuccesfulLogin}
       />
     </div>
   );

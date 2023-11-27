@@ -75,8 +75,8 @@ export default function App() {
         path='plants'
         element={
           <PlantManager
-            loggedInStatus={loggedInStatus}
             loggedUserId={loggedUserId}
+            handleUnsuccesfulLogin={handleUnsuccesfulLogin}
           />
         }
       />,
