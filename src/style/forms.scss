@@ -17,3 +17,14 @@ textarea {
   background-color: transparent;
   outline: none;
 }
+
+.dropzone {
+  text-align: center;
+  padding: 20px;
+  border: 3px $dark-green dashed;
+  width: 25%;
+  margin: auto;
+  background-color: transparent;
+  cursor: pointer;
+  height: 60px;
+}

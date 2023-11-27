@@ -2,6 +2,7 @@ import { useState } from 'react';
 // import axios from 'axios';
 import axios from 'https://cdn.skypack.dev/axios';
 import { fetchToken } from '../auth/login';
+import Dropzone from 'react-dropzone';
 
 export default function PlantForm({
   loggedUserId,
@@ -16,16 +17,16 @@ export default function PlantForm({
   });
   const [imageFile, setImageFile] = useState(null);
 
+  function handleFileDrop(acceptedFiles, rejected) {
+    console.log(acceptedFiles);
+    setImageFile(acceptedFiles[0]);
+  }
+
   function handleChange(event) {
     setPlantData({
       ...plantData,
       [event.target.name]: event.target.value,
     });
-  }
-
-  function handleFileChange(event) {
-    console.log(event.target.files);
-    setImageFile(event.target.files[0]);
   }
 
   function handleSubmit(event) {
@@ -116,12 +117,6 @@ export default function PlantForm({
           <option value='3'>Bastante</option>
           <option value='4'>Mucha</option>
         </select>
-        <input
-          type='file'
-          name='imagefile'
-          encType='multipart/form-data'
-          onChange={handleFileChange}
-        />
       </div>
       <div className='one-column'>
         <textarea
@@ -131,6 +126,18 @@ export default function PlantForm({
           value={plantData.description}
           onChange={handleChange}
         />
+      </div>
+      <div className='dropzone'>
+        <Dropzone onDrop={handleFileDrop}>
+          {({ getRootProps, getInputProps }) => (
+            <section>
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <p>Drag and drop some files here, or click to select files</p>
+              </div>
+            </section>
+          )}
+        </Dropzone>
       </div>
       <div>
         <button className='btn' type='submit'>
