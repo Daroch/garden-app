@@ -10,7 +10,7 @@ export default function PlantContainer({
   plants,
   setPlants,
   handleDeleteClick,
-  handleUpdateClick,
+  handleEditClick,
   handleUnsuccesfulLogin,
 }) {
   function plantItems() {
@@ -21,7 +21,7 @@ export default function PlantContainer({
           key={plant.id}
           plant={plant}
           handleDeleteClick={handleDeleteClick}
-          handleUpdateClick={handleUpdateClick}
+          handleEditClick={handleEditClick}
         />
       );
     });

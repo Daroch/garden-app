@@ -21,9 +21,8 @@
     .image {
       max-width: 300px;
       overflow: hidden;
-      .img {
-        width: 300px;
-        overflow: hidden;
+      img {
+        width: 100%;
       }
     }
   }

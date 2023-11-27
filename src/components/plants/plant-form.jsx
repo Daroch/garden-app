@@ -7,6 +7,8 @@ import Dropzone from 'react-dropzone';
 export default function PlantForm({
   loggedUserId,
   handleSuccessfulFormSubmission,
+  clearPlantToEdit,
+  plantToEdit,
 }) {
   const [plantData, setPlantData] = useState({
     name: '',
@@ -16,6 +18,11 @@ export default function PlantForm({
     description: '',
   });
   const [imageFile, setImageFile] = useState(null);
+  //setPlantData(plantToEdit);
+  //clearPlantToEdit();
+  if (plantToEdit) {
+    console.log(plantToEdit);
+  }
 
   function handleFileDrop(acceptedFiles, rejected) {
     console.log(acceptedFiles);
