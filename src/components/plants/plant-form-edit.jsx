@@ -4,17 +4,13 @@ import axios from 'https://cdn.skypack.dev/axios';
 import { fetchToken } from '../auth/login';
 import Dropzone from 'react-dropzone';
 
-export default function PlantForm({
+export default function PlantFormEdit({
   loggedUserId,
-  handleSuccessfulFormSubmission,
+  handleSuccessfulFormEditSubmission,
+  clearPlantToEdit,
+  plantToEdit,
 }) {
-  const [plantData, setPlantData] = useState({
-    name: '',
-    category_id: 1,
-    irrigation_type: 'muypoca',
-    light_type: 'muypoca',
-    description: '',
-  });
+  const [plantData, setPlantData] = useState(plantToEdit);
   const [imageFile, setImageFile] = useState(null);
 
   function handleFileDrop(acceptedFiles, rejected) {
@@ -32,8 +28,8 @@ export default function PlantForm({
   function handleSubmit(event) {
     event.preventDefault();
     axios({
-      method: 'post',
-      url: 'http://localhost:8000/users/' + loggedUserId + '/addplant',
+      method: 'patch',
+      url: `http://localhost:8000/users/${loggedUserId}/updateplant/${plantToEdit.id}`,
       data: buildForm(),
       headers: {
         accept: 'application/json',
@@ -43,7 +39,7 @@ export default function PlantForm({
       .then(response => {
         // handle success
         console.log(response);
-        handleSuccessfulFormSubmission(response.data);
+        handleSuccessfulFormEditSubmission(response.data);
       })
       .catch(error => {
         // handle error

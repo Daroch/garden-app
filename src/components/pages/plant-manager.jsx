@@ -1,14 +1,16 @@
-import { useState } from 'react';
-import PlantContainer from '../plants/plant-container';
+import { useState, useEffect } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
 import Modal from 'react-modal';
-import PlantForm from '../plants/plant-form';
 
+import PlantContainer from '../plants/plant-container';
+import PlantForm from '../plants/plant-form';
+import PlantFormEdit from '../plants/plant-form-edit';
 import { fetchToken } from '../auth/login';
 
 export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
   const [plants, setPlants] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
   const [plantToEdit, setPlantToEdit] = useState({});
 
   const customStyles = {
@@ -21,27 +23,35 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
       transform: 'translate(-50%, -50%)',
     },
   };
-  //Modal.setAppElement(App);
-  function clearPlantToEdit() {
-    setPlantToEdit({});
-  }
+  Modal.setAppElement('#root');
 
   function openModal() {
     setModalIsOpen(true);
   }
+  function openModalEdit() {
+    setModalEditIsOpen(true);
+  }
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
+    // subtitle.style.color = '#f00';
   }
 
   function closeModal() {
     setModalIsOpen(false);
   }
+  function closeModalEdit() {
+    setModalEditIsOpen(false);
+  }
 
   function handleSuccessfulFormSubmission(plantData) {
     setPlants(plants.concat(plantData));
     setModalIsOpen(false);
+  }
+
+  function handleSuccessfulFormEditSubmission(plantData) {
+    setModalEditIsOpen(false);
+    getPlantItems();
   }
 
   function handleDeleteClick(plantItem) {
@@ -71,14 +81,18 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
   function handleEditClick(plantItem) {
     console.log('handleEditClick', plantItem);
     // populate the form
-    setModalIsOpen(true);
     setPlantToEdit(plantItem);
+    openModalEdit();
   }
 
-  function handleUpdateClick(plantItem) {
+  function clearPlantToEdit() {
+    setPlantToEdit({});
+  }
+
+  function getPlantItems() {
     axios({
       method: 'get',
-      url: `http://localhost:8000/users/${loggedUserId}/plants/${plantItem.id}`,
+      url: 'http://localhost:8000/users/me/plants',
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -86,14 +100,19 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
     })
       .then(response => {
         // handle success
-        console.log('handlUpdateClick', plantItem);
+        console.log(response);
+        setPlants(response.data);
       })
       .catch(error => {
         // handle error
-        console.log('Error updating item', error);
+        console.log(error);
+        handleUnsuccesfulLogin();
+      })
+      .finally(function () {
+        // always executed
       });
   }
-
+  useEffect(getPlantItems, []);
   return (
     <div>
       <h1>Gestiona tus plantas!!</h1>
@@ -110,6 +129,20 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
         <PlantForm
           loggedUserId={loggedUserId}
           handleSuccessfulFormSubmission={handleSuccessfulFormSubmission}
+        />
+      </Modal>
+      <Modal
+        isOpen={modalEditIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModalEdit}
+        style={customStyles}
+        contentLabel='Example Modal'
+      >
+        <PlantFormEdit
+          loggedUserId={loggedUserId}
+          handleSuccessfulFormEditSubmission={
+            handleSuccessfulFormEditSubmission
+          }
           clearPlantToEdit={clearPlantToEdit}
           plantToEdit={plantToEdit}
         />
