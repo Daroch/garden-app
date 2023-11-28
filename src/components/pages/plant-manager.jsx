@@ -1,15 +1,49 @@
-import { useState } from 'react';
-import PlantContainer from '../plants/plant-container';
-import LoadForm from '../plants/modal-form';
+import { useState, useEffect } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
+import Modal from 'react-modal';
+
+import PlantContainer from '../plants/plant-container';
+import PlantForm from '../plants/plant-form';
 import { fetchToken } from '../auth/login';
 
 export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
-  const [showForm, setShowForm] = useState(false);
   const [plants, setPlants] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [plantToEdit, setPlantToEdit] = useState({});
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+  Modal.setAppElement('#root');
+
+  function openModal() {
+    setModalIsOpen(true);
+  }
+
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    // subtitle.style.color = '#f00';
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+  }
 
   function handleSuccessfulFormSubmission(plantData) {
     setPlants(plants.concat(plantData));
+    setModalIsOpen(false);
+  }
+
+  function handleSuccessfulFormEditSubmission(plantData) {
+    setModalIsOpen(false);
+    getPlantItems();
   }
 
   function handleDeleteClick(plantItem) {
@@ -36,10 +70,28 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
       });
   }
 
-  function handleUpdateClick(plantItem) {
+  function handleEditClick(plantItem) {
+    console.log('handleEditClick', plantItem);
+    // populate the form
+    setPlantToEdit(plantItem);
+    openModal();
+  }
+
+  function handleCreateNewClick() {
+    console.log('handleCreateNewClick');
+    // populate the form
+    clearPlantToEdit();
+    openModal();
+  }
+
+  function clearPlantToEdit() {
+    setPlantToEdit({});
+  }
+
+  function getPlantItems() {
     axios({
       method: 'get',
-      url: `http://localhost:8000/users/${loggedUserId}/plants/${plantItem.id}`,
+      url: 'http://localhost:8000/users/me/plants',
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -47,35 +99,47 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
     })
       .then(response => {
         // handle success
-        console.log('handleDeleteClick', plantItem);
+        console.log(response);
+        setPlants(response.data);
       })
       .catch(error => {
         // handle error
-        console.log('Error deleting item', error);
+        console.log(error);
+        handleUnsuccesfulLogin();
+      })
+      .finally(function () {
+        // always executed
       });
   }
-
+  useEffect(getPlantItems, []);
   return (
     <div>
       <h1>Gestiona tus plantas!!</h1>
-      <div
-        className='btn'
-        onClick={() => {
-          setShowForm(!showForm);
-        }}
+      <button className='btn' onClick={handleCreateNewClick}>
+        Añadir planta
+      </button>
+      <Modal
+        isOpen={modalIsOpen}
+        onAfterOpen={afterOpenModal}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel='Example Modal'
       >
-        Mostrar/Ocultar - Añadir planta
-      </div>
-      <LoadForm
-        loggedUserId={loggedUserId}
-        showForm={showForm}
-        handleSuccessfulFormSubmission={handleSuccessfulFormSubmission}
-      />
+        <PlantForm
+          loggedUserId={loggedUserId}
+          handleSuccessfulFormSubmission={handleSuccessfulFormSubmission}
+          handleSuccessfulFormEditSubmission={
+            handleSuccessfulFormEditSubmission
+          }
+          clearPlantToEdit={clearPlantToEdit}
+          plantToEdit={plantToEdit}
+        />
+      </Modal>
       <PlantContainer
         plants={plants}
         setPlants={setPlants}
         handleDeleteClick={handleDeleteClick}
-        handleUpdateClick={handleUpdateClick}
+        handleEditClick={handleEditClick}
         handleUnsuccesfulLogin={handleUnsuccesfulLogin}
       />
     </div>

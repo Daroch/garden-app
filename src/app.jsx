@@ -72,7 +72,7 @@ export default function App() {
     return [
       <Route
         key='plants'
-        path='plants'
+        path='/plants'
         element={
           <PlantManager
             loggedUserId={loggedUserId}

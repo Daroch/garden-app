@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import axios from 'axios';
 import axios from 'https://cdn.skypack.dev/axios';
 import { fetchToken } from '../auth/login';
@@ -7,15 +7,26 @@ import Dropzone from 'react-dropzone';
 export default function PlantForm({
   loggedUserId,
   handleSuccessfulFormSubmission,
+  handleSuccessfulFormEditSubmission,
+  clearPlantToEdit,
+  plantToEdit,
 }) {
   const [plantData, setPlantData] = useState({
     name: '',
+    description: '',
     category_id: 1,
+    public: true,
     irrigation_type: 'muypoca',
     light_type: 'muypoca',
-    description: '',
+    location: '',
+    notes: '',
   });
   const [imageFile, setImageFile] = useState(null);
+  const [formParameters, setFormParameters] = useState({
+    editMode: false,
+    apiUrl: 'http://localhost:8000/users/' + loggedUserId + '/addplant',
+    apiAction: 'post',
+  });
 
   function handleFileDrop(acceptedFiles, rejected) {
     console.log(acceptedFiles);
@@ -29,11 +40,14 @@ export default function PlantForm({
     });
   }
 
+  function handleDeleteImage() {
+    console.log('handleDeleteImage');
+  }
   function handleSubmit(event) {
     event.preventDefault();
     axios({
-      method: 'post',
-      url: 'http://localhost:8000/users/' + loggedUserId + '/addplant',
+      method: formParameters.apiAction,
+      url: formParameters.apiUrl,
       data: buildForm(),
       headers: {
         accept: 'application/json',
@@ -43,7 +57,11 @@ export default function PlantForm({
       .then(response => {
         // handle success
         console.log(response);
-        handleSuccessfulFormSubmission(response.data);
+        if (formParameters.editMode) {
+          handleSuccessfulFormEditSubmission(response.data);
+        } else {
+          handleSuccessfulFormSubmission(response.data);
+        }
       })
       .catch(error => {
         // handle error
@@ -66,8 +84,22 @@ export default function PlantForm({
       formData.append('imagefile', imageFile);
     }
     console.log(formData);
+
     return formData;
   }
+
+  useEffect(() => {
+    if (Object.keys(plantToEdit).length > 0) {
+      // console.log('editando planta', plantToEdit);
+      setPlantData(plantToEdit);
+      clearPlantToEdit();
+      setFormParameters({
+        editMode: true,
+        apiUrl: `http://localhost:8000/users/${loggedUserId}/updateplant/${plantToEdit.id}`,
+        apiAction: 'patch',
+      });
+    }
+  }, [plantToEdit]);
 
   return (
     <form onSubmit={handleSubmit} className='plant-form-wrapper'>
@@ -128,16 +160,27 @@ export default function PlantForm({
         />
       </div>
       <div className='dropzone'>
-        <Dropzone onDrop={handleFileDrop}>
-          {({ getRootProps, getInputProps }) => (
-            <section>
-              <div {...getRootProps()}>
-                <input {...getInputProps()} />
-                <p>Drag and drop some files here, or click to select files</p>
-              </div>
-            </section>
-          )}
-        </Dropzone>
+        {formParameters.editMode && plantData.image_url ? (
+          <div className='portfolio-manager-image-wrapper'>
+            <img
+              src={`http://localhost:8000/images/plants/${plantData.image_url}`}
+            />
+            <div className='image-removal-link'>
+              <a onClick={() => handleDeleteImage('image_url')}>Remove image</a>
+            </div>
+          </div>
+        ) : (
+          <Dropzone onDrop={handleFileDrop}>
+            {({ getRootProps, getInputProps }) => (
+              <section>
+                <div {...getRootProps()}>
+                  <input {...getInputProps()} />
+                  <p>Drag and drop some files here, or click to select files</p>
+                </div>
+              </section>
+            )}
+          </Dropzone>
+        )}
       </div>
       <div>
         <button className='btn' type='submit'>

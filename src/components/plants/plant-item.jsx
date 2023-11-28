@@ -1,7 +1,7 @@
 export default function PlantItem({
   plant,
   handleDeleteClick,
-  handleUpdateClick,
+  handleEditClick,
 }) {
   const imagePath = 'http://localhost:8000/images/plants/' + plant.image_url;
 
@@ -24,7 +24,7 @@ export default function PlantItem({
         <div className='created'>
           <>Planta añadida en:{plant.created_at}</>
         </div>
-        <button className='btn' onClick={() => handleUpdateClick(plant)}>
+        <button className='btn' onClick={() => handleEditClick(plant)}>
           Editar
         </button>
         <button className='btn' onClick={() => handleDeleteClick(plant)}>
