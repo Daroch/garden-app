@@ -4,13 +4,11 @@ import Modal from 'react-modal';
 
 import PlantContainer from '../plants/plant-container';
 import PlantForm from '../plants/plant-form';
-import PlantFormEdit from '../plants/plant-form-edit';
 import { fetchToken } from '../auth/login';
 
 export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
   const [plants, setPlants] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalEditIsOpen, setModalEditIsOpen] = useState(false);
   const [plantToEdit, setPlantToEdit] = useState({});
 
   const customStyles = {
@@ -28,9 +26,6 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
   function openModal() {
     setModalIsOpen(true);
   }
-  function openModalEdit() {
-    setModalEditIsOpen(true);
-  }
 
   function afterOpenModal() {
     // references are now sync'd and can be accessed.
@@ -40,9 +35,6 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
   function closeModal() {
     setModalIsOpen(false);
   }
-  function closeModalEdit() {
-    setModalEditIsOpen(false);
-  }
 
   function handleSuccessfulFormSubmission(plantData) {
     setPlants(plants.concat(plantData));
@@ -50,7 +42,7 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
   }
 
   function handleSuccessfulFormEditSubmission(plantData) {
-    setModalEditIsOpen(false);
+    setModalIsOpen(false);
     getPlantItems();
   }
 
@@ -82,7 +74,14 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
     console.log('handleEditClick', plantItem);
     // populate the form
     setPlantToEdit(plantItem);
-    openModalEdit();
+    openModal();
+  }
+
+  function handleCreateNewClick() {
+    console.log('handleCreateNewClick');
+    // populate the form
+    clearPlantToEdit();
+    openModal();
   }
 
   function clearPlantToEdit() {
@@ -116,7 +115,7 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
   return (
     <div>
       <h1>Gestiona tus plantas!!</h1>
-      <button className='btn' onClick={openModal}>
+      <button className='btn' onClick={handleCreateNewClick}>
         Añadir planta
       </button>
       <Modal
@@ -129,17 +128,6 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
         <PlantForm
           loggedUserId={loggedUserId}
           handleSuccessfulFormSubmission={handleSuccessfulFormSubmission}
-        />
-      </Modal>
-      <Modal
-        isOpen={modalEditIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={closeModalEdit}
-        style={customStyles}
-        contentLabel='Example Modal'
-      >
-        <PlantFormEdit
-          loggedUserId={loggedUserId}
           handleSuccessfulFormEditSubmission={
             handleSuccessfulFormEditSubmission
           }
