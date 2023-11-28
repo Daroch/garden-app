@@ -20,6 +20,7 @@ export default function PlantForm({
     light_type: 'muypoca',
     location: '',
     notes: '',
+    image_url: '',
   });
   const [imageFile, setImageFile] = useState(null);
   const [formParameters, setFormParameters] = useState({
@@ -31,6 +32,7 @@ export default function PlantForm({
   function handleFileDrop(acceptedFiles, rejected) {
     console.log(acceptedFiles);
     setImageFile(acceptedFiles[0]);
+    setPlantData({ ...plantData, image_url: acceptedFiles[0].name });
   }
 
   function handleChange(event) {
@@ -42,6 +44,8 @@ export default function PlantForm({
 
   function handleDeleteImage() {
     console.log('handleDeleteImage');
+    setImageFile(null);
+    setPlantData({ ...plantData, image_url: '' });
   }
   function handleSubmit(event) {
     event.preventDefault();
@@ -99,7 +103,7 @@ export default function PlantForm({
         apiAction: 'patch',
       });
     }
-  }, [plantToEdit]);
+  }, [plantToEdit, imageFile]);
 
   return (
     <form onSubmit={handleSubmit} className='plant-form-wrapper'>
@@ -159,9 +163,9 @@ export default function PlantForm({
           onChange={handleChange}
         />
       </div>
-      <div className='dropzone'>
+      <div className='image-uploaders'>
         {formParameters.editMode && plantData.image_url ? (
-          <div className='portfolio-manager-image-wrapper'>
+          <div className='plant-manager-image-wrapper'>
             <img
               src={`http://localhost:8000/images/plants/${plantData.image_url}`}
             />

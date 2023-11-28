@@ -27,4 +27,11 @@ textarea {
   background-color: transparent;
   cursor: pointer;
   height: 60px;
+  .dropzone-image-wrapper {
+    max-width: 300px;
+    overflow: hidden;
+    img {
+      width: 100%;
+    }
+  }
 }
