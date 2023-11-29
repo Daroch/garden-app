@@ -24,6 +24,9 @@ export default function PlantItem({
         <div className='created'>
           <>Planta añadida en:{plant.created_at}</>
         </div>
+        <div className='public'>
+          <>Planta publica:{plant.public ? 'publica' : 'privada'}</>
+        </div>
         <button className='btn' onClick={() => handleEditClick(plant)}>
           Editar
         </button>

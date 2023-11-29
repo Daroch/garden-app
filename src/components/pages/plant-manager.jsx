@@ -131,6 +131,7 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
           handleSuccessfulFormEditSubmission={
             handleSuccessfulFormEditSubmission
           }
+          handleUnsuccesfulLogin={handleUnsuccesfulLogin}
           clearPlantToEdit={clearPlantToEdit}
           plantToEdit={plantToEdit}
         />

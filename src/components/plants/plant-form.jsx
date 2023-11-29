@@ -8,6 +8,7 @@ export default function PlantForm({
   loggedUserId,
   handleSuccessfulFormSubmission,
   handleSuccessfulFormEditSubmission,
+  handleUnsuccesfulLogin,
   clearPlantToEdit,
   plantToEdit,
 }) {
@@ -15,7 +16,6 @@ export default function PlantForm({
     name: '',
     description: '',
     category_id: 1,
-    public: true,
     irrigation_type: 'muypoca',
     light_type: 'muypoca',
     location: '',
@@ -23,6 +23,7 @@ export default function PlantForm({
     image_url: '',
   });
   const [imageFile, setImageFile] = useState(null);
+  const [plantPublic, setPlantPublic] = useState(true);
   const [formParameters, setFormParameters] = useState({
     editMode: false,
     apiUrl: 'http://localhost:8000/users/' + loggedUserId + '/addplant',
@@ -40,6 +41,11 @@ export default function PlantForm({
       ...plantData,
       [event.target.name]: event.target.value,
     });
+  }
+
+  function handleChangeCheckbox(event) {
+    console.log(event.target.value);
+    setPlantPublic(!plantPublic);
   }
 
   function handleDeleteImage() {
@@ -70,6 +76,9 @@ export default function PlantForm({
       .catch(error => {
         // handle error
         console.log(error);
+        if (error.message.includes('401')) {
+          handleUnsuccesfulLogin();
+        }
       })
       .finally(function () {
         // always executed
@@ -84,6 +93,7 @@ export default function PlantForm({
     formData.append('irrigation_type', plantData.irrigation_type);
     formData.append('light_type', plantData.light_type);
     formData.append('description', plantData.description);
+    formData.append('public', plantPublic);
     if (imageFile) {
       formData.append('imagefile', imageFile);
     }
@@ -96,6 +106,7 @@ export default function PlantForm({
     if (Object.keys(plantToEdit).length > 0) {
       // console.log('editando planta', plantToEdit);
       setPlantData(plantToEdit);
+      setPlantPublic(plantToEdit.public);
       clearPlantToEdit();
       setFormParameters({
         editMode: true,
@@ -163,6 +174,14 @@ export default function PlantForm({
           placeholder='Descripción'
           value={plantData.description}
           onChange={handleChange}
+        />
+      </div>
+      <div className='one-column'>
+        <input
+          type='checkbox'
+          name='public'
+          checked={plantPublic}
+          onChange={handleChangeCheckbox}
         />
       </div>
       <div className='image-uploaders'>
