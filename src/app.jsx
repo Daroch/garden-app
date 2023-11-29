@@ -82,7 +82,7 @@ export default function App() {
       />,
       <Route
         key='alerts'
-        path='alerts'
+        path='/alerts'
         element={
           <AlertManager
             loggedInStatus={loggedInStatus}
@@ -106,15 +106,18 @@ export default function App() {
       />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='about' element={<About />} />
-        <Route path='contact' element={<Contact />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/contact' element={<Contact />} />
 
         {loggedInStatus === 'LOGGED_IN' ? authorizedPages() : null}
 
-        <Route path='explore' element={<Explore />} />
-        <Route path='profile' element={<Profile username={loggedUsername} />} />
+        <Route path='/explore' element={<Explore />} />
         <Route
-          path='login'
+          path='/profile'
+          element={<Profile username={loggedUsername} />}
+        />
+        <Route
+          path='/login'
           element={
             <Login
               handleSuccesfulLogin={handleSuccesfulLogin}
