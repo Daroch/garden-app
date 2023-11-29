@@ -3,8 +3,7 @@ export default function PlantItem({
   handleDeleteClick,
   handleEditClick,
 }) {
-  const imagePath =
-    `http://localhost:8000/images/plants/${plant.owner_id}/${plant.id}/${plant.image_url}`;
+  const imagePath = `http://localhost:8000/images/plants/${plant.owner_id}/${plant.id}/${plant.image_url}`;
 
   return (
     <div className='plant-item-wrapper'>
@@ -35,9 +34,7 @@ export default function PlantItem({
           Eliminar
         </button>
         <div className='image'>
-          <>
-            <img src={imagePath} />
-          </>
+          {plant.image_url !== null && <img src={imagePath} />}
         </div>
       </div>
     </div>
