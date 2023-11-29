@@ -123,7 +123,7 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
-        contentLabel='Example Modal'
+        contentLabel='Plant Modal'
       >
         <PlantForm
           loggedUserId={loggedUserId}

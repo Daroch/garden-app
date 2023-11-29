@@ -138,6 +138,7 @@ export default function PlantForm({
         >
           <option value='1'>Muy poca</option>
           <option value='2'>Poca</option>
+          <option value='2'>Normal</option>
           <option value='3'>Bastante</option>
           <option value='4'>Mucha</option>
         </select>
@@ -150,6 +151,7 @@ export default function PlantForm({
         >
           <option value='1'>Muy poca</option>
           <option value='2'>Poca</option>
+          <option value='2'>Normal</option>
           <option value='3'>Bastante</option>
           <option value='4'>Mucha</option>
         </select>
@@ -179,7 +181,7 @@ export default function PlantForm({
               <section>
                 <div {...getRootProps()}>
                   <input {...getInputProps()} />
-                  <p>Drag and drop some files here, or click to select files</p>
+                  <p>Arrastra tus archivos aquí o haz click</p>
                 </div>
               </section>
             )}
