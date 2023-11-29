@@ -3,7 +3,8 @@ export default function PlantItem({
   handleDeleteClick,
   handleEditClick,
 }) {
-  const imagePath = 'http://localhost:8000/images/plants/' + plant.image_url;
+  const imagePath =
+    `http://localhost:8000/images/plants/${plant.owner_id}/${plant.id}/${plant.image_url}`;
 
   return (
     <div className='plant-item-wrapper'>

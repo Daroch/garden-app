@@ -53,6 +53,7 @@ export default function PlantForm({
     setImageFile(null);
     setPlantData({ ...plantData, image_url: '' });
   }
+
   function handleSubmit(event) {
     event.preventDefault();
     axios({
@@ -94,6 +95,7 @@ export default function PlantForm({
     formData.append('light_type', plantData.light_type);
     formData.append('description', plantData.description);
     formData.append('public', plantPublic);
+    formData.append('image_url', plantData.image_url);
     if (imageFile) {
       formData.append('imagefile', imageFile);
     }
@@ -188,7 +190,7 @@ export default function PlantForm({
         {formParameters.editMode && plantData.image_url ? (
           <div className='plant-manager-image-wrapper'>
             <img
-              src={`http://localhost:8000/images/plants/${plantData.image_url}`}
+              src={`http://localhost:8000/images/plants/${loggedUserId}/${plantData.id}/${plantData.image_url}`}
             />
             <div className='image-removal-link'>
               <a onClick={() => handleDeleteImage('image_url')}>Remove image</a>
