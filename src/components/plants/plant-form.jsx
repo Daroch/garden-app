@@ -43,7 +43,7 @@ export default function PlantForm({
     });
   }
 
-  function handleChangeCheckbox(event) {
+  function handlePublicChange(event) {
     console.log(event.target.value);
     setPlantPublic(!plantPublic);
   }
@@ -183,7 +183,7 @@ export default function PlantForm({
           type='checkbox'
           name='public'
           checked={plantPublic}
-          onChange={handleChangeCheckbox}
+          onChange={handlePublicChange}
         />
       </div>
       <div className='image-uploaders'>
