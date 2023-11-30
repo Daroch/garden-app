@@ -138,10 +138,8 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
       </Modal>
       <PlantContainer
         plants={plants}
-        setPlants={setPlants}
         handleDeleteClick={handleDeleteClick}
         handleEditClick={handleEditClick}
-        handleUnsuccesfulLogin={handleUnsuccesfulLogin}
       />
     </div>
   );

@@ -2,10 +2,8 @@ import PlantItem from './plant-item';
 
 export default function PlantContainer({
   plants,
-  setPlants,
   handleDeleteClick,
   handleEditClick,
-  handleUnsuccesfulLogin,
 }) {
   function plantItems() {
     return plants.map(plant => {
