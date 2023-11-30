@@ -8,6 +8,8 @@ import { fetchToken } from '../auth/login';
 
 export default function AlertManager({ loggedUserId, handleUnsuccesfulLogin }) {
   const [alerts, setAlerts] = useState([]);
+  const [alertTypes, setAlertTypes] = useState([]);
+  const [plants, setPlants] = useState([]);
   const [modalAlertIsOpen, setModalAlertIsOpen] = useState(false);
   const [alertToEdit, setAlertToEdit] = useState({});
 
@@ -88,6 +90,27 @@ export default function AlertManager({ loggedUserId, handleUnsuccesfulLogin }) {
     setAlertToEdit({});
   }
 
+  function getAlertTypes() {
+    axios({
+      // ayudame con esta llamada a la api
+      method: 'get',
+      url: 'http://localhost:8000/alert_types/',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + fetchToken(),
+      },
+    })
+      .then(response => {
+        // handle success
+        console.log(response);
+        setAlertTypes(response.data);
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+      });
+  }
+
   function getAlertItems() {
     axios({
       method: 'get',
@@ -106,12 +129,36 @@ export default function AlertManager({ loggedUserId, handleUnsuccesfulLogin }) {
         // handle error
         console.log(error);
         handleUnsuccesfulLogin();
+      });
+  }
+
+  function getPlantItems() {
+    axios({
+      method: 'get',
+      url: 'http://localhost:8000/users/me/plants',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + fetchToken(),
+      },
+    })
+      .then(response => {
+        // handle success
+        console.log(response);
+        setPlants(response.data);
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+        handleUnsuccesfulLogin();
       })
       .finally(function () {
         // always executed
       });
   }
+
   useEffect(getAlertItems, []);
+  useEffect(getAlertTypes, []);
+  useEffect(getPlantItems, []);
   return (
     <div>
       <h1>Gestiona tus alertas!!</h1>
@@ -135,14 +182,14 @@ export default function AlertManager({ loggedUserId, handleUnsuccesfulLogin }) {
           }
           clearAlertToEdit={clearAlertToEdit}
           alertToEdit={alertToEdit}
+          alertTypes={alertTypes}
+          plants={plants}
         />
       </Modal>
       <AlertContainer
         alerts={alerts}
-        setAlerts={setAlerts}
         handleDeleteAlertClick={handleDeleteAlertClick}
         handleEditAlertClick={handleEditAlertClick}
-        handleUnsuccesfulLogin={handleUnsuccesfulLogin}
       />
     </div>
   );

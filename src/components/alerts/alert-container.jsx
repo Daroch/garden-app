@@ -2,16 +2,25 @@ import AlertItem from './alert-item';
 
 export default function AlertContainer({
   alerts,
-  setAlerts,
   handleDeleteClick,
   handleEditClick,
-  handleUnsuccesfulLogin,
 }) {
   function alertItems() {
     return alerts.map(alert => {
-      return <AlertItem key={alert.id} alert={alert} />;
+      return (
+        <AlertItem
+          key={alert.id}
+          alert={alert}
+          handleDeleteClick={handleDeleteClick}
+          handleEditClick={handleEditClick}
+        />
+      );
     });
   }
 
-  return <div>{alertItems()}</div>;
+  return (
+    <>
+      <div className='alert-container-wrapper'>{alertItems()}</div>
+    </>
+  );
 }
