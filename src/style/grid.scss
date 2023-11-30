@@ -12,3 +12,8 @@
   @include base-grid();
   grid-template-columns: 1fr 1fr 1fr;
 }
+
+.four-column {
+  @include base-grid();
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
