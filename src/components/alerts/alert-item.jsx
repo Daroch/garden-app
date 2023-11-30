@@ -1,7 +1,7 @@
 export default function AlertItem({
   alert,
-  handleDeleteClick,
-  handleEditClick,
+  handleDeleteAlertClick,
+  handleEditAlertClick,
 }) {
   return (
     <div className='alert-item-wrapper'>
@@ -16,10 +16,10 @@ export default function AlertItem({
         <div className='created'>
           <>Alerta añadida en:{alert.created_at}</>
         </div>
-        <button className='btn' onClick={() => handleEditClick(alert)}>
+        <button className='btn' onClick={() => handleEditAlertClick(alert)}>
           Editar
         </button>
-        <button className='btn' onClick={() => handleDeleteClick(alert)}>
+        <button className='btn' onClick={() => handleDeleteAlertClick(alert)}>
           Eliminar
         </button>
       </div>

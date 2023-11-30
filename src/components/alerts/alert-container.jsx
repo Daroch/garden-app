@@ -2,8 +2,8 @@ import AlertItem from './alert-item';
 
 export default function AlertContainer({
   alerts,
-  handleDeleteClick,
-  handleEditClick,
+  handleDeleteAlertClick,
+  handleEditAlertClick,
 }) {
   function alertItems() {
     return alerts.map(alert => {
@@ -11,8 +11,8 @@ export default function AlertContainer({
         <AlertItem
           key={alert.id}
           alert={alert}
-          handleDeleteClick={handleDeleteClick}
-          handleEditClick={handleEditClick}
+          handleDeleteAlertClick={handleDeleteAlertClick}
+          handleEditAlertClick={handleEditAlertClick}
         />
       );
     });
