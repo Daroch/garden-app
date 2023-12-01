@@ -15,6 +15,7 @@ export default function AlertForm({
   alertToEdit,
   alertTypes,
   plants,
+  setErrorText,
 }) {
   const [alertData, setAlertData] = useState({
     alert_type_id: 1,
@@ -31,17 +32,39 @@ export default function AlertForm({
   const [startDate, setStartDate] = useState(new Date());
   const [formParameters, setFormParameters] = useState({
     editMode: false,
-    apiUrl: `http://localhost:8000/users/${loggedUserId}/plant/${alertData.plant_id}/addalert`,
+    apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${alertData.plant_id}/addalert`,
     apiAction: 'post',
   });
 
   const handleStatusChange = () => {
     setStatus(!status);
+    alertData.status = !status;
   };
 
   const handleRepeatChange = () => {
     setRepeat(!repeat);
+    alertData.repeat = !repeat;
   };
+
+  function handlePlantChange(event) {
+    setAlertData({
+      ...alertData,
+      [event.target.name]: event.target.value,
+    });
+    if (formParameters.editMode) {
+      setFormParameters({
+        ...formParameters,
+        apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${event.target.value}/updatealert/${alertData.id}`,
+        apiAction: 'patch',
+      });
+    } else {
+      setFormParameters({
+        ...formParameters,
+        apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${event.target.value}/addalert/`,
+        apiAction: 'post',
+      });
+    }
+  }
 
   function handleChange(event) {
     setAlertData({
@@ -54,6 +77,7 @@ export default function AlertForm({
     event.preventDefault();
     alertData.repeat = repeat;
     alertData.status = status;
+    alertData.start_date = startDate;
     axios({
       method: formParameters.apiAction,
       url: formParameters.apiUrl,
@@ -75,6 +99,7 @@ export default function AlertForm({
       .catch(error => {
         // handle error
         console.log(error);
+        setErrorText('Error submitting alert');
       })
       .finally(function () {
         // always executed
@@ -84,23 +109,21 @@ export default function AlertForm({
   useEffect(() => {
     if (Object.keys(alertToEdit).length > 0) {
       setAlertData(alertToEdit);
-      clearAlertToEdit();
+      setStatus(alertToEdit.status);
+      setRepeat(alertToEdit.repeat);
+      setStartDate(new Date(alertToEdit.start_date));
       setFormParameters({
         editMode: true,
-        apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${alertData.plant_id}/updatealert/${alertToEdit.id}`,
+        apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${alertToEdit.plant_id}/updatealert/${alertToEdit.id}`,
         apiAction: 'patch',
       });
+      clearAlertToEdit();
     }
   }, [alertToEdit]);
+
   useEffect(() => {
-    if (alertData.plant_id) {
-      setFormParameters({
-        editMode: false,
-        apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${alertData.plant_id}/addalert`,
-        apiAction: 'post',
-      });
-    }
-  }, [alertData.plant_id]);
+    alertData.start_date = startDate;
+  }, [startDate]);
 
   return (
     <form onSubmit={handleSubmit} className='plant-form-wrapper'>
@@ -113,6 +136,7 @@ export default function AlertForm({
           onChange={handleChange}
           className='select-element'
         >
+          <option value=''>Select an alert type</option>
           {alertTypes.map(alertType => {
             return (
               <option key={alertType.id} value={alertType.id}>
@@ -180,9 +204,10 @@ export default function AlertForm({
           name='plant_id'
           placeholder='Planta'
           value={alertData.plant_id}
-          onChange={handleChange}
+          onChange={handlePlantChange}
           className='select-element'
         >
+          <option value=''>Select a plant</option>
           {plants.map(plant => {
             return (
               <option key={plant.id} value={plant.id}>
