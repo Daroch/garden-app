@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
+import DateTimePicker from 'react-datetime-picker';
+import 'react-datetime-picker/dist/DateTimePicker.css';
+import 'react-calendar/dist/Calendar.css';
+import 'react-clock/dist/Clock.css';
 
 import { fetchToken } from '../auth/login';
 
@@ -24,6 +28,7 @@ export default function AlertForm({
   });
   const [status, setStatus] = useState(true);
   const [repeat, setRepeat] = useState(true);
+  const [startDate, setStartDate] = useState(new Date());
   const [formParameters, setFormParameters] = useState({
     editMode: false,
     apiUrl: `http://localhost:8000/users/${loggedUserId}/plant/${alertData.plant_id}/addalert`,
@@ -116,13 +121,10 @@ export default function AlertForm({
             );
           })}
         </select>
-        <input
-          type='text'
+        <DateTimePicker
           name='start_date'
-          id='start_date'
-          placeholder='Fecha alerta'
-          value={alertData.start_date}
-          onChange={handleChange}
+          onChange={setStartDate}
+          value={startDate}
         />
       </div>
       <div className='four-column'>
@@ -190,6 +192,7 @@ export default function AlertForm({
           })}
         </select>
       </div>
+      <div></div>
       <button className='btn' type='submit'>
         Submit
       </button>
