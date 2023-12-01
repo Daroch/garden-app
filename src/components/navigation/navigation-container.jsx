@@ -69,6 +69,7 @@ export default function NavigationContainer(props) {
           ? dinamycLink('/login', 'Login')
           : null}
       </div>
+      {props.errorText && <p className='error-text'>{props.errorText}</p>}
     </div>
   );
 }

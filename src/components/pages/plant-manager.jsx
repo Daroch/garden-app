@@ -6,7 +6,11 @@ import PlantContainer from '../plants/plant-container';
 import PlantForm from '../plants/plant-form';
 import { fetchToken } from '../auth/login';
 
-export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
+export default function PlantManager({
+  loggedUserId,
+  handleUnsuccesfulLogin,
+  setErrorText,
+}) {
   const [plants, setPlants] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [plantToEdit, setPlantToEdit] = useState({});
@@ -67,6 +71,7 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
       .catch(error => {
         // handle error
         console.log('Error deleting item', error);
+        setErrorText('Error deleting item');
       });
   }
 
@@ -105,6 +110,7 @@ export default function PlantManager({ loggedUserId, handleUnsuccesfulLogin }) {
       .catch(error => {
         // handle error
         console.log(error);
+        setErrorText('Error getting plants');
         handleUnsuccesfulLogin();
       })
       .finally(function () {

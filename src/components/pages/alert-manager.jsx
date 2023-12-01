@@ -6,7 +6,11 @@ import AlertContainer from '../alerts/alert-container';
 import AlertForm from '../alerts/alert-form';
 import { fetchToken } from '../auth/login';
 
-export default function AlertManager({ loggedUserId, handleUnsuccesfulLogin }) {
+export default function AlertManager({
+  loggedUserId,
+  handleUnsuccesfulLogin,
+  setErrorText,
+}) {
   const [alerts, setAlerts] = useState([]);
   const [alertTypes, setAlertTypes] = useState([]);
   const [plants, setPlants] = useState([]);
@@ -51,7 +55,7 @@ export default function AlertManager({ loggedUserId, handleUnsuccesfulLogin }) {
   function handleDeleteAlertClick(alertItem) {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/users/${loggedUserId}/alerts/${alertItem.id}`,
+      url: `http://localhost:8000/users/${loggedUserId}/plants/${alertItem.id}/alerts/${alertItem.id}`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -69,6 +73,7 @@ export default function AlertManager({ loggedUserId, handleUnsuccesfulLogin }) {
       .catch(error => {
         // handle error
         console.log('Error deleting item', error);
+        setErrorText('Error deleting item');
       });
   }
 
@@ -108,6 +113,7 @@ export default function AlertManager({ loggedUserId, handleUnsuccesfulLogin }) {
       .catch(error => {
         // handle error
         console.log(error);
+        setErrorText('Error getting alert types');
       });
   }
 
@@ -128,6 +134,7 @@ export default function AlertManager({ loggedUserId, handleUnsuccesfulLogin }) {
       .catch(error => {
         // handle error
         console.log(error);
+        setErrorText('Error getting alerts');
         handleUnsuccesfulLogin();
       });
   }
@@ -150,6 +157,7 @@ export default function AlertManager({ loggedUserId, handleUnsuccesfulLogin }) {
         // handle error
         console.log(error);
         handleUnsuccesfulLogin();
+        setErrorText('Error getting plants');
       })
       .finally(function () {
         // always executed
@@ -184,12 +192,14 @@ export default function AlertManager({ loggedUserId, handleUnsuccesfulLogin }) {
           alertToEdit={alertToEdit}
           alertTypes={alertTypes}
           plants={plants}
+          setErrorText={setErrorText}
         />
       </Modal>
       <AlertContainer
         alerts={alerts}
         handleDeleteAlertClick={handleDeleteAlertClick}
         handleEditAlertClick={handleEditAlertClick}
+        setErrorText={setErrorText}
       />
     </div>
   );

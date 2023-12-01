@@ -4,6 +4,7 @@ export default function AlertContainer({
   alerts,
   handleDeleteAlertClick,
   handleEditAlertClick,
+  setErrorText,
 }) {
   function alertItems() {
     return alerts.map(alert => {
@@ -13,6 +14,7 @@ export default function AlertContainer({
           alert={alert}
           handleDeleteAlertClick={handleDeleteAlertClick}
           handleEditAlertClick={handleEditAlertClick}
+          setErrorText={setErrorText}
         />
       );
     });

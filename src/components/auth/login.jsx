@@ -20,8 +20,8 @@ export function fetchToken() {
 export default function Login({
   handleSuccesfulLogin,
   handleUnsuccesfulLogin,
+  setErrorText,
 }) {
-  const [errorText, setErrorText] = useState(null);
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
@@ -51,7 +51,7 @@ export default function Login({
     })
       .then(response => {
         if (response.status === 200) {
-          setErrorText(' Great, Login correct!');
+          setErrorText();
           if (response.data.access_token) {
             saveToken(response.data.access_token);
             handleSuccesfulLogin();
@@ -73,7 +73,6 @@ export default function Login({
   return (
     <div>
       <h1>Login to Access DashBoard</h1>
-      <div>{errorText}</div>
       <form onSubmit={handleSubmit}>
         <input
           type='text'

@@ -18,6 +18,7 @@ export default function App() {
   const [loggedInStatus, setloggedInStatus] = useState('NOT_LOGGED_IN');
   const [loggedUsername, setloggedUsername] = useState('');
   const [loggedUserId, setloggedUserId] = useState('');
+  const [errorText, setErrorText] = useState(null);
   const navigate = useNavigate();
 
   function handleSuccesfulLogin() {
@@ -77,6 +78,7 @@ export default function App() {
           <PlantManager
             loggedUserId={loggedUserId}
             handleUnsuccesfulLogin={handleUnsuccesfulLogin}
+            setErrorText={setErrorText}
           />
         }
       />,
@@ -87,6 +89,7 @@ export default function App() {
           <AlertManager
             loggedInStatus={loggedInStatus}
             loggedUserId={loggedUserId}
+            setErrorText={setErrorText}
           />
         }
       />,
@@ -103,7 +106,9 @@ export default function App() {
       <NavigationContainer
         loggedInStatus={loggedInStatus}
         handleUnsuccesfulLogin={handleUnsuccesfulLogin}
+        errorText={errorText}
       />
+
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
@@ -115,6 +120,7 @@ export default function App() {
         <Route
           path='/profile'
           element={<Profile username={loggedUsername} />}
+          setErrorText={setErrorText}
         />
         <Route
           path='/login'
@@ -122,6 +128,7 @@ export default function App() {
             <Login
               handleSuccesfulLogin={handleSuccesfulLogin}
               handleUnsuccesfulLogin={handleUnsuccesfulLogin}
+              setErrorText={setErrorText}
             />
           }
         />
