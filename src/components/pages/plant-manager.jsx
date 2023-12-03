@@ -11,6 +11,7 @@ export default function PlantManager({
   handleUnsuccesfulLogin,
   setErrorText,
 }) {
+  const [categories, setCategories] = useState([]);
   const [plants, setPlants] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [plantToEdit, setPlantToEdit] = useState({});
@@ -93,6 +94,28 @@ export default function PlantManager({
     setPlantToEdit({});
   }
 
+  function getCategories() {
+    axios({
+      method: 'get',
+      url: 'http://localhost:8000/categories',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'Bearer ' + fetchToken(),
+      },
+    })
+      .then(response => {
+        // handle success
+        console.log(response);
+        setCategories(response.data);
+      })
+      .catch(error => {
+        // handle error
+        console.log(error);
+        setErrorText('Error getting alert types');
+      });
+  }
+
+
   function getPlantItems() {
     axios({
       method: 'get',
@@ -117,7 +140,9 @@ export default function PlantManager({
         // always executed
       });
   }
+  useEffect(getCategories, []);
   useEffect(getPlantItems, []);
+
   return (
     <div>
       <h1>Gestiona tus plantas!!</h1>
@@ -140,6 +165,7 @@ export default function PlantManager({
           handleUnsuccesfulLogin={handleUnsuccesfulLogin}
           clearPlantToEdit={clearPlantToEdit}
           plantToEdit={plantToEdit}
+          categories={categories}
         />
       </Modal>
       <PlantContainer

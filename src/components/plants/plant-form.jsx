@@ -11,11 +11,12 @@ export default function PlantForm({
   handleUnsuccesfulLogin,
   clearPlantToEdit,
   plantToEdit,
+  categories,
 }) {
   const [plantData, setPlantData] = useState({
     name: '',
     description: '',
-    category_id: 1,
+    category_id: '',
     irrigation_type: 'muypoca',
     light_type: 'muypoca',
     location: '',
@@ -135,10 +136,14 @@ export default function PlantForm({
           onChange={handleChange}
           className='select-element'
         >
-          <option value='1'>Ornamentales</option>
-          <option value='2'>Huerto</option>
-          <option value='3'>Árboles</option>
-          <option value='4'>Setas</option>
+          <option value=''>Select a Category</option>
+          {categories.map(category => {
+            return (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            );
+          })}
         </select>
       </div>
       <div className='two-column'>
