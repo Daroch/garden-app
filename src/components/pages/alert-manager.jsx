@@ -97,9 +97,8 @@ export default function AlertManager({
 
   function getAlertTypes() {
     axios({
-      // ayudame con esta llamada a la api
       method: 'get',
-      url: 'http://localhost:8000/alert_types/',
+      url: 'http://localhost:8000/alert_types',
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -120,7 +119,7 @@ export default function AlertManager({
   function getAlertItems() {
     axios({
       method: 'get',
-      url: `http://localhost:8000/users/${loggedUserId}/alerts/`,
+      url: `http://localhost:8000/users/${loggedUserId}/alerts`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),

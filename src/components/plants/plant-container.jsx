@@ -4,6 +4,7 @@ export default function PlantContainer({
   plants,
   handleDeleteClick,
   handleEditClick,
+  handleDetailClick,
 }) {
   function plantItems() {
     return plants.map(plant => {
@@ -14,6 +15,7 @@ export default function PlantContainer({
           plant={plant}
           handleDeleteClick={handleDeleteClick}
           handleEditClick={handleEditClick}
+          handleDetailClick={handleDetailClick}
         />
       );
     });

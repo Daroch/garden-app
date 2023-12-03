@@ -2,6 +2,7 @@ export default function PlantItem({
   plant,
   handleDeleteClick,
   handleEditClick,
+  handleDetailClick,
 }) {
   const imagePath = `http://localhost:8000/images/plants/${plant.owner_id}/${plant.id}/${plant.image_url}`;
 
@@ -32,6 +33,9 @@ export default function PlantItem({
         </button>
         <button className='btn' onClick={() => handleDeleteClick(plant)}>
           Eliminar
+        </button>
+        <button className='btn' onClick={() => handleDetailClick(plant)}>
+          Detalles
         </button>
         <div className='image'>
           {plant.image_url !== null && <img src={imagePath} />}

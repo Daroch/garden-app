@@ -10,6 +10,7 @@ import Contact from './components/pages/contact';
 import Explore from './components/pages/explore';
 import AlertManager from './components/pages/alert-manager';
 import PlantManager from './components/pages/plant-manager';
+import PlantDetails from './components/plants/plant-details';
 import Login, { fetchToken, deleteToken } from './components/auth/login';
 
 import './style/main.scss';
@@ -93,6 +94,7 @@ export default function App() {
           />
         }
       />,
+      <Route key='details' path='/details' element={<PlantDetails />} />,
     ];
   }
 
