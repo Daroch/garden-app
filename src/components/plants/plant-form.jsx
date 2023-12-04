@@ -154,11 +154,11 @@ export default function PlantForm({
           onChange={handleChange}
           className='select-element'
         >
-          <option value='1'>Muy poca</option>
-          <option value='2'>Poca</option>
-          <option value='3'>Normal</option>
-          <option value='4'>Bastante</option>
-          <option value='5'>Mucha</option>
+          <option value='level1'>Muy poca</option>
+          <option value='level2'>Poca</option>
+          <option value='level3'>Normal</option>
+          <option value='level4'>Bastante</option>
+          <option value='level5'>Mucha</option>
         </select>
         <select
           name='light_type'
@@ -167,11 +167,11 @@ export default function PlantForm({
           onChange={handleChange}
           className='select-element'
         >
-          <option value='1'>Muy poca</option>
-          <option value='2'>Poca</option>
-          <option value='3'>Normal</option>
-          <option value='4'>Bastante</option>
-          <option value='5'>Mucha</option>
+          <option value='level1'>Muy poca</option>
+          <option value='level2'>Poca</option>
+          <option value='level3'>Normal</option>
+          <option value='level4'>Bastante</option>
+          <option value='level5'>Mucha</option>
         </select>
       </div>
       <div className='one-column'>

@@ -5,7 +5,13 @@ export default function PlantItem({
   handleDetailClick,
 }) {
   const imagePath = `http://localhost:8000/images/plants/${plant.owner_id}/${plant.id}/${plant.image_url}`;
-
+  const levels = {
+    level1: 'Muy poca',
+    level2: 'Poca',
+    level3: 'Normal',
+    level4: 'Bastante',
+    level5: 'Mucha',
+  };
   return (
     <div className='plant-item-wrapper'>
       <div className='plant-item-header'>
@@ -17,16 +23,16 @@ export default function PlantItem({
           <>{plant.description}</>
         </div>
         <div className='irrigarion'>
-          <>Riego: {plant.irrigation_type}</>
+          <>Riego: {levels[plant.irrigation_type]}</>
         </div>
         <div className='light'>
-          <>Luz: {plant.light_type}</>
+          <>Luz: {levels[plant.light_type]}</>
         </div>
         <div className='created'>
-          <>Planta añadida en:{plant.created_at}</>
+          <>Planta añadida en: {plant.created_at}</>
         </div>
         <div className='public'>
-          <>Planta publica:{plant.public ? 'publica' : 'privada'}</>
+          <>Visibilidad: {plant.public ? 'publica' : 'privada'}</>
         </div>
         <button className='btn' onClick={() => handleEditClick(plant)}>
           Editar
