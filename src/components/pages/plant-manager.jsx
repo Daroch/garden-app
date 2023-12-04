@@ -87,7 +87,7 @@ export default function PlantManager({
 
   function handleDetailClick(plantItem) {
     console.log('handleDetailClick', plantItem);
-    navigate('/details', { state: { plantItem: plantItem } });
+    navigate('/details', { state: { plantItem } });
   }
 
   function handleCreateNewClick() {
