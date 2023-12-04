@@ -41,6 +41,14 @@ export default function NavigationContainer(props) {
         </div>
         <div className='nav-link-wrapper'>
           <NavLink
+            to='/icons'
+            className={({ isActive }) => (isActive ? 'nav-link-active' : ' ')}
+          >
+            Test Icons
+          </NavLink>
+        </div>
+        <div className='nav-link-wrapper'>
+          <NavLink
             to='/about'
             className={({ isActive }) => (isActive ? 'nav-link-active' : ' ')}
           >
