@@ -31,7 +31,13 @@ import {
   faClockRotateLeft,
   faCalendarDays,
   faMagnifyingGlass,
+  faMapMarker,
+  faStickyNote,
 } from '@fortawesome/free-solid-svg-icons';
+import {
+  faEye as faEyeRegular,
+  faStickyNote as faStickyNoteRegular,
+} from '@fortawesome/free-regular-svg-icons';
 import { faPagelines } from '@fortawesome/free-brands-svg-icons';
 
 library.add(
@@ -66,6 +72,10 @@ library.add(
   faCalendarDays,
   faMagnifyingGlass,
   faPagelines,
+  faMapMarker,
+  faStickyNote,
+  faEyeRegular,
+  faStickyNoteRegular,
 );
 export default function Icons() {
   return (
@@ -101,6 +111,10 @@ export default function Icons() {
       <FontAwesomeIcon icon='fa-solid fa-clock-rotate-left' />
       <FontAwesomeIcon icon='fa-solid fa-calendar-days' />
       <FontAwesomeIcon icon='fa-solid fa-magnifying-glass' />
+      <FontAwesomeIcon icon='fa-solid fa-map-marker' />
+      <FontAwesomeIcon icon='fa-solid fa-sticky-note' />
+      <FontAwesomeIcon icon='fa-regular fa-eye' />
+      <FontAwesomeIcon icon='fa-regular fa-sticky-note' />
     </div>
   );
 }

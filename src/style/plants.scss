@@ -27,3 +27,44 @@
     }
   }
 }
+
+.plant-details-wrapper {
+  border: 1px solid $dark-green;
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $light-green;
+  border: 1px solid $dark-green2;
+
+  &:hover {
+    background-color: $light-green;
+  }
+  .plant-details-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid $dark-green2;
+
+    .left-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .image {
+        max-width: 90%;
+        height: 600px;
+        overflow: hidden;
+        img {
+          width: 100%;
+        }
+      }
+    }
+    .right-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+  }
+}

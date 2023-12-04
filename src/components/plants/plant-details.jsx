@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PlantItem from './plant-item';
 import { useLocation } from 'react-router-dom';
 
@@ -18,7 +19,7 @@ export default function PlantDetails() {
     created_at,
     owner_id,
     category_id,
-    public: isPublic,
+    plant_public,
   } = plantItem;
   const imagePath = `http://localhost:8000/images/plants/${owner_id}/${id}/${image_url}`;
   const levels = {
@@ -29,27 +30,53 @@ export default function PlantDetails() {
     level5: 'Mucha',
   };
   return (
-    <div className='plant-item-wrapper'>
-      <div className='plant-item-header'>
-        <h1>{name}</h1>
-        id: {id}
-      </div>
-      <div className='plant-item-card'>
-        <div className='description'>
-          <>{description}</>
+    <div className='plant-details-wrapper'>
+      <div className='plant-details-info'>
+        <div className='left-wrapper'>
+          <div className='image'>
+            {image_url !== null && <img src={imagePath} />}
+          </div>
         </div>
-        <div className='irrigarion'>
-          <>Riego: {levels[irrigation_type]}</>
-        </div>
-        <div className='light'>
-          <>Luz: {levels[light_type]}</>
-        </div>
-        <div className='created'>
-          <>Planta añadida en: {created_at}</>
-        </div>
+        <div className='right-wrapper'>
+          <div className='plant-title'>
+            <h1>{name}</h1>
+          </div>
+          <div className='description'>
+            <>{description}</>
+          </div>
+          <div className='category'>
+            <>{category_id}</>
+          </div>
+          <div className='irrigarion'>
+            <>
+              <FontAwesomeIcon icon='fa-solid fa-faucet-drip' /> Riego:{' '}
+              {levels[irrigation_type]}
+            </>
+          </div>
 
-        <div className='image'>
-          {image_url !== null && <img src={imagePath} />}
+          <div className='light'>
+            <>
+              {' '}
+              <FontAwesomeIcon icon='fa-solid fa-sun' /> Luz:{' '}
+              {levels[light_type]}
+            </>
+          </div>
+          <div className='created'>
+            <>Planta añadida en: {created_at}</>
+          </div>
+          <div>
+            <FontAwesomeIcon icon='fa-regular fa-eye' />
+            Visibilidad: {plant_public}
+          </div>
+          <div>
+            <FontAwesomeIcon icon='fa-solid fa-sticky-note' />
+            Notas: {notes}
+          </div>
+          <div>
+            <FontAwesomeIcon icon='fa-solid fa-map-marker' />
+            Ubicación: {location}
+          </div>
+          <div> id: {id}</div>
         </div>
       </div>
     </div>
