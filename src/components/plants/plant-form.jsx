@@ -95,7 +95,7 @@ export default function PlantForm({
     formData.append('irrigation_type', plantData.irrigation_type);
     formData.append('light_type', plantData.light_type);
     formData.append('description', plantData.description);
-    formData.append('public', plantPublic);
+    formData.append('plant_public', plantPublic);
     formData.append('image_url', plantData.image_url);
     if (imageFile) {
       formData.append('imagefile', imageFile);
@@ -109,7 +109,7 @@ export default function PlantForm({
     if (Object.keys(plantToEdit).length > 0) {
       // console.log('editando planta', plantToEdit);
       setPlantData(plantToEdit);
-      setPlantPublic(plantToEdit.public);
+      setPlantPublic(plantToEdit.plant_public);
       clearPlantToEdit();
       setFormParameters({
         editMode: true,
@@ -154,11 +154,11 @@ export default function PlantForm({
           onChange={handleChange}
           className='select-element'
         >
-          <option value='1'>Muy poca</option>
-          <option value='2'>Poca</option>
-          <option value='3'>Normal</option>
-          <option value='4'>Bastante</option>
-          <option value='5'>Mucha</option>
+          <option value='level1'>Muy poca</option>
+          <option value='level2'>Poca</option>
+          <option value='level3'>Normal</option>
+          <option value='level4'>Bastante</option>
+          <option value='level5'>Mucha</option>
         </select>
         <select
           name='light_type'
@@ -167,11 +167,11 @@ export default function PlantForm({
           onChange={handleChange}
           className='select-element'
         >
-          <option value='1'>Muy poca</option>
-          <option value='2'>Poca</option>
-          <option value='3'>Normal</option>
-          <option value='4'>Bastante</option>
-          <option value='5'>Mucha</option>
+          <option value='level1'>Muy poca</option>
+          <option value='level2'>Poca</option>
+          <option value='level3'>Normal</option>
+          <option value='level4'>Bastante</option>
+          <option value='level5'>Mucha</option>
         </select>
       </div>
       <div className='one-column'>
@@ -186,7 +186,7 @@ export default function PlantForm({
       <div className='one-column'>
         <input
           type='checkbox'
-          name='public'
+          name='plant_public'
           checked={plantPublic}
           onChange={handlePublicChange}
         />

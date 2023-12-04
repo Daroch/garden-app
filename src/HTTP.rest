@@ -23,7 +23,7 @@ content-type: application/json
 POST http://localhost:8000/users/1/addplant
 ?name=Perejil
 &category_id=1
-&public=true
+&plant_public=true
 accept: application/json
 content-type:  "multipart/form-data; boundary=----WebKitFormBoundaryM2zKSP2Vjo1PFMWy"
 //Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJGcm9kbyIsImV4cCI6MTcwMDg4NTk5NX0.Jj7EUFYHVqNGp9xMaqmP-ENTkK5LL9lwqzkRAoJ1-S4

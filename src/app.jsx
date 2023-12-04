@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import Icons from './components/navigation/icons';
 
 import NavigationContainer from './components/navigation/navigation-container';
 import Home from './components/pages/home';
@@ -10,8 +11,9 @@ import Contact from './components/pages/contact';
 import Explore from './components/pages/explore';
 import AlertManager from './components/pages/alert-manager';
 import PlantManager from './components/pages/plant-manager';
+import JournalManager from './components/pages/journal-manager';
+import PlantDetails from './components/plants/plant-details';
 import Login, { fetchToken, deleteToken } from './components/auth/login';
-
 import './style/main.scss';
 
 export default function App() {
@@ -93,6 +95,18 @@ export default function App() {
           />
         }
       />,
+      <Route
+        key='journals'
+        path='/journals'
+        element={
+          <JournalManager
+            loggedInStatus={loggedInStatus}
+            loggedUserId={loggedUserId}
+            setErrorText={setErrorText}
+          />
+        }
+      />,
+      <Route key='details' path='/details' element={<PlantDetails />} />,
     ];
   }
 
@@ -113,6 +127,7 @@ export default function App() {
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/icons' element={<Icons />} />
 
         {loggedInStatus === 'LOGGED_IN' ? authorizedPages() : null}
 

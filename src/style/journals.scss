@@ -1,14 +1,13 @@
-.alert-container-wrapper {
+.journal-container-wrapper {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   //border: 1px solid $dark-green2;
 }
 
-.alert-item-wrapper {
+.journal-item-wrapper {
   border: 1px solid $dark-green;
   transition: all 0.5s ease-in-out;
   display: flex;
-  width: fit-content;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -18,7 +17,7 @@
     border: 1px solid $dark-green2;
   }
 
-  .alert-item-card {
+  .journal-item-card {
     .image {
       max-width: 300px;
       overflow: hidden;

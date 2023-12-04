@@ -5,12 +5,14 @@ import Modal from 'react-modal';
 import PlantContainer from '../plants/plant-container';
 import PlantForm from '../plants/plant-form';
 import { fetchToken } from '../auth/login';
+import { useNavigate } from 'react-router-dom';
 
 export default function PlantManager({
   loggedUserId,
   handleUnsuccesfulLogin,
   setErrorText,
 }) {
+  const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [plants, setPlants] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -83,6 +85,11 @@ export default function PlantManager({
     openModal();
   }
 
+  function handleDetailClick(plantItem) {
+    console.log('handleDetailClick', plantItem);
+    navigate('/details', { state: { plantItem } });
+  }
+
   function handleCreateNewClick() {
     console.log('handleCreateNewClick');
     // populate the form
@@ -114,7 +121,6 @@ export default function PlantManager({
         setErrorText('Error getting alert types');
       });
   }
-
 
   function getPlantItems() {
     axios({
@@ -172,6 +178,7 @@ export default function PlantManager({
         plants={plants}
         handleDeleteClick={handleDeleteClick}
         handleEditClick={handleEditClick}
+        handleDetailClick={handleDetailClick}
       />
     </div>
   );

@@ -31,12 +31,24 @@ export default function NavigationContainer(props) {
         {props.loggedInStatus === 'LOGGED_IN'
           ? dinamycLink('/alerts', 'Alerts')
           : null}
+        {props.loggedInStatus === 'LOGGED_IN'
+          ? dinamycLink('/journals', 'Journals')
+          : null}
+
         <div className='nav-link-wrapper'>
           <NavLink
             to='/explore'
             className={({ isActive }) => (isActive ? 'nav-link-active' : ' ')}
           >
             Explore
+          </NavLink>
+        </div>
+        <div className='nav-link-wrapper'>
+          <NavLink
+            to='/icons'
+            className={({ isActive }) => (isActive ? 'nav-link-active' : ' ')}
+          >
+            Test Icons
           </NavLink>
         </div>
         <div className='nav-link-wrapper'>
