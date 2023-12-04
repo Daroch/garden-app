@@ -2,7 +2,7 @@ export const PLANTAS = [
   {
     name: 'Aloe Vera',
     description: 'planta medicinal',
-    public: true,
+    plant_public: true,
     irrigation_type: 'muypoca',
     light_type: 'poca',
     location: 'balcón',
@@ -69,7 +69,7 @@ export const PLANTAS = [
   {
     name: 'Ficus',
     description: 'planta muy longeva y agradecida',
-    public: true,
+    plant_public: true,
     irrigation_type: 'bastante',
     light_type: 'poca',
     location: 'interior',
@@ -85,7 +85,7 @@ export const PLANTAS = [
   {
     name: 'Albahaca',
     description: 'Especia para salsas y aderezos',
-    public: true,
+    plant_public: true,
     irrigation_type: 'bastante',
     light_type: 'poca',
     location: 'interior',

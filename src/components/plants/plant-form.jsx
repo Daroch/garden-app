@@ -95,7 +95,7 @@ export default function PlantForm({
     formData.append('irrigation_type', plantData.irrigation_type);
     formData.append('light_type', plantData.light_type);
     formData.append('description', plantData.description);
-    formData.append('public', plantPublic);
+    formData.append('plant_public', plantPublic);
     formData.append('image_url', plantData.image_url);
     if (imageFile) {
       formData.append('imagefile', imageFile);
@@ -109,7 +109,7 @@ export default function PlantForm({
     if (Object.keys(plantToEdit).length > 0) {
       // console.log('editando planta', plantToEdit);
       setPlantData(plantToEdit);
-      setPlantPublic(plantToEdit.public);
+      setPlantPublic(plantToEdit.plant_public);
       clearPlantToEdit();
       setFormParameters({
         editMode: true,
@@ -186,7 +186,7 @@ export default function PlantForm({
       <div className='one-column'>
         <input
           type='checkbox'
-          name='public'
+          name='plant_public'
           checked={plantPublic}
           onChange={handlePublicChange}
         />
