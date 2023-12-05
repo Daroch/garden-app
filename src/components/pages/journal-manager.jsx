@@ -77,14 +77,14 @@ export default function JournalManager({
   }
 
   function handleEditJournalClick(journalItem) {
-    console.log('handleEditClick', journalItem);
+    console.log('handleEditJournalClick', journalItem);
     // populate the form
     setJournalToEdit(journalItem);
     openModalJournal();
   }
 
   function handleCreateNewJournalClick() {
-    console.log('handleCreateNewClick');
+    console.log('handleCreateNewJournalClick');
     // populate the form
     clearJournalToEdit();
     openModalJournal();
@@ -141,7 +141,6 @@ export default function JournalManager({
       });
   }
 
-  useEffect(getJournalItems, []);
   useEffect(getPlantItems, []);
   return (
     <div>
@@ -170,6 +169,20 @@ export default function JournalManager({
           setErrorText={setErrorText}
         />
       </Modal>
+      {plants.map(plant => (
+        <div key={plant.id}>
+          <h2>{plant.name}</h2>
+          <JournalContainer
+            key={plant.id}
+            loggedUserId={loggedUserId}
+            journals={plant.journals}
+            handleDeleteJournalClick={handleDeleteJournalClick}
+            handleEditJournalClick={handleEditJournalClick}
+            setErrorText={setErrorText}
+          />
+        </div>
+      ))}
+
       <JournalContainer
         loggedUserId={loggedUserId}
         journals={journals}

@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PlantItem from './plant-item';
 import { useLocation } from 'react-router-dom';
+import JournalContainer from '../journals/journal-container';
 
 export default function PlantDetails() {
   const { state } = useLocation();
@@ -78,6 +78,31 @@ export default function PlantDetails() {
           </div>
           <div> id: {id}</div>
         </div>
+      </div>
+      <h3> Journals </h3>
+      <div className='plant-details-journals'>
+        {console.log(plantItem.journals)}
+        {plantItem.journals.map(journal => (
+          <div key={journal.id}>
+            <div>{journal.title}</div>
+            <div>
+              {journal.description !== 'undefined' && journal.description}
+            </div>
+            <div>{journal.created_at}</div>
+            <div>{journal.image_url}</div>
+          </div>
+        ))}
+      </div>
+      <h3>Alerts</h3>
+      <div className='plant-details-alerts'>
+        {console.log(plantItem.alerts)}
+        {plantItem.alerts.map(alert => (
+          <div key={alert.id}>
+            <div>{alert.title}</div>
+            <div>{alert.alert_type_id}</div>
+            <div>Próxima alerta:{alert.start_date}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
