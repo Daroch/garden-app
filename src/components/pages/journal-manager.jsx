@@ -11,6 +11,7 @@ export default function JournalManager({
   handleUnsuccesfulLogin,
   setErrorText,
 }) {
+  const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [journals, setJournals] = useState([]);
   const [plants, setPlants] = useState([]);
   const [modalJournalIsOpen, setModalJournalIsOpen] = useState(false);
@@ -54,7 +55,7 @@ export default function JournalManager({
   function handleDeleteJournalClick(journalItem) {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/users/${loggedUserId}/plants/${journalItem.id}/journals/${journalItem.id}`,
+      url: `${FASTAPI_URL}/users/${loggedUserId}/plants/${journalItem.id}/journals/${journalItem.id}`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -97,7 +98,7 @@ export default function JournalManager({
   function getJournalItems() {
     axios({
       method: 'get',
-      url: `http://localhost:8000/users/${loggedUserId}/journals`,
+      url: `${FASTAPI_URL}/users/${loggedUserId}/journals`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -119,7 +120,7 @@ export default function JournalManager({
   function getPlantItems() {
     axios({
       method: 'get',
-      url: 'http://localhost:8000/users/me/plants',
+      url: `${FASTAPI_URL}/users/me/plants`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),

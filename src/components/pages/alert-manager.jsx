@@ -11,6 +11,7 @@ export default function AlertManager({
   handleUnsuccesfulLogin,
   setErrorText,
 }) {
+  const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [alerts, setAlerts] = useState([]);
   const [alertTypes, setAlertTypes] = useState([]);
   const [plants, setPlants] = useState([]);
@@ -55,7 +56,7 @@ export default function AlertManager({
   function handleDeleteAlertClick(alertItem) {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/users/${loggedUserId}/plants/${alertItem.id}/alerts/${alertItem.id}`,
+      url: `${FASTAPI_URL}/users/${loggedUserId}/plants/${alertItem.id}/alerts/${alertItem.id}`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -98,7 +99,7 @@ export default function AlertManager({
   function getAlertTypes() {
     axios({
       method: 'get',
-      url: 'http://localhost:8000/alert_types',
+      url: `${FASTAPI_URL}/alert_types`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -119,7 +120,7 @@ export default function AlertManager({
   function getAlertItems() {
     axios({
       method: 'get',
-      url: `http://localhost:8000/users/${loggedUserId}/alerts`,
+      url: `${FASTAPI_URL}/users/${loggedUserId}/alerts`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -141,7 +142,7 @@ export default function AlertManager({
   function getPlantItems() {
     axios({
       method: 'get',
-      url: 'http://localhost:8000/users/me/plants',
+      url: `${FASTAPI_URL}/users/me/plants`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),

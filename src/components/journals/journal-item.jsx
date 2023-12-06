@@ -4,7 +4,8 @@ export default function JournalItem({
   handleDeleteJournalClick,
   handleEditJournalClick,
 }) {
-  const imagePath = `http://localhost:8000/images/plants/${loggedUserId}/${journal.plant_id}/${journal.id}/${journal.image_url}`;
+  const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
+  const imagePath = `${FASTAPI_URL}/images/plants/${loggedUserId}/${journal.plant_id}/${journal.id}/${journal.image_url}`;
   return (
     <div className='journal-item-wrapper'>
       <div className='journal-item-header'>

@@ -5,6 +5,7 @@ import JournalContainer from '../journals/journal-container';
 export default function PlantDetails() {
   const { state } = useLocation();
   const { plantItem } = state; // Read values passed on state
+  const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
 
   console.log('PlantDetails', plantItem);
   const {
@@ -21,7 +22,7 @@ export default function PlantDetails() {
     category_id,
     plant_public,
   } = plantItem;
-  const imagePath = `http://localhost:8000/images/plants/${owner_id}/${id}/${image_url}`;
+  const imagePath = `${FASTAPI_URL}/images/plants/${owner_id}/${id}/${image_url}`;
   const levels = {
     level1: 'Muy poca',
     level2: 'Poca',

@@ -17,6 +17,7 @@ export default function AlertForm({
   plants,
   setErrorText,
 }) {
+  const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [alertData, setAlertData] = useState({
     alert_type_id: 1,
     start_date: '',
@@ -32,7 +33,7 @@ export default function AlertForm({
   const [startDate, setStartDate] = useState(new Date());
   const [formParameters, setFormParameters] = useState({
     editMode: false,
-    apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${alertData.plant_id}/addalert`,
+    apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/plants/${alertData.plant_id}/addalert`,
     apiAction: 'post',
   });
 
@@ -54,13 +55,13 @@ export default function AlertForm({
     if (formParameters.editMode) {
       setFormParameters({
         ...formParameters,
-        apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${event.target.value}/updatealert/${alertData.id}`,
+        apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/plants/${event.target.value}/updatealert/${alertData.id}`,
         apiAction: 'patch',
       });
     } else {
       setFormParameters({
         ...formParameters,
-        apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${event.target.value}/addalert/`,
+        apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/plants/${event.target.value}/addalert/`,
         apiAction: 'post',
       });
     }
@@ -114,7 +115,7 @@ export default function AlertForm({
       setStartDate(new Date(alertToEdit.start_date));
       setFormParameters({
         editMode: true,
-        apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${alertToEdit.plant_id}/updatealert/${alertToEdit.id}`,
+        apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/plants/${alertToEdit.plant_id}/updatealert/${alertToEdit.id}`,
         apiAction: 'patch',
       });
       clearAlertToEdit();

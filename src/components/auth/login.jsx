@@ -22,6 +22,7 @@ export default function Login({
   handleUnsuccesfulLogin,
   setErrorText,
 }) {
+  const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
@@ -45,7 +46,7 @@ export default function Login({
     }
     axios({
       method: 'post',
-      url: 'http://localhost:8000/token',
+      url: `${FASTAPI_URL}/token`,
       headers: { 'content-type': 'application/x-www-form-urlencoded' },
       data: loginData,
     })

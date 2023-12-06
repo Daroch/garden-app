@@ -12,6 +12,7 @@ export default function PlantManager({
   handleUnsuccesfulLogin,
   setErrorText,
 }) {
+  const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [plants, setPlants] = useState([]);
@@ -56,7 +57,7 @@ export default function PlantManager({
   function handleDeleteClick(plantItem) {
     axios({
       method: 'delete',
-      url: `http://localhost:8000/users/${loggedUserId}/plants/${plantItem.id}`,
+      url: `${FASTAPI_URL}/users/${loggedUserId}/plants/${plantItem.id}`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -104,7 +105,7 @@ export default function PlantManager({
   function getCategories() {
     axios({
       method: 'get',
-      url: 'http://localhost:8000/categories',
+      url: `${FASTAPI_URL}/categories`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -125,7 +126,7 @@ export default function PlantManager({
   function getPlantItems() {
     axios({
       method: 'get',
-      url: 'http://localhost:8000/users/me/plants',
+      url: `${FASTAPI_URL}/users/me/plants`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),

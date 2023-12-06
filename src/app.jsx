@@ -17,6 +17,7 @@ import Login, { fetchToken, deleteToken } from './components/auth/login';
 import './style/main.scss';
 
 export default function App() {
+  const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [loggedInStatus, setloggedInStatus] = useState('NOT_LOGGED_IN');
   const [loggedUsername, setloggedUsername] = useState('');
   const [loggedUserId, setloggedUserId] = useState('');
@@ -52,7 +53,7 @@ export default function App() {
   function getUserData() {
     axios({
       method: 'get',
-      url: 'http://localhost:8000/users/me',
+      url: `${FASTAPI_URL}/users/me`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),

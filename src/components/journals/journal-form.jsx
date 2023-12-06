@@ -13,6 +13,7 @@ export default function JournalForm({
   plants,
   setErrorText,
 }) {
+  const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [journalData, setJournalData] = useState({
     title: '',
     description: '',
@@ -22,7 +23,7 @@ export default function JournalForm({
   const [imageFile, setImageFile] = useState(null);
   const [formParameters, setFormParameters] = useState({
     editMode: false,
-    apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${journalData.plant_id}/addjournal`,
+    apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/plants/${journalData.plant_id}/addjournal`,
     apiAction: 'post',
   });
 
@@ -46,13 +47,13 @@ export default function JournalForm({
     if (formParameters.editMode) {
       setFormParameters({
         ...formParameters,
-        apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${event.target.value}/updatejournal/${journalData.id}`,
+        apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/plants/${event.target.value}/updatejournal/${journalData.id}`,
         apiAction: 'patch',
       });
     } else {
       setFormParameters({
         ...formParameters,
-        apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${event.target.value}/addjournal/`,
+        apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/plants/${event.target.value}/addjournal/`,
         apiAction: 'post',
       });
     }
@@ -114,7 +115,7 @@ export default function JournalForm({
       setJournalData(journalToEdit);
       setFormParameters({
         editMode: true,
-        apiUrl: `http://localhost:8000/users/${loggedUserId}/plants/${journalToEdit.plant_id}/updatejournal/${journalToEdit.id}`,
+        apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/plants/${journalToEdit.plant_id}/updatejournal/${journalToEdit.id}`,
         apiAction: 'patch',
       });
       clearJournalToEdit();
@@ -165,7 +166,7 @@ export default function JournalForm({
         {formParameters.editMode && journalData.image_url ? (
           <div className='plant-manager-image-wrapper'>
             <img
-              src={`http://localhost:8000/images/plants/${loggedUserId}/${journalData.plant_id}/${journalData.image_url}`}
+              src={`${FASTAPI_URL}/images/plants/${loggedUserId}/${journalData.plant_id}/${journalData.image_url}`}
             />
             <div className='image-removal-link'>
               <a onClick={() => handleDeleteImage('image_url')}>Remove image</a>

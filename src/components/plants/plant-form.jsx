@@ -13,6 +13,7 @@ export default function PlantForm({
   plantToEdit,
   categories,
 }) {
+  const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [plantData, setPlantData] = useState({
     name: '',
     description: '',
@@ -27,7 +28,7 @@ export default function PlantForm({
   const [plantPublic, setPlantPublic] = useState(true);
   const [formParameters, setFormParameters] = useState({
     editMode: false,
-    apiUrl: 'http://localhost:8000/users/' + loggedUserId + '/addplant',
+    apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/addplant`,
     apiAction: 'post',
   });
 
@@ -113,7 +114,7 @@ export default function PlantForm({
       clearPlantToEdit();
       setFormParameters({
         editMode: true,
-        apiUrl: `http://localhost:8000/users/${loggedUserId}/updateplant/${plantToEdit.id}`,
+        apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/updateplant/${plantToEdit.id}`,
         apiAction: 'patch',
       });
     }
@@ -195,7 +196,7 @@ export default function PlantForm({
         {formParameters.editMode && plantData.image_url ? (
           <div className='plant-manager-image-wrapper'>
             <img
-              src={`http://localhost:8000/images/plants/${loggedUserId}/${plantData.id}/${plantData.image_url}`}
+              src={`${FASTAPI_URL}/images/plants/${loggedUserId}/${plantData.id}/${plantData.image_url}`}
             />
             <div className='image-removal-link'>
               <a onClick={() => handleDeleteImage('image_url')}>Remove image</a>
