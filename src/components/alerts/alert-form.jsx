@@ -15,7 +15,7 @@ export default function AlertForm({
   alertToEdit,
   alertTypes,
   plants,
-  setErrorText,
+  //setErrorText,
 }) {
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [alertData, setAlertData] = useState({
@@ -28,6 +28,8 @@ export default function AlertForm({
     plant_id: '',
     notes: '',
   });
+  const [errorFormText, setErrorFormText] = useState('');
+  const [isErrorFormVisible, setIsErrorFormVisible] = useState(false);
   const [status, setStatus] = useState(true);
   const [repeat, setRepeat] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
@@ -83,9 +85,24 @@ export default function AlertForm({
 
   function handleSubmit(event) {
     event.preventDefault();
-    //alertData.repeat = repeat;
-    //alertData.status = status;
-    //alertData.start_date = new Date(startDate);
+    if (alertData.plant_id === '') {
+      setErrorFormText('Debes seleccionar una planta');
+      setIsErrorFormVisible(true);
+
+      setTimeout(() => {
+        setIsErrorFormVisible(false);
+      }, 3000);
+      return;
+    }
+    if (alertData.alert_type_id === '') {
+      setErrorFormText('Debes seleccionar un tipo de alerta');
+      setIsErrorFormVisible(true);
+
+      setTimeout(() => {
+        setIsErrorFormVisible(false);
+      }, 3000);
+      return;
+    }
     axios({
       method: formParameters.apiAction,
       url: formParameters.apiUrl,
@@ -226,6 +243,11 @@ export default function AlertForm({
       <button className='btn' type='submit'>
         Submit
       </button>
+      {isErrorFormVisible && (
+        <div className='error-container'>
+          <div className='error-inner'>{errorFormText}</div>
+        </div>
+      )}
     </form>
   );
 }

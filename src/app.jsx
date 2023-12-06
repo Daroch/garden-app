@@ -22,6 +22,7 @@ export default function App() {
   const [loggedUsername, setloggedUsername] = useState('');
   const [loggedUserId, setloggedUserId] = useState('');
   const [errorText, setErrorText] = useState(null);
+  const [isErrorVisible, setIsErrorVisible] = useState(false);
   const navigate = useNavigate();
 
   function handleSuccesfulLogin() {
@@ -114,6 +115,15 @@ export default function App() {
   useEffect(() => {
     checkLoginStatus();
   }, []);
+  useEffect(() => {
+    if (errorText) {
+      setIsErrorVisible(true);
+      setTimeout(() => {
+        setIsErrorVisible(false);
+        setErrorText(null);
+      }, 3000);
+    }
+  }, [errorText]);
 
   return (
     <div className='container'>
@@ -121,8 +131,12 @@ export default function App() {
       <NavigationContainer
         loggedInStatus={loggedInStatus}
         handleUnsuccesfulLogin={handleUnsuccesfulLogin}
-        errorText={errorText}
       />
+      {isErrorVisible && (
+        <div className='error-container'>
+          <div className='error-inner'>{errorText}</div>
+        </div>
+      )}
 
       <Routes>
         <Route path='/' element={<Home />} />

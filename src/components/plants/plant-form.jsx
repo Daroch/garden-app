@@ -13,6 +13,8 @@ export default function PlantForm({
   plantToEdit,
   categories,
 }) {
+  const [errorFormText, setErrorFormText] = useState('');
+  const [isErrorFormVisible, setIsErrorFormVisible] = useState(false);
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [plantData, setPlantData] = useState({
     name: '',
@@ -58,6 +60,24 @@ export default function PlantForm({
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (plantData.name === '') {
+      setErrorFormText('Debes escribir un nombre');
+      setIsErrorFormVisible(true);
+
+      setTimeout(() => {
+        setIsErrorFormVisible(false);
+      }, 3000);
+      return;
+    }
+    if (plantData.category_id === '') {
+      setErrorFormText('Debes seleccionar una categoría');
+      setIsErrorFormVisible(true);
+
+      setTimeout(() => {
+        setIsErrorFormVisible(false);
+      }, 3000);
+      return;
+    }
     axios({
       method: formParameters.apiAction,
       url: formParameters.apiUrl,
@@ -220,6 +240,11 @@ export default function PlantForm({
           Save
         </button>
       </div>
+      {isErrorFormVisible && (
+        <div className='error-container'>
+          <div className='error-inner'>{errorFormText}</div>
+        </div>
+      )}
     </form>
   );
 }

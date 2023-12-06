@@ -13,6 +13,8 @@ export default function JournalForm({
   plants,
   setErrorText,
 }) {
+  const [errorFormText, setErrorFormText] = useState('');
+  const [isErrorFormVisible, setIsErrorFormVisible] = useState(false);
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [journalData, setJournalData] = useState({
     title: '',
@@ -68,6 +70,24 @@ export default function JournalForm({
 
   function handleSubmit(event) {
     event.preventDefault();
+    if (journalData.plant_id === '') {
+      setErrorFormText('Debes seleccionar una planta');
+      setIsErrorFormVisible(true);
+
+      setTimeout(() => {
+        setIsErrorFormVisible(false);
+      }, 3000);
+      return;
+    }
+    if (journalData.title === '') {
+      setErrorFormText('Debes escribir un  título');
+      setIsErrorFormVisible(true);
+
+      setTimeout(() => {
+        setIsErrorFormVisible(false);
+      }, 3000);
+      return;
+    }
     axios({
       method: formParameters.apiAction,
       url: formParameters.apiUrl,
@@ -189,6 +209,11 @@ export default function JournalForm({
       <button className='btn' type='submit'>
         Submit
       </button>
+      {isErrorFormVisible && (
+        <div className='error-container'>
+          <div className='error-inner'>{errorFormText}</div>
+        </div>
+      )}
     </form>
   );
 }

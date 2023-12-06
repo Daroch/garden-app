@@ -1,6 +1,9 @@
 import { NavLink } from 'react-router-dom';
 
-export default function NavigationContainer(props) {
+export default function NavigationContainer({
+  loggedInStatus,
+  handleUnsuccesfulLogin,
+}) {
   function dinamycLink(route, Linktext) {
     return (
       <div className='nav-link-wrapper'>
@@ -25,13 +28,13 @@ export default function NavigationContainer(props) {
             Home
           </NavLink>
         </div>
-        {props.loggedInStatus === 'LOGGED_IN'
+        {loggedInStatus === 'LOGGED_IN'
           ? dinamycLink('/plants', 'My Plants')
           : null}
-        {props.loggedInStatus === 'LOGGED_IN'
+        {loggedInStatus === 'LOGGED_IN'
           ? dinamycLink('/alerts', 'Alerts')
           : null}
-        {props.loggedInStatus === 'LOGGED_IN'
+        {loggedInStatus === 'LOGGED_IN'
           ? dinamycLink('/journals', 'Journals')
           : null}
 
@@ -69,19 +72,16 @@ export default function NavigationContainer(props) {
         </div>
       </div>
       <div className='right-side'>
-        {props.loggedInStatus === 'LOGGED_IN'
+        {loggedInStatus === 'LOGGED_IN'
           ? dinamycLink('/profile', 'Profile')
           : null}
-        {props.loggedInStatus === 'LOGGED_IN' ? (
-          <button className='btn' onClick={props.handleUnsuccesfulLogin}>
+        {loggedInStatus === 'LOGGED_IN' ? (
+          <button className='btn' onClick={handleUnsuccesfulLogin}>
             Logout
           </button>
         ) : null}
-        {props.loggedInStatus !== 'LOGGED_IN'
-          ? dinamycLink('/login', 'Login')
-          : null}
+        {loggedInStatus !== 'LOGGED_IN' ? dinamycLink('/login', 'Login') : null}
       </div>
-      {props.errorText && <p className='error-text'>{props.errorText}</p>}
     </div>
   );
 }

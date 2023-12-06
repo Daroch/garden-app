@@ -7,6 +7,7 @@
   transition: all 0.5s ease-in-out;
   background-color: $green;
   color: white;
+  border-radius: 5px;
 
   &:active,
   &:focus {
@@ -42,5 +43,5 @@
 
 @mixin base-grid {
   display: grid;
-  gap: 21px;
+  gap: 15px;
 }

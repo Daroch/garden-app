@@ -21,6 +21,7 @@ export default function Login({
   handleSuccesfulLogin,
   handleUnsuccesfulLogin,
   setErrorText,
+  setIsErrorVisible,
 }) {
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [loginData, setLoginData] = useState({
@@ -38,10 +39,10 @@ export default function Login({
   const handleSubmit = event => {
     event.preventDefault();
     if (loginData.username.length === 0) {
-      setErrorText('Username has left Blank!');
+      setErrorText('No has escrito el usuario!');
       return;
     } else if (loginData.password.length === 0) {
-      setErrorText('Password has left Blank!');
+      setErrorText('No has escrito tu clave!');
       return;
     }
     axios({
@@ -65,16 +66,21 @@ export default function Login({
       })
       .catch(error => {
         console.log('some error ocurred', error);
-        setErrorText('Wrong username or password');
+        setErrorText('Usuario o Password incorrectos');
+        setIsErrorVisible(true);
+
+        setTimeout(() => {
+          setIsErrorVisible(false);
+        }, 3000);
         handleUnsuccesfulLogin();
       });
     event.preventDefault();
   };
 
   return (
-    <div>
-      <h1>Login to Access DashBoard</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='loginform-container-wrapper'>
+      <form onSubmit={handleSubmit} className='login-form-wrapper'>
+        <h1>Login</h1>
         <input
           type='text'
           name='username'
@@ -90,7 +96,9 @@ export default function Login({
           onChange={handleChange}
         />
         <div>
-          <button type='submit'>Login</button>
+          <button className='btn' type='submit'>
+            Enter
+          </button>
         </div>
       </form>
     </div>
