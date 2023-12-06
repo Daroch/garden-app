@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
+import { useNavigate } from 'react-router-dom';
 
 function saveToken(token) {
   // save token in localStorage
@@ -21,8 +22,8 @@ export default function Login({
   handleSuccesfulLogin,
   handleUnsuccesfulLogin,
   setErrorText,
-  setIsErrorVisible,
 }) {
+  const navigate = useNavigate();
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [loginData, setLoginData] = useState({
     username: '',
@@ -67,11 +68,6 @@ export default function Login({
       .catch(error => {
         console.log('some error ocurred', error);
         setErrorText('Usuario o Password incorrectos');
-        setIsErrorVisible(true);
-
-        setTimeout(() => {
-          setIsErrorVisible(false);
-        }, 3000);
         handleUnsuccesfulLogin();
       });
     event.preventDefault();
@@ -101,6 +97,10 @@ export default function Login({
           </button>
         </div>
       </form>
+      <div className='link-wrapper'>
+        Or create an account{''}
+        <a onClick={() => navigate('/create-account')}>here</a>
+      </div>
     </div>
   );
 }

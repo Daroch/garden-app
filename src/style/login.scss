@@ -1,16 +1,18 @@
-.loginform-container-wrapper {
+.loginform-container-wrapper,
+.accountform-container-wrapper {
   display: grid;
   grid-template-columns: 1fr;
   justify-items: center;
   align-items: center;
 }
-.login-form-wrapper {
+.login-form-wrapper,
+.account-form-wrapper {
   @include base-grid();
   grid-template-columns: 1fr;
   padding: 60px;
   justify-items: center;
   //border: 1px solid $dark-green2;
-  gap: 30px;
+  gap: 25px;
 
   @include input-element();
   input {

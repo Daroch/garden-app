@@ -244,7 +244,7 @@ export default function AlertForm({
         Submit
       </button>
       {isErrorFormVisible && (
-        <div className='error-container'>
+        <div className='message-container'>
           <div className='error-inner'>{errorFormText}</div>
         </div>
       )}

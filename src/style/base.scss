@@ -7,3 +7,57 @@ body {
   display: grid;
   grid-template-columns: 1fr;
 }
+
+.link-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  a {
+    padding: 2px 5px;
+    text-decoration: none;
+    color: $green;
+    font-weight: 900;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+
+  a:hover {
+    color: $dark-green;
+    transition: all 0.5s ease-in-out;
+  }
+}
+
+.message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  transition: all 0.5s ease-in-out;
+
+  .success-inner {
+    display: inline-block;
+    padding: 8px 16px;
+    z-index: 1;
+    background-color: $light-green;
+    border-radius: 5px;
+    box-shadow: 1px 2px 10px -3px rgb(0 0 0 / 70%);
+    -webkit-box-shadow: 1px 2px 10px -3px rgb(0 0 0 / 70%);
+    -moz-box-shadow: 1px 2px 10px -3px rgb(0 0 0 / 70%);
+  }
+
+  .error-inner {
+    display: inline-block;
+    padding: 8px 16px;
+    z-index: 1;
+    background-color: #e7a8a8;
+    border-radius: 5px;
+    box-shadow: 1px 2px 10px -3px rgb(0 0 0 / 70%);
+    -webkit-box-shadow: 1px 2px 10px -3px rgb(0 0 0 / 70%);
+    -moz-box-shadow: 1px 2px 10px -3px rgb(0 0 0 / 70%);
+  }
+}

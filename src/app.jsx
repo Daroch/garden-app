@@ -14,6 +14,7 @@ import PlantManager from './components/pages/plant-manager';
 import JournalManager from './components/pages/journal-manager';
 import PlantDetails from './components/plants/plant-details';
 import Login, { fetchToken, deleteToken } from './components/auth/login';
+import CreateAccount from './components/auth/create-account';
 import './style/main.scss';
 
 export default function App() {
@@ -23,12 +24,22 @@ export default function App() {
   const [loggedUserId, setloggedUserId] = useState('');
   const [errorText, setErrorText] = useState(null);
   const [isErrorVisible, setIsErrorVisible] = useState(false);
+  const [successText, setSuccessText] = useState(null);
+  const [isSuccessVisible, setIsSuccessVisible] = useState(false);
   const navigate = useNavigate();
 
   function handleSuccesfulLogin() {
     setloggedInStatus('LOGGED_IN');
     getUserData();
     navigate('/plants');
+  }
+
+  function handleSuccesfulAccount() {
+    navigate('/login');
+  }
+
+  function handleUnsuccesfulAccount() {
+    // navigate('/login');
   }
 
   function handleUnsuccesfulLogin() {
@@ -124,6 +135,15 @@ export default function App() {
       }, 3000);
     }
   }, [errorText]);
+  useEffect(() => {
+    if (successText) {
+      setIsSuccessVisible(true);
+      setTimeout(() => {
+        setIsSuccessVisible(false);
+        setSuccessText(null);
+      }, 3000);
+    }
+  }, [successText]);
 
   return (
     <div className='container'>
@@ -133,8 +153,13 @@ export default function App() {
         handleUnsuccesfulLogin={handleUnsuccesfulLogin}
       />
       {isErrorVisible && (
-        <div className='error-container'>
+        <div className='message-container'>
           <div className='error-inner'>{errorText}</div>
+        </div>
+      )}
+      {isSuccessVisible && (
+        <div className='message-container'>
+          <div className='success-inner'>{successText}</div>
         </div>
       )}
 
@@ -162,6 +187,18 @@ export default function App() {
             />
           }
         />
+        <Route
+          path='/create-account'
+          element={
+            <CreateAccount
+              handleSuccesfulAccount={handleSuccesfulAccount}
+              handleUnsuccesfulAccount={handleUnsuccesfulAccount}
+              setErrorText={setErrorText}
+              setSuccessText={setSuccessText}
+            />
+          }
+        />
+        <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
     </div>
   );
