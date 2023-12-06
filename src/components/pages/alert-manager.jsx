@@ -49,8 +49,8 @@ export default function AlertManager({
   }
 
   function handleSuccessfulFormAlertEditSubmission(alertData) {
-    setModalAlertIsOpen(false);
     getAlertItems();
+    setModalAlertIsOpen(false);
   }
 
   function handleDeleteAlertClick(alertItem) {
@@ -164,9 +164,12 @@ export default function AlertManager({
       });
   }
 
-  useEffect(getAlertItems, []);
-  useEffect(getAlertTypes, []);
-  useEffect(getPlantItems, []);
+  useEffect(() => {
+    getAlertItems();
+    getAlertTypes();
+    getPlantItems();
+  }, []);
+
   return (
     <div>
       <h1>Gestiona tus alertas!!</h1>

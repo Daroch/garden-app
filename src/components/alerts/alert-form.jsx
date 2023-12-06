@@ -61,7 +61,7 @@ export default function AlertForm({
     } else {
       setFormParameters({
         ...formParameters,
-        apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/plants/${event.target.value}/addalert/`,
+        apiUrl: `${FASTAPI_URL}/users/${loggedUserId}/plants/${event.target.value}/addalert`,
         apiAction: 'post',
       });
     }
@@ -74,11 +74,18 @@ export default function AlertForm({
     });
   }
 
+  function handleChangeStartDate(event) {
+    console.log(event);
+    console.log(startDate);
+    setStartDate(new Date(event));
+    alertData.start_date = new Date(event);
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
-    alertData.repeat = repeat;
-    alertData.status = status;
-    alertData.start_date = startDate;
+    //alertData.repeat = repeat;
+    //alertData.status = status;
+    //alertData.start_date = new Date(startDate);
     axios({
       method: formParameters.apiAction,
       url: formParameters.apiUrl,
@@ -120,11 +127,7 @@ export default function AlertForm({
       });
       clearAlertToEdit();
     }
-  }, [alertToEdit]);
-
-  useEffect(() => {
-    alertData.start_date = startDate;
-  }, [startDate]);
+  }, [alertToEdit, status, repeat, startDate]);
 
   return (
     <form onSubmit={handleSubmit} className='plant-form-wrapper'>
@@ -148,8 +151,9 @@ export default function AlertForm({
         </select>
         <DateTimePicker
           name='start_date'
-          onChange={setStartDate}
+          onChange={handleChangeStartDate}
           value={startDate}
+          disableClock={true}
         />
       </div>
       <div className='four-column'>

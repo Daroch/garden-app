@@ -6,15 +6,25 @@ export default function AlertItem({
   return (
     <div className='alert-item-wrapper'>
       <div className='alert-item-header'>
-        <h1>{alert.title}</h1>
+        <h2>{alert.title}</h2>
         id: {alert.id}
       </div>
       <div className='alert-item-card'>
-        <div className='description'>
-          <>{alert.description}</>
-        </div>
         <div className='created'>
-          <>Fecha: {alert.start_date}</>
+          {console.log(alert)}
+          <>Programada para el día: {alert.start_date.toString()}</>
+        </div>
+        <div className='notes'>
+          <>Notas: {alert.notes}</>
+        </div>
+        <div className='status'>
+          <>Estado: {alert.status ? 'Activa' : 'Inactiva'}</>
+        </div>
+        <div className='repeat'>
+          <>Repetir: {alert.repeat ? 'Si' : 'No'}</>
+        </div>
+        <div className='frecuency'>
+          <>Frecuencia: {alert.frecuency}</>
         </div>
         <button className='btn' onClick={() => handleEditAlertClick(alert)}>
           Editar
