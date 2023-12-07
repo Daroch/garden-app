@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 export default function NavigationContainer({
   loggedInStatus,
   handleUnsuccesfulLogin,
+  setHomeIsOpen,
 }) {
   function dinamycLink(route, Linktext) {
     return (
@@ -22,6 +23,7 @@ export default function NavigationContainer({
       <div className='left-side'>
         <div className='nav-link-wrapper'>
           <NavLink
+            onClick={() => setHomeIsOpen(true)}
             to='/'
             className={({ isActive }) => (isActive ? 'nav-link-active' : ' ')}
           >

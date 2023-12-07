@@ -58,7 +58,7 @@ export default function CreateAccount({
   return (
     <div className='accountform-container-wrapper'>
       <form onSubmit={handleSubmit} className='account-form-wrapper'>
-        <h1>Account</h1>
+        <h1>Create Account</h1>
         <input
           type='text'
           name='name'

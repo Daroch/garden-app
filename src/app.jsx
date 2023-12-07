@@ -16,8 +16,10 @@ import PlantDetails from './components/plants/plant-details';
 import Login, { fetchToken, deleteToken } from './components/auth/login';
 import CreateAccount from './components/auth/create-account';
 import './style/main.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function App() {
+  const [homeIsOpen, setHomeIsOpen] = useState(true);
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [loggedInStatus, setloggedInStatus] = useState('NOT_LOGGED_IN');
   const [loggedUsername, setloggedUsername] = useState('');
@@ -47,7 +49,7 @@ export default function App() {
     setloggedInStatus('NOT_LOGGED_IN');
     setloggedUsername('');
     setloggedUserId('');
-    navigate('/');
+    navigate('/login');
   }
 
   function checkLoginStatus() {
@@ -82,6 +84,12 @@ export default function App() {
         console.log(error);
         handleUnsuccesfulLogin();
       });
+  }
+
+  function handleClickEnter() {
+    setHomeIsOpen(false);
+    if (loggedInStatus === 'NOT_LOGGED_IN') navigate('/login');
+    else navigate('/plants');
   }
 
   function authorizedPages() {
@@ -145,61 +153,92 @@ export default function App() {
     }
   }, [successText]);
 
-  return (
-    <div className='container'>
-      <h1>Garden App</h1>
-      <NavigationContainer
-        loggedInStatus={loggedInStatus}
-        handleUnsuccesfulLogin={handleUnsuccesfulLogin}
-      />
-      {isErrorVisible && (
-        <div className='message-container'>
-          <div className='error-inner'>{errorText}</div>
+  if (homeIsOpen === false) {
+    return (
+      <div className='container'>
+        <div className='header-container'>
+          <FontAwesomeIcon
+            style={{
+              animationDuration: '10s',
+              animationIterationCount: 1,
+              paddingRight: '20px',
+            }}
+            icon='fa-brands fa-pagelines'
+            beat
+            fade
+            size='3x'
+          />
+          <h1>Garden App</h1>
         </div>
-      )}
-      {isSuccessVisible && (
-        <div className='message-container'>
-          <div className='success-inner'>{successText}</div>
-        </div>
-      )}
-
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/contact' element={<Contact />} />
-        <Route path='/icons' element={<Icons />} />
-
-        {loggedInStatus === 'LOGGED_IN' ? authorizedPages() : null}
-
-        <Route path='/explore' element={<Explore />} />
-        <Route
-          path='/profile'
-          element={<Profile username={loggedUsername} />}
-          setErrorText={setErrorText}
+        <NavigationContainer
+          loggedInStatus={loggedInStatus}
+          handleUnsuccesfulLogin={handleUnsuccesfulLogin}
+          setHomeIsOpen={setHomeIsOpen}
         />
-        <Route
-          path='/login'
-          element={
-            <Login
-              handleSuccesfulLogin={handleSuccesfulLogin}
-              handleUnsuccesfulLogin={handleUnsuccesfulLogin}
-              setErrorText={setErrorText}
-            />
-          }
+        {isErrorVisible && (
+          <div className='message-container'>
+            <div className='error-inner'>{errorText}</div>
+          </div>
+        )}
+        {isSuccessVisible && (
+          <div className='message-container'>
+            <div className='success-inner'>{successText}</div>
+          </div>
+        )}
+
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<About />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/icons' element={<Icons />} />
+
+          {loggedInStatus === 'LOGGED_IN' ? authorizedPages() : null}
+
+          <Route path='/explore' element={<Explore />} />
+          <Route
+            path='/profile'
+            element={<Profile username={loggedUsername} />}
+            setErrorText={setErrorText}
+          />
+          <Route
+            path='/login'
+            element={
+              <Login
+                handleSuccesfulLogin={handleSuccesfulLogin}
+                handleUnsuccesfulLogin={handleUnsuccesfulLogin}
+                setErrorText={setErrorText}
+              />
+            }
+          />
+          <Route
+            path='/create-account'
+            element={
+              <CreateAccount
+                handleSuccesfulAccount={handleSuccesfulAccount}
+                handleUnsuccesfulAccount={handleUnsuccesfulAccount}
+                setErrorText={setErrorText}
+                setSuccessText={setSuccessText}
+              />
+            }
+          />
+          <Route path='*' element={<h1>Not Found</h1>} />
+        </Routes>
+      </div>
+    );
+  } else {
+    return (
+      <div className='home-container'>
+        <h1 onClick={handleClickEnter}>Garden App</h1>
+        <FontAwesomeIcon
+          className='home-icon'
+          style={{
+            animationDuration: '2s',
+          }}
+          icon='fa-brands fa-pagelines'
+          beat
+          onClick={handleClickEnter}
         />
-        <Route
-          path='/create-account'
-          element={
-            <CreateAccount
-              handleSuccesfulAccount={handleSuccesfulAccount}
-              handleUnsuccesfulAccount={handleUnsuccesfulAccount}
-              setErrorText={setErrorText}
-              setSuccessText={setSuccessText}
-            />
-          }
-        />
-        <Route path='*' element={<h1>Not Found</h1>} />
-      </Routes>
-    </div>
-  );
+      </div>
+    );
+  }
 }
