@@ -34,11 +34,6 @@ export default function AlertManager({
     setModalAlertIsOpen(true);
   }
 
-  function afterOpenModalAlert() {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = '#f00';
-  }
-
   function closeModalAlert() {
     setModalAlertIsOpen(false);
   }
@@ -178,7 +173,6 @@ export default function AlertManager({
       </button>
       <Modal
         isOpen={modalAlertIsOpen}
-        onAfterOpen={afterOpenModalAlert}
         onRequestClose={closeModalAlert}
         style={customStyles}
         contentLabel='Alert Modal'
@@ -196,6 +190,7 @@ export default function AlertManager({
           alertTypes={alertTypes}
           plants={plants}
           setErrorText={setErrorText}
+          closeModalAlert={closeModalAlert}
         />
       </Modal>
       <AlertContainer

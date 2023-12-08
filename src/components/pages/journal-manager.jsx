@@ -33,11 +33,6 @@ export default function JournalManager({
     setModalJournalIsOpen(true);
   }
 
-  function afterOpenModalJournal() {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = '#f00';
-  }
-
   function closeModalJournal() {
     setModalJournalIsOpen(false);
   }
@@ -151,7 +146,6 @@ export default function JournalManager({
       </button>
       <Modal
         isOpen={modalJournalIsOpen}
-        onAfterOpen={afterOpenModalJournal}
         onRequestClose={closeModalJournal}
         style={customStyles}
         contentLabel='Journal Modal'
@@ -168,6 +162,7 @@ export default function JournalManager({
           journalToEdit={journalToEdit}
           plants={plants}
           setErrorText={setErrorText}
+          closeModalJournal={closeModalJournal}
         />
       </Modal>
       {plants.map(plant => (

@@ -15,7 +15,8 @@ export default function AlertForm({
   alertToEdit,
   alertTypes,
   plants,
-  //setErrorText,
+  setErrorText,
+  closeModalAlert,
 }) {
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [alertData, setAlertData] = useState({
@@ -123,8 +124,9 @@ export default function AlertForm({
       })
       .catch(error => {
         // handle error
-        console.log(error);
-        setErrorText('Error submitting alert');
+        console.log('Error submitting alert', error);
+        closeModalAlert();
+        setErrorText('Error submitting alert. ' + error.response.data.detail);
       })
       .finally(function () {
         // always executed

@@ -12,6 +12,8 @@ export default function PlantForm({
   clearPlantToEdit,
   plantToEdit,
   categories,
+  setErrorText,
+  closeModal,
 }) {
   const [errorFormText, setErrorFormText] = useState('');
   const [isErrorFormVisible, setIsErrorFormVisible] = useState(false);
@@ -99,9 +101,8 @@ export default function PlantForm({
       .catch(error => {
         // handle error
         console.log(error);
-        if (error.message.includes('401')) {
-          handleUnsuccesfulLogin();
-        }
+        closeModal();
+        setErrorText('Error submitting plant. ' + error.response.data.detail);
       })
       .finally(function () {
         // always executed

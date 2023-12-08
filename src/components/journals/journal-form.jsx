@@ -12,6 +12,7 @@ export default function JournalForm({
   journalToEdit,
   plants,
   setErrorText,
+  closeModalJournal,
 }) {
   const [errorFormText, setErrorFormText] = useState('');
   const [isErrorFormVisible, setIsErrorFormVisible] = useState(false);
@@ -108,8 +109,9 @@ export default function JournalForm({
       })
       .catch(error => {
         // handle error
-        console.log(error);
-        setErrorText('Error submitting journal');
+        console.log('Error submitting journal', error);
+        closeModalJournal();
+        setErrorText('Error submitting alert. ' + error.response.data.detail);
       })
       .finally(function () {
         // always executed

@@ -40,11 +40,6 @@ export default function PlantManager({
     setModalIsOpen(true);
   }
 
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // subtitle.style.color = '#f00';
-  }
-
   function closeModal() {
     setModalIsOpen(false);
   }
@@ -176,7 +171,6 @@ export default function PlantManager({
       </button>
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel='Plant Modal'
@@ -191,6 +185,8 @@ export default function PlantManager({
           clearPlantToEdit={clearPlantToEdit}
           plantToEdit={plantToEdit}
           categories={categories}
+          setErrorText={setErrorText}
+          closeModal={closeModal}
         />
       </Modal>
       <PlantContainer
