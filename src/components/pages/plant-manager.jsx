@@ -12,6 +12,7 @@ export default function PlantManager({
   loggedUserId,
   handleUnsuccesfulLogin,
   setErrorText,
+  setSuccessText,
 }) {
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const navigate = useNavigate();
@@ -46,11 +47,13 @@ export default function PlantManager({
 
   function handleSuccessfulFormSubmission(plantData) {
     setPlants(plants.concat(plantData));
+    setSuccessText('Planta creada correctamente');
     setModalIsOpen(false);
   }
 
   function handleSuccessfulFormEditSubmission(plantData) {
     setModalIsOpen(false);
+    setSuccessText('Planta editada correctamente');
     getPlantItems();
   }
 
@@ -77,6 +80,8 @@ export default function PlantManager({
           return item.id !== plantItem.id;
         });
         setPlants(plantsNew);
+        setSuccessText('Planta borrada correctamente');
+        window.scrollTo(0, 0);
       })
       .catch(error => {
         // handle error

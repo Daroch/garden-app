@@ -102,6 +102,7 @@ export default function App() {
             loggedUserId={loggedUserId}
             handleUnsuccesfulLogin={handleUnsuccesfulLogin}
             setErrorText={setErrorText}
+            setSuccessText={setSuccessText}
           />
         }
       />,
@@ -113,6 +114,7 @@ export default function App() {
             loggedUserId={loggedUserId}
             handleUnsuccesfulLogin={handleUnsuccesfulLogin}
             setErrorText={setErrorText}
+            setSuccessText={setSuccessText}
           />
         }
       />,
@@ -124,6 +126,7 @@ export default function App() {
             loggedUserId={loggedUserId}
             handleUnsuccesfulLogin={handleUnsuccesfulLogin}
             setErrorText={setErrorText}
+            setSuccessText={setSuccessText}
           />
         }
       />,

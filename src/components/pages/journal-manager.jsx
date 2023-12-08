@@ -10,6 +10,7 @@ export default function JournalManager({
   loggedUserId,
   handleUnsuccesfulLogin,
   setErrorText,
+  setSuccessText,
 }) {
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [journals, setJournals] = useState([]);
@@ -40,17 +41,19 @@ export default function JournalManager({
   function handleSuccessfulFormJournalSubmission(journalData) {
     setJournals(journals.concat(journalData));
     setModalJournalIsOpen(false);
+    setSuccessText('Journal creado correctamente');
   }
 
   function handleSuccessfulFormJournalEditSubmission(journalData) {
     setModalJournalIsOpen(false);
     getJournalItems();
+    setSuccessText('Journal editado correctamente');
   }
 
   function handleDeleteJournalClick(journalItem) {
     axios({
       method: 'delete',
-      url: `${FASTAPI_URL}/users/${loggedUserId}/plants/${journalItem.id}/journals/${journalItem.id}`,
+      url: `${FASTAPI_URL}/users/${loggedUserId}/plants/${journalItem.plant_id}/journals/${journalItem.id}`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -64,6 +67,7 @@ export default function JournalManager({
           return item.id !== journalItem.id;
         });
         setJournals(journalsNew);
+        setSuccessText('Journal borrado correctamente');
       })
       .catch(error => {
         // handle error

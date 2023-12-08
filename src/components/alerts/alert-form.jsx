@@ -21,7 +21,7 @@ export default function AlertForm({
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [alertData, setAlertData] = useState({
     alert_type_id: 1,
-    start_date: '',
+    start_date: new Date(),
     title: '',
     status: true,
     repeat: true,

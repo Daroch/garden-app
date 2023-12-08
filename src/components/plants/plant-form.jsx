@@ -8,7 +8,6 @@ export default function PlantForm({
   loggedUserId,
   handleSuccessfulFormSubmission,
   handleSuccessfulFormEditSubmission,
-  handleUnsuccesfulLogin,
   clearPlantToEdit,
   plantToEdit,
   categories,

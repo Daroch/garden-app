@@ -10,6 +10,7 @@ export default function AlertManager({
   loggedUserId,
   handleUnsuccesfulLogin,
   setErrorText,
+  setSuccessText,
 }) {
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const [alerts, setAlerts] = useState([]);
@@ -41,17 +42,19 @@ export default function AlertManager({
   function handleSuccessfulFormAlertSubmission(alertData) {
     setAlerts(alerts.concat(alertData));
     setModalAlertIsOpen(false);
+    setSuccessText('Alerta creada correctamente');
   }
 
   function handleSuccessfulFormAlertEditSubmission(alertData) {
     getAlertItems();
     setModalAlertIsOpen(false);
+    setSuccessText('Alerta editada correctamente');
   }
 
   function handleDeleteAlertClick(alertItem) {
     axios({
       method: 'delete',
-      url: `${FASTAPI_URL}/users/${loggedUserId}/plants/${alertItem.id}/alerts/${alertItem.id}`,
+      url: `${FASTAPI_URL}/users/${loggedUserId}/plants/${alertItem.plant_id}/alerts/${alertItem.id}`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -65,6 +68,8 @@ export default function AlertManager({
           return item.id !== alertItem.id;
         });
         setAlerts(alertsNew);
+
+        setSuccessText('Alerta borrada correctamente');
       })
       .catch(error => {
         // handle error
