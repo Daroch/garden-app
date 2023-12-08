@@ -18,7 +18,6 @@ export default function Search({
   return (
     <div className='searchform-container-wrapper'>
       <form onSubmit={handleSubmitSearch} className='search-form-wrapper'>
-        <h1>Search</h1>
         <input
           type='text'
           name='search_text'

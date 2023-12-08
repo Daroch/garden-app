@@ -1,7 +1,8 @@
 export default function About() {
   return (
     <div>
-      <h1>Explicación del proyecto</h1>
+      <h1>About the Project</h1>
+      Description: https://github.com/Daroch/garden-app#readme
     </div>
   );
 }

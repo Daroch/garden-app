@@ -6,8 +6,6 @@ export default function PlantDetails({ loggedUserId }) {
   const { state } = useLocation();
   const { plantItem } = state; // Read values passed on state
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
-
-  console.log('PlantDetails', plantItem);
   const {
     id,
     name,
@@ -23,6 +21,9 @@ export default function PlantDetails({ loggedUserId }) {
     plant_public,
   } = plantItem;
   const imagePath = `${FASTAPI_URL}/images/plants/${owner_id}/${id}/${image_url}`;
+  const openImageInNewTab = () => {
+    window.open(imagePath, '_blank');
+  };
   const levels = {
     level1: 'Muy poca',
     level2: 'Poca',
@@ -34,8 +35,8 @@ export default function PlantDetails({ loggedUserId }) {
     <div className='plant-details-wrapper'>
       <div className='plant-details-info'>
         <div className='left-wrapper'>
-          <div className='image'>
-            {image_url !== null && <img src={imagePath} />}
+          <div className='image' onClick={openImageInNewTab}>
+            {image_url !== null && <img title='Ampliar' src={imagePath} />}
           </div>
         </div>
         <div className='right-wrapper'>

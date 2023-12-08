@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function NavigationContainer({
   loggedInStatus,
@@ -74,13 +75,16 @@ export default function NavigationContainer({
         </div>
       </div>
       <div className='right-side'>
-        {loggedInStatus === 'LOGGED_IN'
+        {loggedInStatus === 'LOGGED_IN' && false
           ? dinamycLink('/profile', 'Profile')
           : null}
         {loggedInStatus === 'LOGGED_IN' ? (
-          <button className='btn' onClick={handleUnsuccesfulLogin}>
-            Logout
-          </button>
+          <FontAwesomeIcon
+            icon='fa-solid fa-arrow-right-from-bracket'
+            size='2x'
+            onClick={handleUnsuccesfulLogin}
+            title='Logout'
+          />
         ) : null}
         {loggedInStatus !== 'LOGGED_IN' ? dinamycLink('/login', 'Login') : null}
       </div>

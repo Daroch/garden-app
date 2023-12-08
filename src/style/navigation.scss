@@ -19,8 +19,10 @@
     a {
       color: $grey;
       text-decoration: none;
+      transition: 0.5s ease-in-out;
       &:hover {
         color: $dark-green2;
+        //font-weight: 900;
       }
     }
 
