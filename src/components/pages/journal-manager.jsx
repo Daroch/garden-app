@@ -142,7 +142,7 @@ export default function JournalManager({
       });
   }
 
-  useEffect(getPlantItems, []);
+  useEffect(getPlantItems, [journals]);
   return (
     <div>
       <h1>Gestiona tus journals!!</h1>

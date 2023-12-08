@@ -2,28 +2,85 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   //border: 1px solid $dark-green2;
-}
 
-.plant-item-wrapper {
-  border: 1px solid $dark-green;
-  transition: all 0.5s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  .plant-item-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    //border: 0px transparent;
+    //transition: all 0.5s ease-in-out;
+    padding: 10px;
 
-  &:hover {
-    background-color: $light-green;
-    border: 1px solid $dark-green2;
-  }
+    // &:hover {
+    //   background-color: $light-green;
+    //   border: 1px solid $dark-green2;
+    // }
 
-  .plant-item-card {
-    .image {
-      max-width: 300px;
-      overflow: hidden;
-      img {
-        width: 100%;
+    .plant-img-background {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      filter: brightness(50%);
+      height: 250px;
+      width: 100%;
+      transition: all 0.5s ease-in-out;
+      border: 2px solid transparent;
+    }
+
+    .plant-item-card {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      //height: 100%;
+      text-align: center;
+      padding-left: 100px;
+      padding-right: 100px;
+
+      .plant-item-card-title {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: $dark-green2;
+        text-shadow: 2px 2px 2px $light-green;
       }
+
+      .plant-item-card-icons {
+        display: flex;
+        color: $dark-green2;
+        font-weight: bold;
+
+        .icon-view,
+        .icon-delete,
+        .icon-edit {
+          cursor: pointer;
+          font-size: 2em;
+          transition: 0.5s ease-in-out;
+          color: $green;
+          padding: 10px;
+
+          &:hover {
+            color: $dark-green2;
+          }
+        }
+
+        .icon-edit {
+          &:hover {
+            color: blue;
+          }
+        }
+        .icon-delete {
+          &:hover {
+            color: red;
+          }
+        }
+      }
+    }
+
+    .image-blur {
+      border: 2px solid $dark-green;
+      filter: brightness(100%);
+      transition: all 1s ease-in-out;
     }
   }
 }
