@@ -6,6 +6,7 @@ import PlantContainer from '../plants/plant-container';
 import PlantForm from '../plants/plant-form';
 import { fetchToken } from '../auth/login';
 import { useNavigate } from 'react-router-dom';
+import Search from '../search/search';
 
 export default function PlantManager({
   loggedUserId,
@@ -18,6 +19,10 @@ export default function PlantManager({
   const [plants, setPlants] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [plantToEdit, setPlantToEdit] = useState({});
+  const [searchData, setSearchData] = useState({
+    search_text: '',
+    search_category_id: 0,
+  });
 
   const customStyles = {
     content: {
@@ -52,6 +57,12 @@ export default function PlantManager({
   function handleSuccessfulFormEditSubmission(plantData) {
     setModalIsOpen(false);
     getPlantItems();
+  }
+
+  function handleSubmitSearch(event) {
+    event.preventDefault();
+    console.log('handleSubmitSearch', searchData);
+    getPlantItems(searchData);
   }
 
   function handleDeleteClick(plantItem) {
@@ -126,7 +137,7 @@ export default function PlantManager({
   function getPlantItems() {
     axios({
       method: 'get',
-      url: `${FASTAPI_URL}/users/me/plants`,
+      url: `${FASTAPI_URL}/users/me/plants/?search_text=${searchData.search_text}&search_category_id=${searchData.search_category_id}`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -152,6 +163,13 @@ export default function PlantManager({
 
   return (
     <div>
+      <Search
+        categories={categories}
+        setErrorText={setErrorText}
+        handleSubmitSearch={handleSubmitSearch}
+        searchData={searchData}
+        setSearchData={setSearchData}
+      />
       <h1>Gestiona tus plantas!!</h1>
       <button className='btn' onClick={handleCreateNewClick}>
         Añadir planta
@@ -176,6 +194,7 @@ export default function PlantManager({
         />
       </Modal>
       <PlantContainer
+        loggedUserId={loggedUserId}
         plants={plants}
         handleDeleteClick={handleDeleteClick}
         handleEditClick={handleEditClick}
