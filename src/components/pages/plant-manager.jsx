@@ -119,7 +119,7 @@ export default function PlantManager({
       .catch(error => {
         // handle error
         console.log(error);
-        setErrorText('Error getting alert types');
+        setErrorText('Error getting categories');
       });
   }
 

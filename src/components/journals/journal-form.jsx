@@ -186,7 +186,7 @@ export default function JournalForm({
         {formParameters.editMode && journalData.image_url ? (
           <div className='plant-manager-image-wrapper'>
             <img
-              src={`${FASTAPI_URL}/images/plants/${loggedUserId}/${journalData.plant_id}/${journalData.image_url}`}
+              src={`${FASTAPI_URL}/images/plants/${loggedUserId}/${journalData.plant_id}/${journalData.id}/${journalData.image_url}`}
             />
             <div className='image-removal-link'>
               <a onClick={() => handleDeleteImage('image_url')}>Remove image</a>
