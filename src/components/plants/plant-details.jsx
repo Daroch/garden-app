@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocation } from 'react-router-dom';
 import JournalContainer from '../journals/journal-container';
 
-export default function PlantDetails() {
+export default function PlantDetails({ loggedUserId }) {
   const { state } = useLocation();
   const { plantItem } = state; // Read values passed on state
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
@@ -69,10 +69,12 @@ export default function PlantDetails() {
             <FontAwesomeIcon icon='fa-regular fa-eye' />
             Visibilidad: {plant_public}
           </div>
-          <div>
-            <FontAwesomeIcon icon='fa-solid fa-sticky-note' />
-            Notas: {notes}
-          </div>
+          {loggedUserId === owner_id && (
+            <div>
+              <FontAwesomeIcon icon='fa-solid fa-sticky-note' />
+              Notas: {notes}
+            </div>
+          )}
           <div>
             <FontAwesomeIcon icon='fa-solid fa-map-marker' />
             Ubicación: {location}
@@ -80,31 +82,35 @@ export default function PlantDetails() {
           <div> id: {id}</div>
         </div>
       </div>
-      <h3> Journals </h3>
-      <div className='plant-details-journals'>
-        {console.log(plantItem.journals)}
-        {plantItem.journals.map(journal => (
-          <div key={journal.id}>
-            <div>{journal.title}</div>
-            <div>
-              {journal.description !== 'undefined' && journal.description}
+      {loggedUserId === owner_id && (
+        <div className='plant-details-journals'>
+          <h3> Journals </h3>
+          {console.log(plantItem.journals)}
+          {plantItem.journals.map(journal => (
+            <div key={journal.id}>
+              <div>{journal.title}</div>
+              <div>
+                {journal.description !== 'undefined' && journal.description}
+              </div>
+              <div>{journal.created_at}</div>
+              <div>{journal.image_url}</div>
             </div>
-            <div>{journal.created_at}</div>
-            <div>{journal.image_url}</div>
-          </div>
-        ))}
-      </div>
-      <h3>Alerts</h3>
-      <div className='plant-details-alerts'>
-        {console.log(plantItem.alerts)}
-        {plantItem.alerts.map(alert => (
-          <div key={alert.id}>
-            <div>{alert.title}</div>
-            <div>{alert.alert_type_id}</div>
-            <div>Próxima alerta:{alert.start_date}</div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
+      {loggedUserId === owner_id && (
+        <div className='plant-details-alerts'>
+          <h3>Alerts</h3>
+          {console.log(plantItem.alerts)}
+          {plantItem.alerts.map(alert => (
+            <div key={alert.id}>
+              <div>{alert.title}</div>
+              <div>{alert.alert_type_id}</div>
+              <div>Próxima alerta:{alert.start_date}</div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

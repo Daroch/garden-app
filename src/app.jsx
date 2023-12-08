@@ -110,8 +110,8 @@ export default function App() {
         path='/alerts'
         element={
           <AlertManager
-            loggedInStatus={loggedInStatus}
             loggedUserId={loggedUserId}
+            handleUnsuccesfulLogin={handleUnsuccesfulLogin}
             setErrorText={setErrorText}
           />
         }
@@ -121,13 +121,17 @@ export default function App() {
         path='/journals'
         element={
           <JournalManager
-            loggedInStatus={loggedInStatus}
             loggedUserId={loggedUserId}
+            handleUnsuccesfulLogin={handleUnsuccesfulLogin}
             setErrorText={setErrorText}
           />
         }
       />,
-      <Route key='details' path='/details' element={<PlantDetails />} />,
+      <Route
+        key='details'
+        path='/details'
+        element={<PlantDetails loggedUserId={loggedUserId} />}
+      />,
     ];
   }
 

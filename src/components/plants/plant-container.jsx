@@ -1,6 +1,7 @@
 import PlantItem from './plant-item';
 
 export default function PlantContainer({
+  loggedUserId,
   plants,
   handleDeleteClick,
   handleEditClick,
@@ -11,6 +12,7 @@ export default function PlantContainer({
       // console.log(plant);
       return (
         <PlantItem
+          loggedUserId={loggedUserId}
           key={plant.id}
           plant={plant}
           handleDeleteClick={handleDeleteClick}

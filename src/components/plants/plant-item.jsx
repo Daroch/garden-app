@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 
 export default function PlantItem({
+  loggedUserId,
   plant,
   handleDeleteClick,
   handleEditClick,
@@ -35,17 +36,19 @@ export default function PlantItem({
         <div className='plant-item-card-title'>
           <h1>{plant.name}</h1>
         </div>
-        <div className='plant-item-card-icons'>
-          <a className='icon-edit' onClick={() => handleEditClick(plant)}>
-            <FontAwesomeIcon icon='fa-solid fa-pencil' />
-          </a>
-          <a className='icon-delete' onClick={() => handleDeleteClick(plant)}>
-            <FontAwesomeIcon icon='fa-solid fa-trash' />
-          </a>
-          <a className='icon-view' onClick={() => handleDetailClick(plant)}>
-            <FontAwesomeIcon icon='fa-solid fa-eye' />
-          </a>
-        </div>
+        {loggedUserId === plant.owner_id && (
+          <div className='plant-item-card-icons'>
+            <a className='icon-edit' onClick={() => handleEditClick(plant)}>
+              <FontAwesomeIcon icon='fa-solid fa-pencil' />
+            </a>
+            <a className='icon-delete' onClick={() => handleDeleteClick(plant)}>
+              <FontAwesomeIcon icon='fa-solid fa-trash' />
+            </a>
+            <a className='icon-view' onClick={() => handleDetailClick(plant)}>
+              <FontAwesomeIcon icon='fa-solid fa-eye' />
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
