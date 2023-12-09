@@ -5,10 +5,10 @@ import Modal from 'react-modal';
 import AlertContainer from '../alerts/alert-container';
 import AlertForm from '../alerts/alert-form';
 import { fetchToken } from '../auth/login';
+import DeleteConfirm from '../util/delete-confirm';
 
 export default function AlertManager({
   loggedUserId,
-  handleUnsuccesfulLogin,
   setErrorText,
   setSuccessText,
 }) {
@@ -17,7 +17,10 @@ export default function AlertManager({
   const [alertTypes, setAlertTypes] = useState([]);
   const [plants, setPlants] = useState([]);
   const [modalAlertIsOpen, setModalAlertIsOpen] = useState(false);
+  const [modalDeleteConfirmIsOpen, setModalDeleteConfirmIsOpen] =
+    useState(false);
   const [alertToEdit, setAlertToEdit] = useState({});
+  const [alertToDelete, setAlertToDelete] = useState({});
 
   const customStyles = {
     content: {
@@ -39,6 +42,11 @@ export default function AlertManager({
     setModalAlertIsOpen(false);
   }
 
+  function closeModalDeleteConfirm() {
+    setModalDeleteConfirmIsOpen(false);
+    setAlertToDelete({});
+  }
+
   function handleSuccessfulFormAlertSubmission(alertData) {
     setAlerts(alerts.concat(alertData));
     setModalAlertIsOpen(false);
@@ -52,6 +60,12 @@ export default function AlertManager({
   }
 
   function handleDeleteAlertClick(alertItem) {
+    setModalDeleteConfirmIsOpen(true);
+    setAlertToDelete(alertItem);
+  }
+
+  function handleDeleteConfirmClick(alertItem) {
+    setModalDeleteConfirmIsOpen(false);
     axios({
       method: 'delete',
       url: `${FASTAPI_URL}/users/${loggedUserId}/plants/${alertItem.plant_id}/alerts/${alertItem.id}`,
@@ -135,7 +149,6 @@ export default function AlertManager({
         // handle error
         console.log(error);
         setErrorText('Error getting alerts');
-        //handleUnsuccesfulLogin();
       });
   }
 
@@ -149,14 +162,11 @@ export default function AlertManager({
       },
     })
       .then(response => {
-        // handle success
         console.log(response);
         setPlants(response.data);
       })
       .catch(error => {
-        // handle error
         console.log(error);
-        //handleUnsuccesfulLogin();
         setErrorText('Error getting plants');
       })
       .finally(function () {
@@ -176,6 +186,19 @@ export default function AlertManager({
       <button className='btn' onClick={handleCreateNewAlertClick}>
         Añadir Alerta
       </button>
+      <Modal
+        isOpen={modalDeleteConfirmIsOpen}
+        onRequestClose={closeModalDeleteConfirm}
+        style={customStyles}
+        contentLabel='Delete Modal'
+      >
+        <DeleteConfirm
+          closeModalDeleteConfirm={closeModalDeleteConfirm}
+          handleDeleteConfirmClick={handleDeleteConfirmClick}
+          type='alert'
+          itemToDelete={alertToDelete}
+        />
+      </Modal>
       <Modal
         isOpen={modalAlertIsOpen}
         onRequestClose={closeModalAlert}

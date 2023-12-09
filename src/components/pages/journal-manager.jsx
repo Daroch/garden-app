@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import JournalContainer from '../journals/journal-container';
 import JournalForm from '../journals/journal-form';
 import { fetchToken } from '../auth/login';
+import DeleteConfirm from '../util/delete-confirm';
 
 export default function JournalManager({
   loggedUserId,
@@ -16,7 +17,10 @@ export default function JournalManager({
   const [journals, setJournals] = useState([]);
   const [plants, setPlants] = useState([]);
   const [modalJournalIsOpen, setModalJournalIsOpen] = useState(false);
+  const [modalDeleteConfirmIsOpen, setModalDeleteConfirmIsOpen] =
+    useState(false);
   const [journalToEdit, setJournalToEdit] = useState({});
+  const [journalToDelete, setJournalToDelete] = useState({});
 
   const customStyles = {
     content: {
@@ -38,6 +42,11 @@ export default function JournalManager({
     setModalJournalIsOpen(false);
   }
 
+  function closeModalDeleteConfirm() {
+    setModalDeleteConfirmIsOpen(false);
+    setJournalToDelete({});
+  }
+
   function handleSuccessfulFormJournalSubmission(journalData) {
     setJournals(journals.concat(journalData));
     setModalJournalIsOpen(false);
@@ -51,6 +60,12 @@ export default function JournalManager({
   }
 
   function handleDeleteJournalClick(journalItem) {
+    setModalDeleteConfirmIsOpen(true);
+    setJournalToDelete(journalItem);
+  }
+
+  function handleDeleteConfirmClick(journalItem) {
+    setModalDeleteConfirmIsOpen(false);
     axios({
       method: 'delete',
       url: `${FASTAPI_URL}/users/${loggedUserId}/plants/${journalItem.plant_id}/journals/${journalItem.id}`,
@@ -112,7 +127,6 @@ export default function JournalManager({
         // handle error
         console.log(error);
         setErrorText('Error getting journals');
-        //handleUnsuccesfulLogin();
       });
   }
 
@@ -133,7 +147,6 @@ export default function JournalManager({
       .catch(error => {
         // handle error
         console.log(error);
-        //handleUnsuccesfulLogin();
         setErrorText('Error getting plants');
       })
       .finally(function () {
@@ -148,6 +161,19 @@ export default function JournalManager({
       <button className='btn' onClick={handleCreateNewJournalClick}>
         Añadir Journal
       </button>
+      <Modal
+        isOpen={modalDeleteConfirmIsOpen}
+        onRequestClose={closeModalDeleteConfirm}
+        style={customStyles}
+        contentLabel='Delete Modal'
+      >
+        <DeleteConfirm
+          closeModalDeleteConfirm={closeModalDeleteConfirm}
+          handleDeleteConfirmClick={handleDeleteConfirmClick}
+          type='journal'
+          itemToDelete={journalToDelete}
+        />
+      </Modal>
       <Modal
         isOpen={modalJournalIsOpen}
         onRequestClose={closeModalJournal}
