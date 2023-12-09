@@ -7,6 +7,7 @@ import PlantForm from '../plants/plant-form';
 import { fetchToken } from '../auth/login';
 import { useNavigate } from 'react-router-dom';
 import Search from '../search/search';
+import DeleteConfirm from '../util/delete-confirm';
 
 export default function PlantManager({
   loggedUserId,
@@ -19,7 +20,10 @@ export default function PlantManager({
   const [categories, setCategories] = useState([]);
   const [plants, setPlants] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalDeleteConfirmIsOpen, setModalDeleteConfirmIsOpen] =
+    useState(false);
   const [plantToEdit, setPlantToEdit] = useState({});
+  const [plantToDelete, setPlantToDelete] = useState({});
   const [searchData, setSearchData] = useState({
     search_text: '',
     search_category_id: 0,
@@ -45,6 +49,11 @@ export default function PlantManager({
     setModalIsOpen(false);
   }
 
+  function closeModalDeleteConfirm() {
+    setModalDeleteConfirmIsOpen(false);
+    setPlantToDelete({});
+  }
+
   function handleSuccessfulFormSubmission(plantData) {
     setPlants(plants.concat(plantData));
     setSuccessText('Planta creada correctamente');
@@ -64,6 +73,12 @@ export default function PlantManager({
   }
 
   function handleDeleteClick(plantItem) {
+    setModalDeleteConfirmIsOpen(true);
+    setPlantToDelete(plantItem);
+  }
+
+  function handleDeleteConfirmClick(plantItem) {
+    setModalDeleteConfirmIsOpen(false);
     axios({
       method: 'delete',
       url: `${FASTAPI_URL}/users/${loggedUserId}/plants/${plantItem.id}`,
@@ -173,6 +188,19 @@ export default function PlantManager({
       <button className='btn' onClick={handleCreateNewClick}>
         Añadir planta
       </button>
+      <Modal
+        isOpen={modalDeleteConfirmIsOpen}
+        onRequestClose={closeModalDeleteConfirm}
+        style={customStyles}
+        contentLabel='Delete Modal'
+      >
+        <DeleteConfirm
+          closeModalDeleteConfirm={closeModalDeleteConfirm}
+          handleDeleteConfirmClick={handleDeleteConfirmClick}
+          type='plant'
+          itemToDelete={plantToDelete}
+        />
+      </Modal>
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

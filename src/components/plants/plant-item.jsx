@@ -36,19 +36,42 @@ export default function PlantItem({
         <div className='plant-item-card-title'>
           <h1>{plant.name}</h1>
         </div>
-        {loggedUserId === plant.owner_id && (
-          <div className='plant-item-card-icons'>
-            <a className='icon-edit' onClick={() => handleEditClick(plant)}>
+        <div className='plant-item-card-icons'>
+          {loggedUserId === plant.owner_id && (
+            <a
+              title='Editar'
+              className='icon-edit'
+              onClick={() => handleEditClick(plant)}
+            >
               <FontAwesomeIcon icon='fa-solid fa-pencil' />
             </a>
-            <a className='icon-delete' onClick={() => handleDeleteClick(plant)}>
+          )}
+          {loggedUserId === plant.owner_id && (
+            <a
+              title='Eliminar'
+              className='icon-delete'
+              onClick={() => handleDeleteClick(plant)}
+            >
               <FontAwesomeIcon icon='fa-solid fa-trash' />
             </a>
-            <a className='icon-view' onClick={() => handleDetailClick(plant)}>
-              <FontAwesomeIcon icon='fa-solid fa-eye' />
+          )}
+          {loggedUserId !== plant.owner_id && (
+            <a
+              title='Clonar'
+              className='icon-view'
+              onClick={() => handleDetailClick(plant)}
+            >
+              <FontAwesomeIcon icon='fa-solid fa-seedling' />
             </a>
-          </div>
-        )}
+          )}
+          <a
+            title='Ver detalles'
+            className='icon-view'
+            onClick={() => handleDetailClick(plant)}
+          >
+            <FontAwesomeIcon icon='fa-solid fa-eye' />
+          </a>
+        </div>
       </div>
     </div>
   );
