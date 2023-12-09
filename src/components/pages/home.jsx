@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <div>
-      <h1>Página de Inicio</h1>
+      <h1>Bienvenido a Gearden App</h1>
     </div>
   );
 }

@@ -112,14 +112,14 @@ export default function JournalManager({
         // handle error
         console.log(error);
         setErrorText('Error getting journals');
-        handleUnsuccesfulLogin();
+        //handleUnsuccesfulLogin();
       });
   }
 
   function getPlantItems() {
     axios({
       method: 'get',
-      url: `${FASTAPI_URL}/users/me/plants`,
+      url: `${FASTAPI_URL}/users/${loggedUserId}/plants`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -133,7 +133,7 @@ export default function JournalManager({
       .catch(error => {
         // handle error
         console.log(error);
-        handleUnsuccesfulLogin();
+        //handleUnsuccesfulLogin();
         setErrorText('Error getting plants');
       })
       .finally(function () {

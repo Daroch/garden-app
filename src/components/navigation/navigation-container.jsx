@@ -80,7 +80,7 @@ export default function NavigationContainer({
           : null}
         {loggedInStatus === 'LOGGED_IN' ? (
           <FontAwesomeIcon
-            icon='fa-solid fa-arrow-right-from-bracket'
+            icon='fa-solid fa-sign-out'
             size='2x'
             onClick={handleUnsuccesfulLogin}
             title='Logout'

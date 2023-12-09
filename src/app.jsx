@@ -201,7 +201,16 @@ export default function App() {
 
           {loggedInStatus === 'LOGGED_IN' ? authorizedPages() : null}
 
-          <Route path='/explore' element={<Explore />} />
+          <Route
+            path='/explore'
+            element={
+              <Explore
+                loggedUserId={loggedUserId}
+                setErrorText={setErrorText}
+                setSuccessText={setSuccessText}
+              />
+            }
+          />
           <Route
             path='/profile'
             element={<Profile username={loggedUsername} />}

@@ -137,7 +137,7 @@ export default function PlantManager({
   function getPlantItems() {
     axios({
       method: 'get',
-      url: `${FASTAPI_URL}/users/me/plants/?search_text=${searchData.search_text}&search_category_id=${searchData.search_category_id}`,
+      url: `${FASTAPI_URL}/users/${loggedUserId}/plants/?search_text=${searchData.search_text}&search_category_id=${searchData.search_category_id}`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -151,8 +151,7 @@ export default function PlantManager({
       .catch(error => {
         // handle error
         console.log(error);
-        setErrorText('Error getting plants');
-        handleUnsuccesfulLogin();
+        setErrorText('Error getting plants. ' + error.response.data.detail);
       })
       .finally(function () {
         // always executed

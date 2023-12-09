@@ -135,14 +135,14 @@ export default function AlertManager({
         // handle error
         console.log(error);
         setErrorText('Error getting alerts');
-        handleUnsuccesfulLogin();
+        //handleUnsuccesfulLogin();
       });
   }
 
   function getPlantItems() {
     axios({
       method: 'get',
-      url: `${FASTAPI_URL}/users/me/plants`,
+      url: `${FASTAPI_URL}/users/${loggedUserId}/plants`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),
@@ -156,7 +156,7 @@ export default function AlertManager({
       .catch(error => {
         // handle error
         console.log(error);
-        handleUnsuccesfulLogin();
+        //handleUnsuccesfulLogin();
         setErrorText('Error getting plants');
       })
       .finally(function () {

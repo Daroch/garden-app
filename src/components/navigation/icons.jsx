@@ -4,6 +4,7 @@ import {
   faLeaf,
   faSeedling,
   faTrash,
+  faSignOut,
   faSignOutAlt,
   faEdit,
   faSpinner,
@@ -44,6 +45,7 @@ library.add(
   faLeaf,
   faSeedling,
   faTrash,
+  faSignOut,
   faSignOutAlt,
   faEdit,
   faSpinner,
@@ -83,6 +85,7 @@ export default function Icons() {
       <FontAwesomeIcon icon='fa-solid fa-leaf' />
       <FontAwesomeIcon icon='fa-solid fa-seedling' />
       <FontAwesomeIcon icon='fa-solid fa-trash' />
+      <FontAwesomeIcon icon='fa-solid fa-sign-out' />
       <FontAwesomeIcon icon='fa-solid fa-sign-out-alt' />
       <FontAwesomeIcon icon='fa-solid fa-edit' />
       <FontAwesomeIcon icon='fa-solid fa-spinner' />
