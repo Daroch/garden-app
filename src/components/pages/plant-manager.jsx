@@ -39,7 +39,6 @@ export default function PlantManager({
     },
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, .75)',
-      //opacity: '100%',
     },
   };
   Modal.setAppElement('#root');
@@ -117,7 +116,7 @@ export default function PlantManager({
 
   function handleDetailClick(plantItem) {
     console.log('handleDetailClick', plantItem);
-    navigate('/details', { state: { plantItem } });
+    navigate('/details', { state: { plantItem, categories } });
   }
 
   function handleCreateNewClick() {
@@ -169,7 +168,13 @@ export default function PlantManager({
       .catch(error => {
         // handle error
         console.log(error);
-        //setErrorText('Error getting plants. ' + error.response.data.detail);
+        if (error.response.status === 401) {
+          setErrorText(
+            'Tu sesión ha expirado. Por favor, vuelve a iniciar sesión',
+          );
+          navigate('/login');
+        }
+        // setErrorText('Error getting plants. ' + error.response.data.detail);
       })
       .finally(function () {
         // always executed
