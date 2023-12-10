@@ -3,18 +3,19 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 30px;
+  padding: 20px;
 
   .plant-details-info {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 3fr;
     border: 1px solid transparent;
-    padding: 50px;
     border-radius: 10px;
     transition: all 0.5s ease-in-out;
+    background-color: $light-green;
+    border: 1px solid $dark-green;
+    margin-bottom: 20px;
 
     &:hover {
-      background-color: $light-green;
       border: 1px solid $dark-green2;
     }
 
@@ -23,11 +24,11 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      padding: 25px;
       .image {
         cursor: pointer;
-        max-width: 90%;
-        height: 50%;
         overflow: hidden;
+        border-radius: 10px;
         img {
           width: 100%;
         }
@@ -38,27 +39,79 @@
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
+      padding: 10px;
     }
   }
   .plant-details-journals {
     border: 1px solid transparent;
-    padding: 50px;
+    padding: 20px;
     border-radius: 10px;
     transition: all 0.5s ease-in-out;
+    background-color: $light-green;
+    border: 1px solid $dark-green;
 
     &:hover {
-      background-color: $light-green;
+      background-color: $light-green2;
       border: 1px solid $dark-green2;
+    }
+
+    .journal-item-wrapper {
+      transition: all 0.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid $dark-green;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: $light-green;
+        border: 1px solid $dark-green2;
+      }
+
+      .journal-item-card {
+        .image {
+          img {
+            max-height: 200px;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 10px;
+          }
+        }
+
+        .icon-delete,
+        .icon-edit {
+          cursor: pointer;
+          font-size: 1.5em;
+          transition: 0.5s ease-in-out;
+          color: $dark-green2;
+          padding: 10px;
+          font-weight: bold;
+        }
+
+        .icon-edit {
+          &:hover {
+            color: $violet;
+          }
+        }
+        .icon-delete {
+          &:hover {
+            color: red;
+          }
+        }
+      }
     }
   }
   .plant-details-alerts {
     border: 1px solid transparent;
-    padding: 50px;
+    padding: 20px;
     border-radius: 10px;
     transition: all 0.5s ease-in-out;
+    background-color: $light-green;
+    border: 1px solid $dark-green;
 
     &:hover {
-      background-color: $light-green;
+      background-color: $light-green2;
       border: 1px solid $dark-green2;
     }
   }

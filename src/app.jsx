@@ -191,53 +191,54 @@ export default function App() {
             <div className='success-inner'>{successText}</div>
           </div>
         )}
+        <div className='main-container'>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/icons' element={<Icons />} />
 
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/icons' element={<Icons />} />
+            {loggedInStatus === 'LOGGED_IN' ? authorizedPages() : null}
 
-          {loggedInStatus === 'LOGGED_IN' ? authorizedPages() : null}
-
-          <Route
-            path='/explore'
-            element={
-              <Explore
-                loggedUserId={loggedUserId}
-                setErrorText={setErrorText}
-                setSuccessText={setSuccessText}
-              />
-            }
-          />
-          <Route
-            path='/profile'
-            element={<Profile username={loggedUsername} />}
-            setErrorText={setErrorText}
-          />
-          <Route
-            path='/login'
-            element={
-              <Login
-                handleSuccesfulLogin={handleSuccesfulLogin}
-                handleUnsuccesfulLogin={handleUnsuccesfulLogin}
-                setErrorText={setErrorText}
-              />
-            }
-          />
-          <Route
-            path='/create-account'
-            element={
-              <CreateAccount
-                handleSuccesfulAccount={handleSuccesfulAccount}
-                handleUnsuccesfulAccount={handleUnsuccesfulAccount}
-                setErrorText={setErrorText}
-                setSuccessText={setSuccessText}
-              />
-            }
-          />
-          <Route path='*' element={<h1>Not Found</h1>} />
-        </Routes>
+            <Route
+              path='/explore'
+              element={
+                <Explore
+                  loggedUserId={loggedUserId}
+                  setErrorText={setErrorText}
+                  setSuccessText={setSuccessText}
+                />
+              }
+            />
+            <Route
+              path='/profile'
+              element={<Profile username={loggedUsername} />}
+              setErrorText={setErrorText}
+            />
+            <Route
+              path='/login'
+              element={
+                <Login
+                  handleSuccesfulLogin={handleSuccesfulLogin}
+                  handleUnsuccesfulLogin={handleUnsuccesfulLogin}
+                  setErrorText={setErrorText}
+                />
+              }
+            />
+            <Route
+              path='/create-account'
+              element={
+                <CreateAccount
+                  handleSuccesfulAccount={handleSuccesfulAccount}
+                  handleUnsuccesfulAccount={handleUnsuccesfulAccount}
+                  setErrorText={setErrorText}
+                  setSuccessText={setSuccessText}
+                />
+              }
+            />
+            <Route path='*' element={<h1>Not Found</h1>} />
+          </Routes>
+        </div>
       </div>
     );
   } else {

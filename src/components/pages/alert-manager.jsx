@@ -231,12 +231,19 @@ export default function AlertManager({
           closeModalAlert={closeModalAlert}
         />
       </Modal>
-      <AlertContainer
-        alerts={alerts}
-        handleDeleteAlertClick={handleDeleteAlertClick}
-        handleEditAlertClick={handleEditAlertClick}
-        setErrorText={setErrorText}
-      />
+      {plants.map(plant => (
+        <div key={plant.id} className='alert-plant-wrapper'>
+          <h2>{plant.name}</h2>
+          <AlertContainer
+            key={plant.id}
+            loggedUserId={loggedUserId}
+            alerts={plant.alerts}
+            handleDeleteAlertClick={handleDeleteAlertClick}
+            handleEditAlertClick={handleEditAlertClick}
+            setErrorText={setErrorText}
+          />
+        </div>
+      ))}
     </div>
   );
 }

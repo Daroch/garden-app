@@ -1,8 +1,11 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 export default function AlertItem({
   alert,
   handleDeleteAlertClick,
   handleEditAlertClick,
 }) {
+  const date = new Date(alert.start_date);
   return (
     <div className='alert-item-wrapper'>
       <div className='alert-item-header'>
@@ -12,7 +15,7 @@ export default function AlertItem({
       <div className='alert-item-card'>
         <div className='created'>
           {console.log(alert)}
-          <>Programada para el día: {alert.start_date.toString()}</>
+          <>Proxima alerta: {date.toDateString()}</>
         </div>
         <div className='notes'>
           <>Notas: {alert.notes}</>
@@ -21,17 +24,25 @@ export default function AlertItem({
           <>Estado: {alert.status ? 'Activa' : 'Inactiva'}</>
         </div>
         <div className='repeat'>
-          <>Repetir: {alert.repeat ? 'Si' : 'No'}</>
+          <>Alerta periódica: {alert.repeat ? 'Si' : 'No'}</>
         </div>
         <div className='frecuency'>
-          <>Frecuencia: {alert.frecuency}</>
+          <>Frecuencia: {alert.frecuency} días</>
         </div>
-        <button className='btn' onClick={() => handleEditAlertClick(alert)}>
-          Editar
-        </button>
-        <button className='btn' onClick={() => handleDeleteAlertClick(alert)}>
-          Eliminar
-        </button>
+        <a
+          title='Editar'
+          className='icon-edit'
+          onClick={() => handleEditAlertClick(alert)}
+        >
+          <FontAwesomeIcon icon='fa-solid fa-pencil' />
+        </a>
+        <a
+          title='Eliminar'
+          className='icon-delete'
+          onClick={() => handleDeleteAlertClick(alert)}
+        >
+          <FontAwesomeIcon icon='fa-solid fa-trash' />
+        </a>
       </div>
     </div>
   );

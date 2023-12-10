@@ -206,7 +206,7 @@ export default function JournalManager({
         />
       </Modal>
       {plants.map(plant => (
-        <div key={plant.id}>
+        <div key={plant.id} className='journal-plant-wrapper'>
           <h2>{plant.name}</h2>
           <JournalContainer
             key={plant.id}
@@ -218,14 +218,6 @@ export default function JournalManager({
           />
         </div>
       ))}
-
-      <JournalContainer
-        loggedUserId={loggedUserId}
-        journals={journals}
-        handleDeleteJournalClick={handleDeleteJournalClick}
-        handleEditJournalClick={handleEditJournalClick}
-        setErrorText={setErrorText}
-      />
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocation } from 'react-router-dom';
+import AlertContainer from '../alerts/alert-container';
+import JournalContainer from '../journals/journal-container';
 
 export default function PlantDetails({ loggedUserId }) {
   const { state } = useLocation();
@@ -83,26 +85,25 @@ export default function PlantDetails({ loggedUserId }) {
           </div>
         </div>
       </div>
-      {loggedUserId === owner_id && (
-        <div className='plant-details-journals'>
-          <h3> Journals </h3>
-          {console.log(plantItem.journals)}
-          {plantItem.journals.map(journal => (
-            <div key={journal.id}>
-              <div>{journal.title}</div>
-              <div>
-                {journal.description !== 'undefined' && journal.description}
-              </div>
-              <div>{journal.created_at}</div>
-              <div>{journal.image_url}</div>
+      <div className='plant-details-journals'>
+        <h2> Journals </h2>
+        {console.log(plantItem.journals)}
+        {plantItem.journals.map(journal => (
+          <div key={journal.id}>
+            <div>{journal.title}</div>
+            <div>
+              {journal.description !== 'undefined' && journal.description}
             </div>
-          ))}
-        </div>
-      )}
+            <div>{journal.created_at}</div>
+            <div>{journal.image_url}</div>
+          </div>
+        ))}
+      </div>
       {loggedUserId === owner_id && (
         <div className='plant-details-alerts'>
-          <h3>Alerts</h3>
+          <h2>Alerts</h2>
           {console.log(plantItem.alerts)}
+          <AlertContainer alerts={plantItem.alerts} />
           {plantItem.alerts.map(alert => (
             <div key={alert.id}>
               <div>{alert.title}</div>
