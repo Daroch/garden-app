@@ -6,6 +6,7 @@ export default function PlantContainer({
   handleDeleteClick,
   handleEditClick,
   handleDetailClick,
+  categories,
 }) {
   function plantItems() {
     return plants.map(plant => {
@@ -18,6 +19,7 @@ export default function PlantContainer({
           handleDeleteClick={handleDeleteClick}
           handleEditClick={handleEditClick}
           handleDetailClick={handleDetailClick}
+          categories={categories}
         />
       );
     });

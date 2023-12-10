@@ -1,0 +1,65 @@
+.plant-details-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+
+  .plant-details-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid transparent;
+    padding: 50px;
+    border-radius: 10px;
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+      background-color: $light-green;
+      border: 1px solid $dark-green2;
+    }
+
+    .left-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .image {
+        cursor: pointer;
+        max-width: 90%;
+        height: 50%;
+        overflow: hidden;
+        img {
+          width: 100%;
+        }
+      }
+    }
+    .right-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+  }
+  .plant-details-journals {
+    border: 1px solid transparent;
+    padding: 50px;
+    border-radius: 10px;
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+      background-color: $light-green;
+      border: 1px solid $dark-green2;
+    }
+  }
+  .plant-details-alerts {
+    border: 1px solid transparent;
+    padding: 50px;
+    border-radius: 10px;
+    transition: all 0.5s ease-in-out;
+
+    &:hover {
+      background-color: $light-green;
+      border: 1px solid $dark-green2;
+    }
+  }
+}

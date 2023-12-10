@@ -1,10 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useLocation } from 'react-router-dom';
-import JournalContainer from '../journals/journal-container';
 
 export default function PlantDetails({ loggedUserId }) {
   const { state } = useLocation();
-  const { plantItem } = state; // Read values passed on state
+  const { plantItem, categories } = state; // Read values passed on state
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const {
     id,
@@ -20,10 +19,12 @@ export default function PlantDetails({ loggedUserId }) {
     category_id,
     plant_public,
   } = plantItem;
+  const categoriesList = categories.map(category => category.name);
   const imagePath = `${FASTAPI_URL}/images/plants/${owner_id}/${id}/${image_url}`;
   const openImageInNewTab = () => {
     window.open(imagePath, '_blank');
   };
+  console.log(categories);
   const levels = {
     level1: 'Muy poca',
     level2: 'Poca',
@@ -43,11 +44,8 @@ export default function PlantDetails({ loggedUserId }) {
           <div className='plant-title'>
             <h1>{name}</h1>
           </div>
-          <div className='description'>
-            <>{description}</>
-          </div>
           <div className='category'>
-            <>{category_id}</>
+            <>Categoría: {categoriesList[category_id - 1]}</>
           </div>
           <div className='irrigarion'>
             <>
@@ -64,7 +62,7 @@ export default function PlantDetails({ loggedUserId }) {
             </>
           </div>
           <div className='created'>
-            <>Planta añadida en: {created_at}</>
+            <>Planta añadida en: {Date(created_at)}</>
           </div>
           <div>
             <FontAwesomeIcon icon='fa-regular fa-eye' />
@@ -76,11 +74,13 @@ export default function PlantDetails({ loggedUserId }) {
               Notas: {notes}
             </div>
           )}
+          <div className='description'>
+            <>{description}</>
+          </div>
           <div>
             <FontAwesomeIcon icon='fa-solid fa-map-marker' />
             Ubicación: {location}
           </div>
-          <div> id: {id}</div>
         </div>
       </div>
       {loggedUserId === owner_id && (

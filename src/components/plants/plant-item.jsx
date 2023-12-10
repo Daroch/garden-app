@@ -7,6 +7,7 @@ export default function PlantItem({
   handleDeleteClick,
   handleEditClick,
   handleDetailClick,
+  categories,
 }) {
   const [plantItemClass, setPlantItemClass] = useState('');
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;

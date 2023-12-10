@@ -52,7 +52,8 @@
 
         .icon-view,
         .icon-delete,
-        .icon-edit {
+        .icon-edit,
+        .icon-clone {
           cursor: pointer;
           font-size: 2em;
           transition: 0.5s ease-in-out;
@@ -66,7 +67,7 @@
 
         .icon-edit {
           &:hover {
-            color: blue;
+            color: $violet;
           }
         }
         .icon-delete {
@@ -81,48 +82,6 @@
       border: 2px solid $dark-green;
       filter: brightness(10%);
       transition: all 1s ease-in-out;
-    }
-  }
-}
-
-.plant-details-wrapper {
-  border: 1px solid $dark-green;
-  transition: all 0.5s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: $light-green;
-  border: 1px solid $dark-green2;
-
-  &:hover {
-    background-color: $light-green;
-  }
-  .plant-details-info {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border: 1px solid $dark-green2;
-
-    .left-wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      .image {
-        cursor: pointer;
-        max-width: 90%;
-        height: 600px;
-        overflow: hidden;
-        img {
-          width: 100%;
-        }
-      }
-    }
-    .right-wrapper {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: flex-start;
     }
   }
 }

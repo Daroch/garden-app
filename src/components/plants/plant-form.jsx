@@ -204,7 +204,8 @@ export default function PlantForm({
           onChange={handleChange}
         />
       </div>
-      <div className='one-column'>
+      <div className='two-column'>
+        <div>Pública:</div>
         <input
           type='checkbox'
           name='plant_public'
