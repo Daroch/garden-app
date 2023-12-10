@@ -100,7 +100,6 @@ export default function App() {
         element={
           <PlantManager
             loggedUserId={loggedUserId}
-            handleUnsuccesfulLogin={handleUnsuccesfulLogin}
             setErrorText={setErrorText}
             setSuccessText={setSuccessText}
           />

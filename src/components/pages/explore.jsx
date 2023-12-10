@@ -104,14 +104,18 @@ export default function Explore({
       .catch(error => {
         // handle error
         console.log(error);
-        setErrorText('Error getting plants. ' + error.response.data.detail);
+        //setErrorText('Error getting plants. ' + error.response.data.detail);
       })
       .finally(function () {
         // always executed
       });
   }
-  useEffect(getCategories, []);
-  useEffect(getPlantItems, []);
+  useEffect(() => {
+    getCategories();
+  }, []);
+  useEffect(() => {
+    getPlantItems();
+  }, [loggedUserId]);
 
   return (
     <div>
