@@ -79,12 +79,13 @@ export default function NavigationContainer({
           ? dinamycLink('/profile', 'Profile')
           : null}
         {loggedInStatus === 'LOGGED_IN' ? (
-          <FontAwesomeIcon
-            icon='fa-solid fa-sign-out'
-            size='2x'
-            onClick={handleUnsuccesfulLogin}
+          <a
             title='Logout'
-          />
+            className='icon-sign-out'
+            onClick={() => handleUnsuccesfulLogin}
+          >
+            <FontAwesomeIcon icon='fa-solid fa-sign-out' />
+          </a>
         ) : null}
         {loggedInStatus !== 'LOGGED_IN' ? dinamycLink('/login', 'Login') : null}
       </div>
