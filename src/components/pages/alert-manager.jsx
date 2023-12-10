@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
 import Modal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
 
 import AlertContainer from '../alerts/alert-container';
 import AlertForm from '../alerts/alert-form';
@@ -13,6 +14,7 @@ export default function AlertManager({
   setSuccessText,
 }) {
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
+  const navigate = useNavigate();
   const [alerts, setAlerts] = useState([]);
   const [alertTypes, setAlertTypes] = useState([]);
   const [plants, setPlants] = useState([]);
@@ -151,7 +153,12 @@ export default function AlertManager({
       .catch(error => {
         // handle error
         console.log(error);
-        setErrorText('Error getting alerts');
+        if (error.response.status === 401) {
+          setErrorText(
+            'Tu sesión ha expirado. Por favor, vuelve a iniciar sesión',
+          );
+          navigate('/login');
+        }
       });
   }
 

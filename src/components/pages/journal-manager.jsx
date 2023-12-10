@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'https://cdn.skypack.dev/axios';
 import Modal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
 
 import JournalContainer from '../journals/journal-container';
 import JournalForm from '../journals/journal-form';
@@ -14,6 +15,7 @@ export default function JournalManager({
   setSuccessText,
 }) {
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
+  const navigate = useNavigate();
   const [journals, setJournals] = useState([]);
   const [plants, setPlants] = useState([]);
   const [modalJournalIsOpen, setModalJournalIsOpen] = useState(false);
@@ -150,7 +152,12 @@ export default function JournalManager({
       .catch(error => {
         // handle error
         console.log(error);
-        setErrorText('Error getting plants');
+        if (error.response.status === 401) {
+          setErrorText(
+            'Tu sesión ha expirado. Por favor, vuelve a iniciar sesión',
+          );
+          navigate('/login');
+        }
       })
       .finally(function () {
         // always executed
