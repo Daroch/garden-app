@@ -34,6 +34,7 @@ import {
   faMagnifyingGlass,
   faMapMarker,
   faStickyNote,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   faEye as faEyeRegular,
@@ -78,6 +79,7 @@ library.add(
   faStickyNote,
   faEyeRegular,
   faStickyNoteRegular,
+  faUser,
 );
 export default function Icons() {
   return (

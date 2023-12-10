@@ -40,7 +40,8 @@
   .right-side {
     display: flex;
 
-    .icon-sign-out {
+    .icon-sign-out,
+    .icon-login {
       cursor: pointer;
       font-size: 2em;
       transition: 0.5s ease-in-out;

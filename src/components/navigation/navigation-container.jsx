@@ -1,11 +1,13 @@
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavigationContainer({
   loggedInStatus,
   handleUnsuccesfulLogin,
   setHomeIsOpen,
 }) {
+  const navigate = useNavigate();
   function dinamycLink(route, Linktext) {
     return (
       <div className='nav-link-wrapper'>
@@ -82,12 +84,20 @@ export default function NavigationContainer({
           <a
             title='Logout'
             className='icon-sign-out'
-            onClick={() => handleUnsuccesfulLogin}
+            onClick={() => handleUnsuccesfulLogin()}
           >
             <FontAwesomeIcon icon='fa-solid fa-sign-out' />
           </a>
         ) : null}
-        {loggedInStatus !== 'LOGGED_IN' ? dinamycLink('/login', 'Login') : null}
+        {loggedInStatus !== 'LOGGED_IN' ? (
+          <a
+            title='Login'
+            className='icon-login'
+            onClick={() => navigate('/login')}
+          >
+            <FontAwesomeIcon icon='fa-solid fa-user' />
+          </a>
+        ) : null}
       </div>
     </div>
   );
