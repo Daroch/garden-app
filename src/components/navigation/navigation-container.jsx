@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
+
 
 export default function NavigationContainer({
   loggedInStatus,
@@ -77,9 +77,6 @@ export default function NavigationContainer({
         </div>
       </div>
       <div className='right-side'>
-        {loggedInStatus === 'LOGGED_IN' && false
-          ? dinamycLink('/profile', 'Profile')
-          : null}
         {loggedInStatus === 'LOGGED_IN' ? (
           <a
             title='Logout'

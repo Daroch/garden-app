@@ -11,6 +11,7 @@ import DeleteConfirm from '../util/delete-confirm';
 
 export default function PlantManager({
   loggedUserId,
+  handleUnsuccesfulLogin,
   setErrorText,
   setSuccessText,
 }) {
@@ -172,7 +173,8 @@ export default function PlantManager({
           setErrorText(
             'Tu sesión ha expirado. Por favor, vuelve a iniciar sesión',
           );
-          navigate('/login');
+          handleUnsuccesfulLogin()
+          // navigate('/login');
         }
         // setErrorText('Error getting plants. ' + error.response.data.detail);
       })
