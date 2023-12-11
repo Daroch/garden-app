@@ -9,7 +9,9 @@ export default function PlantForm({
   handleSuccessfulFormSubmission,
   handleSuccessfulFormEditSubmission,
   clearPlantToEdit,
+  clearPlantToClone,
   plantToEdit,
+  plantToClone,
   categories,
   setErrorText,
   closeModal,
@@ -138,7 +140,13 @@ export default function PlantForm({
         apiAction: 'patch',
       });
     }
-  }, [plantToEdit, imageFile]);
+    if (Object.keys(plantToClone).length > 0) {
+      // console.log('editando planta', plantToEdit);
+      setPlantData(plantToClone);
+      setPlantPublic(plantToClone.plant_public);
+      clearPlantToClone();
+    }
+  }, [plantToEdit, plantToClone, imageFile]);
 
   return (
     <form onSubmit={handleSubmit} className='plant-form-wrapper'>

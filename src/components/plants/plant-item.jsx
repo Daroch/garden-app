@@ -7,6 +7,7 @@ export default function PlantItem({
   handleDeleteClick,
   handleEditClick,
   handleDetailClick,
+  handleCloneClick,
   categories,
 }) {
   const [plantItemClass, setPlantItemClass] = useState('');
@@ -60,7 +61,7 @@ export default function PlantItem({
             <a
               title='Clonar'
               className='icon-view'
-              onClick={() => handleDetailClick(plant)}
+              onClick={() => handleCloneClick(plant)}
             >
               <FontAwesomeIcon icon='fa-solid fa-seedling' />
             </a>

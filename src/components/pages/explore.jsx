@@ -3,12 +3,15 @@ import axios from 'https://cdn.skypack.dev/axios';
 import Modal from 'react-modal';
 
 import PlantContainer from '../plants/plant-container';
+import PlantForm from '../plants/plant-form';
 import { fetchToken } from '../auth/login';
 import { useNavigate } from 'react-router-dom';
 import Search from '../search/search';
+import DeleteConfirm from '../util/delete-confirm';
 
 export default function Explore({
   loggedUserId,
+  handleUnsuccesfulLogin,
   setErrorText,
   setSuccessText,
 }) {
@@ -16,10 +19,56 @@ export default function Explore({
   const navigate = useNavigate();
   const [categories, setCategories] = useState([]);
   const [plants, setPlants] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalDeleteConfirmIsOpen, setModalDeleteConfirmIsOpen] =
+    useState(false);
+  const [plantToEdit, setPlantToEdit] = useState({});
+  const [plantToDelete, setPlantToDelete] = useState({});
+  const [plantToClone, setPlantToClone] = useState({});
   const [searchData, setSearchData] = useState({
     search_text: '',
     search_category_id: 0,
   });
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, .75)',
+    },
+  };
+  Modal.setAppElement('#root');
+
+  function openModal() {
+    setModalIsOpen(true);
+  }
+
+  function closeModal() {
+    setModalIsOpen(false);
+  }
+  
+  function closeModalDeleteConfirm() {
+    setModalDeleteConfirmIsOpen(false);
+    setPlantToDelete({});
+  }
+
+  function handleSuccessfulFormSubmission(plantData) {
+    setPlants(plants.concat(plantData));
+    setSuccessText('Planta creada correctamente');
+    setModalIsOpen(false);
+  }
+
+  function handleSuccessfulFormEditSubmission(plantData) {
+    setModalIsOpen(false);
+    setSuccessText('Planta editada correctamente');
+    getPlantItems();
+  }
 
   function handleSubmitSearch(event) {
     event.preventDefault();
@@ -28,6 +77,12 @@ export default function Explore({
   }
 
   function handleDeleteClick(plantItem) {
+    setModalDeleteConfirmIsOpen(true);
+    setPlantToDelete(plantItem);
+  }
+
+  function handleDeleteConfirmClick(plantItem) {
+    setModalDeleteConfirmIsOpen(false);
     axios({
       method: 'delete',
       url: `${FASTAPI_URL}/users/${loggedUserId}/plants/${plantItem.id}`,
@@ -63,7 +118,29 @@ export default function Explore({
 
   function handleDetailClick(plantItem) {
     console.log('handleDetailClick', plantItem);
-    navigate('/details', { state: { plantItem } });
+    navigate('/details', { state: { plantItem, categories } });
+  }
+
+  function handleCloneClick(plantItem) {
+    console.log('handleCloneClick');
+    // populate the form
+    setPlantToClone(plantItem);
+    openModal();
+  }
+
+  function handleCreateNewClick() {
+    console.log('handleCreateNewClick');
+    // populate the form
+    clearPlantToEdit();
+    openModal();
+  }
+
+  function clearPlantToEdit() {
+    setPlantToEdit({});
+  }
+
+  function clearPlantToClone() {
+    setPlantToClone({});
   }
 
   function getCategories() {
@@ -127,12 +204,47 @@ export default function Explore({
         setSearchData={setSearchData}
       />
       <h1>Explora otras plantas!!</h1>
+      <Modal
+        isOpen={modalDeleteConfirmIsOpen}
+        onRequestClose={closeModalDeleteConfirm}
+        style={customStyles}
+        contentLabel='Delete Modal'
+      >
+        <DeleteConfirm
+          closeModalDeleteConfirm={closeModalDeleteConfirm}
+          handleDeleteConfirmClick={handleDeleteConfirmClick}
+          type='plant'
+          itemToDelete={plantToDelete}
+        />
+      </Modal>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel='Plant Modal'
+      >
+        <PlantForm
+          loggedUserId={loggedUserId}
+          handleSuccessfulFormSubmission={handleSuccessfulFormSubmission}
+          handleSuccessfulFormEditSubmission={
+            handleSuccessfulFormEditSubmission
+          }
+          clearPlantToEdit={clearPlantToEdit}
+          clearPlantToClone={clearPlantToClone}
+          plantToEdit={plantToEdit}
+          plantToClone={plantToClone}
+          categories={categories}
+          setErrorText={setErrorText}
+          closeModal={closeModal}
+        />
+      </Modal>
       <PlantContainer
         loggedUserId={loggedUserId}
         plants={plants}
         handleDeleteClick={handleDeleteClick}
         handleEditClick={handleEditClick}
         handleDetailClick={handleDetailClick}
+        handleCloneClick={handleCloneClick}
       />
     </div>
   );

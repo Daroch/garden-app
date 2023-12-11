@@ -6,6 +6,7 @@ export default function PlantContainer({
   handleDeleteClick,
   handleEditClick,
   handleDetailClick,
+  handleCloneClick,
   categories,
 }) {
   function plantItems() {
@@ -19,6 +20,7 @@ export default function PlantContainer({
           handleDeleteClick={handleDeleteClick}
           handleEditClick={handleEditClick}
           handleDetailClick={handleDetailClick}
+          handleCloneClick={handleCloneClick}
           categories={categories}
         />
       );

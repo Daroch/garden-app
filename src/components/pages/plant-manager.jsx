@@ -23,6 +23,7 @@ export default function PlantManager({
   const [modalDeleteConfirmIsOpen, setModalDeleteConfirmIsOpen] =
     useState(false);
   const [plantToEdit, setPlantToEdit] = useState({});
+  const [plantToClone, setPlantToClone] = useState({});
   const [plantToDelete, setPlantToDelete] = useState({});
   const [searchData, setSearchData] = useState({
     search_text: '',
@@ -120,6 +121,13 @@ export default function PlantManager({
     navigate('/details', { state: { plantItem, categories } });
   }
 
+  function handleCloneClick(plantItem) {
+    console.log('handleCloneClick');
+    // populate the form
+    setPlantToClone(plantItem);
+    openModal();
+  }
+
   function handleCreateNewClick() {
     console.log('handleCreateNewClick');
     // populate the form
@@ -129,6 +137,10 @@ export default function PlantManager({
 
   function clearPlantToEdit() {
     setPlantToEdit({});
+  }
+
+  function clearPlantToClone() {
+    setPlantToClone({});
   }
 
   function getCategories() {
@@ -228,7 +240,9 @@ export default function PlantManager({
             handleSuccessfulFormEditSubmission
           }
           clearPlantToEdit={clearPlantToEdit}
+          clearPlantToClone={clearPlantToClone}
           plantToEdit={plantToEdit}
+          plantToClone={plantToClone}
           categories={categories}
           setErrorText={setErrorText}
           closeModal={closeModal}
@@ -240,6 +254,7 @@ export default function PlantManager({
         handleDeleteClick={handleDeleteClick}
         handleEditClick={handleEditClick}
         handleDetailClick={handleDetailClick}
+        handleCloneClick={handleCloneClick}
       />
     </div>
   );
