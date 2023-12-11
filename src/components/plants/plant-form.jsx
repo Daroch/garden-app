@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 // import axios from 'axios';
 import axios from 'https://cdn.skypack.dev/axios';
 import { fetchToken } from '../auth/login';
-import Dropzone from 'react-dropzone';
+import { useDropzone } from 'react-dropzone';
 
 export default function PlantForm({
   loggedUserId,
@@ -37,11 +37,24 @@ export default function PlantForm({
     apiAction: 'post',
   });
 
-  function handleFileDrop(acceptedFiles, rejected) {
-    console.log(acceptedFiles);
-    setImageFile(acceptedFiles[0]);
-    setPlantData({ ...plantData, image_url: acceptedFiles[0].name });
-  }
+  const [files, setFiles] = useState([]);
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      'image/*': []
+    },
+    onDrop: acceptedFiles => {
+      setFiles(acceptedFiles.map(file => Object.assign(file, {
+        preview: URL.createObjectURL(file)
+      })));
+      setImageFile(acceptedFiles[0]);
+      setPlantData({ ...plantData, image_url: acceptedFiles[0].name });
+    }
+  });
+
+  useEffect(() => {
+    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    return () => files.forEach(file => URL.revokeObjectURL(file.preview));
+  }, []);
 
   function handleChange(event) {
     setPlantData({
@@ -58,6 +71,7 @@ export default function PlantForm({
   function handleDeleteImage() {
     console.log('handleDeleteImage');
     setImageFile(null);
+    setFiles([]);
     setPlantData({ ...plantData, image_url: '' });
   }
 
@@ -224,26 +238,26 @@ export default function PlantForm({
         />
       </div>
       <div className='image-uploaders'>
-        {formParameters.editMode && plantData.image_url ? (
+        {plantData.image_url ? (
           <div className='plant-manager-image-wrapper'>
-            <img
+            {files[0] ? (<img
+              src={files[0].preview}
+              onLoad={() => { URL.revokeObjectURL(files[0].preview) }}
+            />) : (<img
               src={`${FASTAPI_URL}/images/plants/${loggedUserId}/${plantData.id}/${plantData.image_url}`}
-            />
+            />)}
+
             <div className='image-removal-link'>
               <a onClick={() => handleDeleteImage('image_url')}>Remove image</a>
             </div>
           </div>
         ) : (
-          <Dropzone onDrop={handleFileDrop}>
-            {({ getRootProps, getInputProps }) => (
-              <section>
-                <div {...getRootProps()}>
-                  <input {...getInputProps()} />
-                  <p>Arrastra tus archivos aquí o haz click</p>
-                </div>
-              </section>
-            )}
-          </Dropzone>
+          <section className="container">
+            <div {...getRootProps({ className: 'dropzone' })}>
+              <input {...getInputProps()} />
+              <p>Drag and  drop some files here, or click to select files</p>
+            </div>
+          </section>
         )}
       </div>
       <div>
@@ -251,11 +265,13 @@ export default function PlantForm({
           Save
         </button>
       </div>
-      {isErrorFormVisible && (
-        <div className='message-container'>
-          <div className='error-inner'>{errorFormText}</div>
-        </div>
-      )}
-    </form>
+      {
+        isErrorFormVisible && (
+          <div className='message-container'>
+            <div className='error-inner'>{errorFormText}</div>
+          </div>
+        )
+      }
+    </form >
   );
 }
