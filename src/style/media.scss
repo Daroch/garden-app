@@ -1,0 +1,27 @@
+@media (max-width: 615px) {
+  .nav-wrapper {
+      flex-direction: column;
+      height: 100%;
+
+      .left-side {
+        flex-direction: column;
+      }
+  }
+
+  .search-form-wrapper {
+    flex-direction: column;
+  }
+
+  .plant-container-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .journal-container-wrapper {
+    flex-direction: column;
+  }
+  .plant-form-wrapper {
+  .two-column, .four-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+}

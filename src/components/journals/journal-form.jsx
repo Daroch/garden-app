@@ -111,7 +111,7 @@ export default function JournalForm({
         // handle error
         console.log('Error submitting journal', error);
         closeModalJournal();
-        setErrorText('Error submitting alert. ' + error.response.data.detail);
+        setErrorText('Error submitting journal. ' + error.response.data.detail);
       })
       .finally(function () {
         // always executed

@@ -176,7 +176,7 @@ export default function PlantForm({
         </select>
       </div>
       <div className='two-column'>
-        <select
+        <div className='one-column'>Necesidad agua:<select
           name='irrigation_type'
           placeholder='Riego'
           value={plantData.irrigation_type}
@@ -189,7 +189,8 @@ export default function PlantForm({
           <option value='level4'>Bastante</option>
           <option value='level5'>Mucha</option>
         </select>
-        <select
+        </div>
+        <div className='one-column'>Necesidad luz:<select
           name='light_type'
           placeholder='Luz'
           value={plantData.light_type}
@@ -202,6 +203,7 @@ export default function PlantForm({
           <option value='level4'>Bastante</option>
           <option value='level5'>Mucha</option>
         </select>
+        </div>
       </div>
       <div className='one-column'>
         <textarea
