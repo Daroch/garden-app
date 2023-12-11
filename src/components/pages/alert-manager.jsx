@@ -185,8 +185,8 @@ export default function AlertManager({
   }
 
   useEffect(() => {
-    getAlertItems();
     getAlertTypes();
+    getAlertItems();
     getPlantItems();
   }, []);
 
@@ -234,10 +234,11 @@ export default function AlertManager({
       {plants.map(plant => (
         <div key={plant.id} className='alert-plant-wrapper'>
           <h2>{plant.name}</h2>
+
           <AlertContainer
             key={plant.id}
             loggedUserId={loggedUserId}
-            alerts={plant.alerts}
+            alerts={alerts.filter(alert => alert.plant_id === plant.id)}
             handleDeleteAlertClick={handleDeleteAlertClick}
             handleEditAlertClick={handleEditAlertClick}
             setErrorText={setErrorText}

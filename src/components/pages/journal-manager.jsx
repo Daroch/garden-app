@@ -10,7 +10,6 @@ import DeleteConfirm from '../util/delete-confirm';
 
 export default function JournalManager({
   loggedUserId,
-  handleUnsuccesfulLogin,
   setErrorText,
   setSuccessText,
 }) {
@@ -164,7 +163,11 @@ export default function JournalManager({
       });
   }
 
-  useEffect(getPlantItems, [journals]);
+  useEffect(() => {
+    getJournalItems();
+    getPlantItems();
+  }, []);
+
   return (
     <div>
       <h1>Gestiona tus journals!!</h1>
@@ -211,7 +214,7 @@ export default function JournalManager({
           <JournalContainer
             key={plant.id}
             loggedUserId={loggedUserId}
-            journals={plant.journals}
+            journals={journals.filter(journal => journal.plant_id === plant.id)}
             handleDeleteJournalClick={handleDeleteJournalClick}
             handleEditJournalClick={handleEditJournalClick}
             setErrorText={setErrorText}
