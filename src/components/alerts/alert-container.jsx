@@ -1,20 +1,16 @@
 import AlertItem from './alert-item';
 
 export default function AlertContainer({
-  alerts,
-  handleDeleteAlertClick,
-  handleEditAlertClick,
-  setErrorText,
-}) {
+  ...props }) {
   function alertItems() {
-    return alerts.map(alert => {
+    return props.alerts.map(alert => {
       return (
         <AlertItem
           key={alert.id}
           alert={alert}
-          handleDeleteAlertClick={handleDeleteAlertClick}
-          handleEditAlertClick={handleEditAlertClick}
-          setErrorText={setErrorText}
+          handleDeleteAlertClick={props.handleDeleteAlertClick}
+          handleEditAlertClick={props.handleEditAlertClick}
+          setErrorText={props.setErrorText}
         />
       );
     });

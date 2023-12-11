@@ -34,6 +34,7 @@ export default function PlantDetails({ loggedUserId }) {
     level4: 'Bastante',
     level5: 'Mucha',
   };
+  const date = new Date(created_at);
   return (
     <div className='plant-details-wrapper'>
       <div className='plant-details-info'>
@@ -64,12 +65,14 @@ export default function PlantDetails({ loggedUserId }) {
             </>
           </div>
           <div className='created'>
-            <>Planta añadida en: {Date(created_at)}</>
+            <>Planta añadida en: {date.toDateString()}</>
           </div>
-          <div>
-            <FontAwesomeIcon icon='fa-regular fa-eye' />
-            Visibilidad: {plant_public}
-          </div>
+          {loggedUserId === owner_id && (
+            <div>
+              <FontAwesomeIcon icon='fa-regular fa-eye' />
+              Visibilidad: {plant_public}
+            </div>
+          )}
           {loggedUserId === owner_id && (
             <div>
               <FontAwesomeIcon icon='fa-solid fa-sticky-note' />
@@ -86,31 +89,15 @@ export default function PlantDetails({ loggedUserId }) {
         </div>
       </div>
       <div className='plant-details-journals'>
-        <h2> Journals </h2>
+        <h3> Journals </h3>
         {console.log(plantItem.journals)}
-        {plantItem.journals.map(journal => (
-          <div key={journal.id}>
-            <div>{journal.title}</div>
-            <div>
-              {journal.description !== 'undefined' && journal.description}
-            </div>
-            <div>{journal.created_at}</div>
-            <div>{journal.image_url}</div>
-          </div>
-        ))}
+        <JournalContainer journals={plantItem.journals} noIcons={true} loggedUserId={loggedUserId} />
       </div>
       {loggedUserId === owner_id && (
         <div className='plant-details-alerts'>
-          <h2>Alerts</h2>
+          <h3>Alerts</h3>
           {console.log(plantItem.alerts)}
-          <AlertContainer alerts={plantItem.alerts} />
-          {plantItem.alerts.map(alert => (
-            <div key={alert.id}>
-              <div>{alert.title}</div>
-              <div>{alert.alert_type_id}</div>
-              <div>Próxima alerta:{alert.start_date}</div>
-            </div>
-          ))}
+          <AlertContainer alerts={plantItem.alerts} noIcons={true} />
         </div>
       )}
     </div>

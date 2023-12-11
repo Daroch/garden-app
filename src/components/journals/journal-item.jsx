@@ -5,6 +5,7 @@ export default function JournalItem({
   journal,
   handleDeleteJournalClick,
   handleEditJournalClick,
+  ...props
 }) {
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL;
   const imagePath = `${FASTAPI_URL}/images/plants/${loggedUserId}/${journal.plant_id}/${journal.id}/${journal.image_url}`;
@@ -28,20 +29,24 @@ export default function JournalItem({
         <div className='date'>
           <>{date.toDateString()}</>
         </div>
-        <a
-          title='Editar'
-          className='icon-edit'
-          onClick={() => handleEditJournalClick(journal)}
-        >
-          <FontAwesomeIcon icon='fa-solid fa-pencil' />
-        </a>
-        <a
-          title='Eliminar'
-          className='icon-delete'
-          onClick={() => handleDeleteJournalClick(journal)}
-        >
-          <FontAwesomeIcon icon='fa-solid fa-trash' />
-        </a>
+        {props.noIcons && (
+          <a
+            title='Editar'
+            className='icon-edit'
+            onClick={() => handleEditJournalClick(journal)}
+          >
+            <FontAwesomeIcon icon='fa-solid fa-pencil' />
+          </a>
+        )}
+        {props.noIcons && (
+          <a
+            title='Eliminar'
+            className='icon-delete'
+            onClick={() => handleDeleteJournalClick(journal)}
+          >
+            <FontAwesomeIcon icon='fa-solid fa-trash' />
+          </a>
+        )}
       </div>
     </div>
   );

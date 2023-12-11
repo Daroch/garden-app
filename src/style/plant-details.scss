@@ -103,16 +103,5 @@
     }
   }
   .plant-details-alerts {
-    border: 1px solid transparent;
-    padding: 20px;
-    border-radius: 10px;
-    transition: all 0.5s ease-in-out;
-    background-color: $light-green;
-    border: 1px solid $dark-green;
-
-    &:hover {
-      background-color: $light-green2;
-      border: 1px solid $dark-green2;
-    }
   }
 }

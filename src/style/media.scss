@@ -1,11 +1,11 @@
 @media (max-width: 615px) {
   .nav-wrapper {
-      flex-direction: column;
-      height: 100%;
+    flex-direction: column;
+    height: 100%;
 
-      .left-side {
-        flex-direction: column;
-      }
+    .left-side {
+      flex-direction: column;
+    }
   }
 
   .search-form-wrapper {
@@ -19,9 +19,15 @@
     flex-direction: column;
   }
   .plant-form-wrapper {
-  .two-column, .four-column {
-    grid-template-columns: 1fr;
+    .two-column,
+    .four-column {
+      grid-template-columns: 1fr;
+    }
   }
-}
 
+  .plant-details-wrapper {
+    .plant-details-info {
+      grid-template-columns: 1fr;
+    }
+  }
 }

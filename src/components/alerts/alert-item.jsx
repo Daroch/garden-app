@@ -1,9 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function AlertItem({
-  alert,
-  handleDeleteAlertClick,
-  handleEditAlertClick,
+  alert, ...props
 }) {
   const date = new Date(alert.start_date);
   return (
@@ -29,20 +27,24 @@ export default function AlertItem({
         <div className='frecuency'>
           <>Frecuencia: {alert.frecuency} días</>
         </div>
-        <a
-          title='Editar'
-          className='icon-edit'
-          onClick={() => handleEditAlertClick(alert)}
-        >
-          <FontAwesomeIcon icon='fa-solid fa-pencil' />
-        </a>
-        <a
-          title='Eliminar'
-          className='icon-delete'
-          onClick={() => handleDeleteAlertClick(alert)}
-        >
-          <FontAwesomeIcon icon='fa-solid fa-trash' />
-        </a>
+        {props.noIcons && (
+          <>
+            <a
+              title='Editar'
+              className='icon-edit'
+              onClick={() => props.handleEditAlertClick(alert)}
+            >
+              <FontAwesomeIcon icon='fa-solid fa-pencil' />
+            </a>
+            <a
+              title='Eliminar'
+              className='icon-delete'
+              onClick={() => props.handleDeleteAlertClick(alert)}
+            >
+              <FontAwesomeIcon icon='fa-solid fa-trash' />
+            </a>
+          </>
+        )}
       </div>
     </div>
   );

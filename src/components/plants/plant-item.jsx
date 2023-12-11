@@ -36,7 +36,7 @@ export default function PlantItem({
       />
       <div className='plant-item-card'>
         <div className='plant-item-card-title'>
-          <h1>{plant.name}</h1>
+          <h2>{plant.name}</h2>
         </div>
         <div className='plant-item-card-icons'>
           {loggedUserId === plant.owner_id && (

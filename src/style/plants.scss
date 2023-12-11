@@ -23,7 +23,7 @@
       filter: brightness(90%);
       height: 250px;
       width: 100%;
-      transition: all 0.5s ease-in-out;
+      transition: all 1s ease-in-out;
       border: 2px solid transparent;
     }
 
@@ -33,10 +33,17 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      //height: 100%;
       text-align: center;
       padding-left: 100px;
       padding-right: 100px;
+      opacity: 0;
+      transition: all 1s ease-in-out;
+      //filter: brightness(0%);
+
+      &:hover {
+        opacity: 100;
+        //filter: brightness(100%);
+      }
 
       .plant-item-card-title {
         font-size: 1.2em;
@@ -61,13 +68,13 @@
           padding: 10px;
 
           &:hover {
-            color: $dark-green2;
+            color: $rose;
           }
         }
 
         .icon-edit {
           &:hover {
-            color: $violet;
+            color: $rose;
           }
         }
         .icon-delete {
@@ -82,6 +89,13 @@
       border: 2px solid $dark-green;
       filter: brightness(10%);
       transition: all 1s ease-in-out;
+
+      .plant-item-card {
+        &:hover {
+          opacity: 100;
+          filter: brightness(100%);
+        }
+      }
     }
   }
 }
