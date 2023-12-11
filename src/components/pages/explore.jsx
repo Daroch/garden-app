@@ -11,6 +11,7 @@ import DeleteConfirm from '../util/delete-confirm';
 
 export default function Explore({
   loggedUserId,
+  loggedInStatus,
   handleUnsuccesfulLogin,
   setErrorText,
   setSuccessText,
@@ -52,7 +53,7 @@ export default function Explore({
   function closeModal() {
     setModalIsOpen(false);
   }
-  
+
   function closeModalDeleteConfirm() {
     setModalDeleteConfirmIsOpen(false);
     setPlantToDelete({});
@@ -123,9 +124,13 @@ export default function Explore({
 
   function handleCloneClick(plantItem) {
     console.log('handleCloneClick');
-    // populate the form
-    setPlantToClone(plantItem);
-    openModal();
+    if (loggedInStatus === 'LOGGED_IN') {
+      // populate the form
+      setPlantToClone(plantItem);
+      openModal();
+    } else {
+      navigate('/login')
+    }
   }
 
   function handleCreateNewClick() {
@@ -167,7 +172,7 @@ export default function Explore({
   function getPlantItems() {
     axios({
       method: 'get',
-      url: `${FASTAPI_URL}/plants/?search_text=${searchData.search_text}&search_category_id=${searchData.search_category_id}`,
+      url: `${FASTAPI_URL}/plants/?search_text=${searchData.search_text}&search_category_id=${searchData.search_category_id}&user_id=${loggedUserId || 0}`,
       headers: {
         accept: 'application/json',
         Authorization: 'Bearer ' + fetchToken(),

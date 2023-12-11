@@ -9,7 +9,7 @@ Each plant will have a card with basic information that we can edit, as well as 
 
 ## MainFeature
 
-The system will send notifications (Desktop notifications via websocket) to the user regarding different events every “x” days, depending on the frequency that we have configured for a plant and that specific event:
+The system will send notifications via email to the user regarding different events every “x” days, depending on the frequency that we have configured for a plant and that specific event:
 Examples:
 Notice of irrigation, fertilization, anti-pest, sowing, harvesting, transplant time.
 
@@ -17,8 +17,10 @@ Notice of irrigation, fertilization, anti-pest, sowing, harvesting, transplant t
 
 ## Additional features
 
-- Search engine in the app, which shows results, filtering by plant name, climate, (other fields), whether it is public, and allows cloning the plant to our garden, with its recommended data (in principle without cloning the photos). → Add photos of your new plant!
-- Possibility of seeing all the plants of a user? (if they are public)
+- Search engine in the app, which shows results, filtering by plant name, climate, (other fields), whether it is public, and allows cloning the plant to our garden, with its recommended data (in principle without cloning the photos). → Add your photos to your new plant!
+## To do in Future Release
+
+- Possibility of seeing all the plants of a user (if they are public)
 
 - Map locations: if the plant has location coordinates entered, it could be used to add trees (or mushrooms) and position them on a map.
 
@@ -28,9 +30,8 @@ Notice of irrigation, fertilization, anti-pest, sowing, harvesting, transplant t
 
 **Main app:**
 
-- Developed in React/Javascript
+- Development in React/Javascript
 - CSS layout
-- Communication through JSON files.
 - Calls via Axios to an API
 
 **API**
@@ -39,8 +40,8 @@ Notice of irrigation, fertilization, anti-pest, sowing, harvesting, transplant t
 
 **Backend**
 
-- Python?
-- MySQL database
+- Python
+- PostgreSQL database (you can use other type)
 
 Separate Git repositories for Frontend and Backend
 

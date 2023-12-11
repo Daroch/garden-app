@@ -91,3 +91,9 @@ body {
 .main-container {
   margin: 10px;
 }
+.about-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  gap:20px
+}

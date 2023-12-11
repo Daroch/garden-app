@@ -206,6 +206,7 @@ export default function App() {
               element={
                 <Explore
                   loggedUserId={loggedUserId}
+                  loggedInStatus={loggedInStatus}
                   setErrorText={setErrorText}
                   setSuccessText={setSuccessText}
                 />
